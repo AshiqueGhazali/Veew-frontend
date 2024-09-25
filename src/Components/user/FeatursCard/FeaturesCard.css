@@ -15,7 +15,7 @@
     height: 200px;
     width: 250px;
     /* background-color: #1e2d73; */
-    background-color: #f61469;
+    background-color: var(--green-color);
     color: white;
     border-radius: 16px;
     transition: all 0.3s ease;
@@ -25,7 +25,7 @@
 
   .feature-section .feature-card:hover{
     /* background-color: #334b99; */
-    background-color: #fe645e;
+    background-color: var(--darkgreen-color);
   }
 
   .icon {
@@ -34,7 +34,7 @@
   }
 
   .feature-description{
-    font-size: 10px;
+    font-size: 12px;
   }
 
 
@@ -43,7 +43,7 @@
     display: grid; 
     grid-template-columns: repeat(2, 1fr); 
     gap: 20px; 
-      padding: 20px 20px; 
+    padding: 20px 20px; 
   }
 
   .feature-section .feature-card {
@@ -65,9 +65,9 @@
 @media (max-width: 480px) {
   .feature-section {
     display: flex;
-      flex-direction: column;
-      gap: 20px; 
-      padding: 40px;
+    flex-direction: column;
+    gap: 20px; 
+    padding: 40px;
   }
 
   .feature-section .feature-card {

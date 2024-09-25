@@ -1,0 +1,30 @@
+.user-registration {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .content {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 1024px){
+    .content{
+        display: block;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .content{
+        display: block;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .content{
+        display: block;
+    }
+  }
+  

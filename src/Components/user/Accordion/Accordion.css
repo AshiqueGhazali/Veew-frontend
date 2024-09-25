@@ -5,7 +5,7 @@
   
   .accordion-card {
     /* background-color: #1e2d73; */
-    background-color: #f61469;
+    background-color: var(--green-color);
     color: white;
     margin-bottom: 10px;
     overflow: hidden;
@@ -15,7 +15,7 @@
   
   .accordion-card.active {
     /* background-color: #334b99; */
-    background-color: #fe645e;
+    background-color: var(--darkgreen-color);
 
   }
   
@@ -30,7 +30,7 @@
   
   .accordion-header:hover {
     /* background-color: #3a4e9f; */
-    background-color: #fe645e;
+    background-color: var(--darkgreen-color);
 
   }
   
@@ -41,9 +41,9 @@
   
   .accordion-body {
     padding: 15px;
-    background-color: #fe645e;
+    background-color: var(--green-color);
     color: #d9e0ff;
-    border-top: 1px solid #f61469;
+    border-top: 1px solid var(--darkgreen-color);
   }
   
   .accordion-body p {

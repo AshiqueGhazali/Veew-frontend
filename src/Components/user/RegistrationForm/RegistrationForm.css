@@ -1,0 +1,108 @@
+.registration-form {
+    width: 60%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+.registration-form h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.registration-form input {
+    padding: 10px;
+    width: 400px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.continue-btn {
+    background-color: var(--green-color);
+    color: white;
+    width: 400px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.or-divider {
+    margin: 20px 0;
+    color: #666;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-button {
+    padding: 10px 20px;
+    width: 190px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: background-color 0.5s ease
+}
+.google-btn:hover {
+    background-color: #ea473a;
+    color: white;
+}
+
+.facebook-btn:hover {
+    background-color: #1e2d73;
+    color: white;
+}
+
+
+ 
+@media (max-width: 1024px) {
+    .registration-form {
+        width: 100%;
+    }
+}
+/* 
+@media (max-width: 768px) {
+    
+} */
+
+@media (max-width: 480px) {
+    .registration-form {
+        width: 100%;
+    }
+
+    
+    .registration-form h2 {
+        margin-bottom: 18px;
+    }
+
+    .registration-form input {
+        padding: 10px;
+        width: 300px;
+    }
+
+    .continue-btn {
+        width: 300px;
+    }
+
+    .or-divider p{
+        font-size: 12px;
+    }
+
+    .social-button {
+        padding: 10px 20px;
+        width: 145px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: transparent;
+        transition: background-color 0.5s ease
+    }
+}
+  

@@ -7,7 +7,9 @@
     height: 100vh;
     margin: 0;
     /* background: linear-gradient(to bottom, #1e2d73 0%, #334b99 40%, #859ed7, #fff 100%); */
-    background: linear-gradient(to bottom, #f61469 0%, #fd4b77 40%, #fe645e,#fec08a, #ffffff 100%);
+    /* background: linear-gradient(to bottom, #f61469 0%, #fd4b77 40%, #fe645e,#fec08a, #ffffff 100%); */
+    background: linear-gradient(to bottom, var(--orange-color) 20%, var(--yellow-color) 40%, var(--yellow-color),var(--lightYellow-color), var(--background-color) 100%);
+
     margin-bottom: 20px;
 }
 
@@ -19,7 +21,9 @@
 
 .landingPage-header h1{
     font-size: 50px;
-    line-height: 1.1
+    line-height: 1.1;
+    color: var(--background-color);
+    opacity: .9;
 }
 
 .getStart-btn{
