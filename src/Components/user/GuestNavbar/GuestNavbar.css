@@ -1,0 +1,35 @@
+.GuestNavbar {
+    width: 100%;
+    padding: 15px 6%;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    font-size: 14px;
+    z-index: 1;
+    background-color: #f3f8fc;
+}
+
+.GuestNavbar-left img{
+    width: 90px;
+}
+
+
+
+/* @media (max-width: 768px) {
+    .GuestNavbar{
+        padding: 12px 6%;
+    }
+    .GuestNavbar-left img{
+        width: 80px;
+    }
+  }
+  
+  
+  
+  @media (max-width: 480px) {
+    .GuestNavbar-left img{
+        width: 60px;
+    }
+  }
+   */
+ 

@@ -1,0 +1,92 @@
+
+.getStart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    /* background: linear-gradient(to bottom, #1e2d73 0%, #334b99 40%, #859ed7, #fff 100%); */
+    background: linear-gradient(to bottom, #f61469 0%, #fd4b77 40%, #fe645e,#fec08a, #ffffff 100%);
+    margin-bottom: 20px;
+}
+
+
+.landingPage-header {
+    color: white;
+    text-align: center;
+}
+
+.landingPage-header h1{
+    font-size: 50px;
+    line-height: 1.1
+}
+
+.getStart-btn{
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 12px 84px;
+    border: 2px solid white;
+    border-radius: 8px;
+    background-color: transparent;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s ease-in-out;
+}
+
+.btn.getStart-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-color: white;
+  
+    transition: transform 300ms ease-in-out;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  
+  .btn.getStart-btn:hover::before,
+  .btn.getStart-btn:focus::before {
+    transform: scaleX(1);
+  }
+  
+  .btn.getStart-btn {
+    transition: color 300ms ease-in-out;
+    z-index: 1;
+  }
+  
+  
+  .btn.getStart-btn:hover,
+  .btn.getStart-btn:focus {
+    color: #25367f
+  }
+  
+
+
+/* @media (max-width: 768px) {
+  
+} */
+
+
+
+@media (max-width: 480px) {
+  .landingPage-header h1{
+    font-size: 30px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .landingPage-header p{
+    font-size: 10px;
+    line-height: 1.1
+  }
+}
+  
+ 

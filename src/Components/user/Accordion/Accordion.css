@@ -1,0 +1,56 @@
+.accordion {
+    width: 80%;
+    margin: 100px auto;
+  }
+  
+  .accordion-card {
+    /* background-color: #1e2d73; */
+    background-color: #f61469;
+    color: white;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .accordion-card.active {
+    /* background-color: #334b99; */
+    background-color: #fe645e;
+
+  }
+  
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .accordion-header:hover {
+    /* background-color: #3a4e9f; */
+    background-color: #fe645e;
+
+  }
+  
+  .icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .accordion-body {
+    padding: 15px;
+    background-color: #fe645e;
+    color: #d9e0ff;
+    border-top: 1px solid #f61469;
+  }
+  
+  .accordion-body p {
+    margin: 0;
+  }
+  
+  .toggle-icon {
+    font-size: 20px;
+  }
+  
