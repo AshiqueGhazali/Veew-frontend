@@ -6,8 +6,7 @@
 
 
 .footer {
-    background-color: white;
-    color: #1b3b45; 
+    color: var(--text-color); 
     font-family: Arial, sans-serif;
   }
   

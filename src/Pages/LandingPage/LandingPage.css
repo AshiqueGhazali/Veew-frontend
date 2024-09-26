@@ -8,7 +8,7 @@
     margin: 0;
     /* background: linear-gradient(to bottom, #1e2d73 0%, #334b99 40%, #859ed7, #fff 100%); */
     /* background: linear-gradient(to bottom, #f61469 0%, #fd4b77 40%, #fe645e,#fec08a, #ffffff 100%); */
-    background: linear-gradient(to bottom, var(--orange-color) 20%, var(--yellow-color) 40%, var(--yellow-color),var(--lightYellow-color), var(--background-color) 100%);
+    background: linear-gradient(to bottom, #203c31 20%, #3b5d50 40%, #537a6b,#9abaad, var(--background-color) 100%);
 
     margin-bottom: 20px;
 }

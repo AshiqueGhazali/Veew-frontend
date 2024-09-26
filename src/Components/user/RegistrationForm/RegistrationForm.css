@@ -1,23 +1,36 @@
-.registration-form {
-    width: 60%;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-}
 
+.form-head {
+    margin-bottom: 30px;
+}
 .registration-form h2 {
-    margin-bottom: 20px;
     color: var(--text-color);
 }
 
-.registration-form input {
+.registration-form p {
+    font-size: 14px;
+}
+
+
+.form-input input {
     padding: 10px;
     width: 400px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+.otp-input input {
+    padding: 10px;
+    width: 50px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-right: 10px;
+}
+
+.otp-input input:last-child {
+    margin-right: 0; 
 }
 
 .continue-btn {
@@ -28,6 +41,28 @@
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.5s ease
+
+}
+
+.continue-btn:hover {
+    background-color: var(--darkgreen-color);
+}
+
+.verity-btn {
+    background-color: var(--green-color);
+    color: white;
+    width: 240px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.5s ease
+
+}
+
+.verity-btn:hover {
+    background-color: var(--darkgreen-color);
 }
 
 .or-divider {
@@ -51,7 +86,7 @@
     transition: background-color 0.5s ease
 }
 .google-btn:hover {
-    background-color: #ea473a;
+    background-color: #2ba24c;
     color: white;
 }
 
@@ -61,28 +96,19 @@
 }
 
 
- 
-@media (max-width: 1024px) {
-    .registration-form {
-        width: 100%;
-    }
-}
-/* 
-@media (max-width: 768px) {
-    
-} */
+
 
 @media (max-width: 480px) {
-    .registration-form {
-        width: 100%;
+
+    .registration-form p {
+        font-size: 12px;
     }
 
-    
-    .registration-form h2 {
+    .form-head {
         margin-bottom: 18px;
     }
 
-    .registration-form input {
+    .form-input input {
         padding: 10px;
         width: 300px;
     }

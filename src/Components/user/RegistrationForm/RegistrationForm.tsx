@@ -1,27 +1,24 @@
 import React from 'react';
 import './RegistrationForm.css';
-import { FaGoogle, FaFacebookF } from "react-icons/fa";
 
 
 const RegistrationForm: React.FC = () => {
+
   return (
-    <div className="registration-form">
-      <h2>Let's Get Started</h2>
+    <>
+      <div className='form-head'>
+        <h2>Let's get you set up!</h2>
+        <p>Create your account and you're ready to go.</p>
+      </div>
       <div>
-        <div>
-            <input type="email" placeholder="Enter your email" />
+        <div className='form-input'>
+          <div><input type="text" name='first-name' placeholder="Enter your First Name" /></div>
+          <div><input type="text" name='last-name' placeholder="Enter your Last Name" /></div>
+          <div><input type="text" name='password' placeholder="Enter your Password" /></div>
         </div>
-        <button className="continue-btn">Continue</button>
+        <button className="continue-btn">Sign Up</button>
       </div>
-      
-      <div className="or-divider">
-        <p>or continue with</p>
-      </div>
-      <div className="social-buttons">
-        <button className="google-btn social-button"><FaGoogle/> Google</button>
-        <button className="facebook-btn social-button"><FaFacebookF/> Facebook</button>
-      </div>
-    </div>
+    </>
   );
 };
 

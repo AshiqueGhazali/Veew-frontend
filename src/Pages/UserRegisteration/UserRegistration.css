@@ -10,9 +10,24 @@
     justify-content: space-between;
   }
 
+  .registration-form {
+    width: 60%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+
+
   @media (max-width: 1024px){
     .content{
         display: block;
+    }
+
+    .registration-form {
+      width: 100%;
     }
   }
   
@@ -26,5 +41,8 @@
     .content{
         display: block;
     }
+    .registration-form {
+      width: 100%;
+    } 
   }
   
