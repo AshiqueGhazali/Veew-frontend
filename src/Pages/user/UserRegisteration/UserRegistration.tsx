@@ -1,11 +1,11 @@
 import './UserRegistration.css'
-import FeatureList from "../../Components/user/FeatureList/FeatureList"
-import GuestNavbar from "../../Components/user/GuestNavbar/GuestNavbar"
-import RegistrationForm from "../../Components/user/RegistrationForm/RegistrationForm"
-import UserOtp from '../../Components/user/RegistrationForm/UserOtp'
-import EnterEmail from '../../Components/user/RegistrationForm/EnterEmail'
+import FeatureList from "../../../Components/user/FeatureList/FeatureList"
+import GuestNavbar from "../../../Components/user/GuestNavbar/GuestNavbar"
+import RegistrationForm from "../../../Components/user/RegistrationForm/RegistrationForm"
+import UserOtp from '../../../Components/user/RegistrationForm/UserOtp'
+import EnterEmail from '../../../Components/user/RegistrationForm/EnterEmail'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import ProgressBar from '../../Components/user/ProgressBar/ProgressBar'
+import ProgressBar from '../../../Components/user/ProgressBar/ProgressBar'
 import { useEffect, useState } from 'react'
 
 

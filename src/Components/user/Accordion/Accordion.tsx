@@ -1,6 +1,10 @@
 import { useState} from 'react';
 import './Accordion.css';
 import {features} from '../../../data/faqData'
+import { ImCross } from "react-icons/im";
+import { FaPlus } from "react-icons/fa";
+
+
 
 
 
@@ -27,7 +31,7 @@ const Accordion = () => {
           <div className="accordion-header" onClick={() => toggleAccordion(index)}>
             <p>{feature.question}</p>
             <span className="toggle-icon">
-              {activeIndex === index ? '-' : '+'}
+              {activeIndex === index ? <ImCross/> : <FaPlus/>}
             </span>
           </div>
           {activeIndex === index && (

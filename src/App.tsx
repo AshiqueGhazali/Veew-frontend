@@ -1,7 +1,7 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import LandingPage from './Pages/LandingPage/LandingPage'
-import UserRegistration from './Pages/UserRegisteration/UserRegistration'
+import LandingPage from './Pages/user/LandingPage/LandingPage'
+import UserRegistration from './Pages/user/UserRegisteration/UserRegistration'
 
 
 function App() {

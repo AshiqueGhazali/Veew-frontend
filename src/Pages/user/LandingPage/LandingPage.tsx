@@ -1,8 +1,8 @@
 import './LandingPage.css'
-import GuestNavbar from "../../Components/user/GuestNavbar/GuestNavbar"
-import FeatursCard from '../../Components/user/FeatursCard/FeatursCard'
-import Accordion from '../../Components/user/Accordion/Accordion'
-import Footer from '../../Components/user/Footer/Footer'
+import GuestNavbar from "../../../Components/user/GuestNavbar/GuestNavbar"
+import FeatursCard from '../../../Components/user/FeatursCard/FeatursCard'
+import Accordion from '../../../Components/user/Accordion/Accordion'
+import Footer from '../../../Components/user/Footer/Footer'
 import { useNavigate } from 'react-router-dom'
 
 const LandingPage = () => {
