@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
 import './RegistrationForm.css';
 import { useNavigate } from 'react-router-dom';
+import Api from '../../../services/axios';
+import { toast } from 'react-toastify';
 
 const UserOtp: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
+  const [error,setError] = useState<string | null>(null)
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const navigate = useNavigate()
 
@@ -24,19 +27,16 @@ const UserOtp: React.FC = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === 'Backspace') {
       if (otp[index] !== '') {
-        // Clear current input
         const newOtp = [...otp];
         newOtp[index] = '';
         setOtp(newOtp);
       } else if (index > 0) {
-        // Move to the previous input
         inputRefs.current[index - 1]?.focus();
         const newOtp = [...otp];
         newOtp[index - 1] = '';
         setOtp(newOtp);
       }
     } else if (e.key >= '0' && e.key <= '9') {
-      // Directly input number and move to the next input
       const newOtp = [...otp];
       newOtp[index] = e.key;
       setOtp(newOtp);
@@ -54,8 +54,22 @@ const UserOtp: React.FC = () => {
   };
 
 
-  const handleVerification = () => {
-    navigate('/sign-up/register'); 
+  const handleVerification = async() => {
+    const userOtp = Number(otp.join(''))
+    try {
+      const response = await Api.post('/verify-otp', { userOtp });
+
+      if(response.status === 200){
+        navigate('/sign-up/register')
+      }else{
+        setError(response.data.message)
+        toast.error(error)
+      }
+
+    } catch (err) {
+      setError('An error occurred. Please try again later.');
+      toast.error(error)
+    }
   };
 
   return (

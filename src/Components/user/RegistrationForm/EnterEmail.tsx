@@ -1,15 +1,52 @@
 import { useNavigate } from 'react-router-dom';
 import './RegistrationForm.css';
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import Api from '../../../services/axios';
 
 
 const EnterEmail = () => {
+  const [email,setEmail] = useState("")
+  const [error,setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
 
     const navigate = useNavigate()
+    console.log(loading);
+    
 
-    const handleContinue = () => {
-        navigate('/sign-up/verification');
-      };
+    const validateEmail=(email:string)=>{
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email)
+    }
+
+    const handleContinue = async ()=>{
+      if(!validateEmail(email)){
+        setError('please Enter a valid Email')
+        toast.error(error)
+        return
+      }
+
+      setLoading(true)
+      setError(null)
+
+      try {        
+        const response = await Api.post('/send-otp', { email });
+        
+        if (response.status === 200) {
+          navigate('/sign-up/verification');
+        } else {
+          setError('Failed to send OTP. Please try again later.');
+          toast.error(error)
+        }
+      } catch (err) {
+        setError('An error occurred. Please try again later.');
+        toast.error(error)
+      } finally {
+        setLoading(false);
+      }
+    }
+
 
   return (
     <>
@@ -18,7 +55,7 @@ const EnterEmail = () => {
       </div>
       <div>
         <div className='form-input'>
-            <input type="email" name='email' placeholder="Enter your email" />
+            <input type="email" name='email' onChange={(e)=>{setEmail(e.target.value)}} placeholder="Enter your email" />
         </div>
         <button className="continue-btn" onClick={handleContinue}>Continue</button>
       </div>
