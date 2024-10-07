@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './RegistrationForm.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Api from '../../../services/axios';
 import { toast } from 'react-toastify';
 
@@ -8,7 +8,24 @@ const UserOtp: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
   const [error,setError] = useState<string | null>(null)
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const [timeLeft, setTimeLeft] = useState<number>(180); 
+  const [resendAvailable, setResendAvailable] = useState<boolean>(false);
+
   const navigate = useNavigate()
+  const location = useLocation();
+  const { userEmail } = location.state || {};
+
+  useEffect(()=>{
+    if(timeLeft > 0){
+      const timerId = setTimeout(()=>{
+        setTimeLeft(timeLeft-1)
+      },1000)
+      return ()=>clearTimeout(timerId)
+    }else{
+      setResendAvailable(true)
+    }
+  },[timeLeft])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
@@ -59,24 +76,45 @@ const UserOtp: React.FC = () => {
     try {
       const response = await Api.post('/verify-otp', { userOtp });
 
+      console.log("res is",response);
+      
+
       if(response.status === 200){
         navigate('/sign-up/register')
-      }else{
-        setError(response.data.message)
-        toast.error(error)
       }
 
-    } catch (err) {
-      setError('An error occurred. Please try again later.');
-      toast.error(error)
+    } catch (err:any) {
+      if (err.response && err.response.status === 401) {
+        toast.error('OTP verification failed!');
+        setError(err.response.data.message);
+      } else {
+        setError('An error occurred. Please try again later.');
+        toast.error(error);
+      }
     }
   };
+
+  const resendOtp = async()=>{
+
+    try {
+      const response = await Api.post('/send-otp',{email:userEmail})
+
+      if(response.status===200){
+        setTimeLeft(180)
+        setResendAvailable(false)
+        toast.info('OTP resent successfully!')
+      }
+    } catch (error) {
+      
+    }
+    
+  }
 
   return (
     <>
       <div className='form-head'>
         <h2>Just one step away!</h2>
-        <p>Please enter the OTP sent to example@gmail.com</p>
+        <p>Please enter the OTP sent to {userEmail}</p>
       </div>
       <div>
         <div className='otp-input'>
@@ -96,6 +134,13 @@ const UserOtp: React.FC = () => {
           ))}
         </div>
         <button className="verity-btn" onClick={handleVerification}>Continue</button>
+      </div>
+      <div className="countdown">
+      {timeLeft > 0 ? (
+          <p>Time remaining: {`${Math.floor(timeLeft / 60)}:${timeLeft % 60 < 10 ? '0' : ''}${timeLeft % 60}`}</p>
+        ) : (
+          <p>Didn't get the OTP? <span className="resend-link" onClick={resendOtp}>Send again</span></p>
+        )}
       </div>
     </>
   );

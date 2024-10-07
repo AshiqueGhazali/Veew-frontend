@@ -35,8 +35,7 @@ const UserRegistration = () => {
             <Route path='verification' element={<UserOtp/>}/>
             <Route path="register" element={<RegistrationForm />} />
           </Routes>
-        </div>
-                    
+        </div>         
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './RegistrationForm.css';
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Api from '../../../services/axios';
 
@@ -11,7 +11,9 @@ const EnterEmail = () => {
   const [error,setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+  
+
     console.log(loading);
     
 
@@ -23,7 +25,7 @@ const EnterEmail = () => {
     const handleContinue = async ()=>{
       if(!validateEmail(email)){
         setError('please Enter a valid Email')
-        toast.error(error)
+        // toast.error(error)
         return
       }
 
@@ -34,18 +36,33 @@ const EnterEmail = () => {
         const response = await Api.post('/send-otp', { email });
         
         if (response.status === 200) {
-          navigate('/sign-up/verification');
+          navigate('/sign-up/verification',
+            {state:{
+              userEmail:email
+            }}
+          );
         } else {
           setError('Failed to send OTP. Please try again later.');
-          toast.error(error)
+          // toast.error(error)
         }
-      } catch (err) {
-        setError('An error occurred. Please try again later.');
-        toast.error(error)
+      } catch (err:any) {
+        if(err.response.status === 500 || err.response.status === 401){
+          setError(err.response.data.message);
+          // toast.error(error)
+        }else{
+          setError('An error occurred. Please try again later.');
+          // toast.error(error)
+        }   
       } finally {
         setLoading(false);
       }
     }
+
+    useEffect(() => {
+      if (error) {
+        toast.error(error);
+      }
+    }, [error]);
 
 
   return (

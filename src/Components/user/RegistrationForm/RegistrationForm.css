@@ -1,6 +1,6 @@
 
 .form-head {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 .registration-form h2 {
     color: var(--text-color);
@@ -14,7 +14,8 @@
 .form-input input {
     padding: 10px;
     width: 400px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
+    margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -40,6 +41,7 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    margin-top: 10px;
     border-radius: 5px;
     transition: background-color 0.5s ease
 
@@ -95,6 +97,20 @@
     color: white;
 }
 
+.countdown{
+    margin-top: 10px;
+}
+
+
+.resend-link {
+    color: var(--green-color);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .resend-link:hover {
+    color: var(--darkgreen-color);
+  }
 
 
 

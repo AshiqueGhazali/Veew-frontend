@@ -1,8 +1,29 @@
 import React from 'react';
 import './RegistrationForm.css';
-
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import Api from '../../../services/axios';
 
 const RegistrationForm: React.FC = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const navigate = useNavigate();
+  // const password = watch('password', '');
+
+  const onSubmit = async (data: any) => {
+    try {
+      console.log(data);
+      ;
+      
+      const response = await Api.post('/register', data);
+
+      if (response.status === 200) {
+        navigate('/');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -11,12 +32,68 @@ const RegistrationForm: React.FC = () => {
         <p>Create your account and you're ready to go.</p>
       </div>
       <div>
-        <div className='form-input'>
-          <div><input type="text" name='first-name' placeholder="Enter your First Name" /></div>
-          <div><input type="text" name='last-name' placeholder="Enter your Last Name" /></div>
-          <div><input type="text" name='password' placeholder="Enter your Password" /></div>
-        </div>
-        <button className="continue-btn">Sign Up</button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className='form-input'>
+            <div>
+              <input 
+                {...register('firstName', {
+                  required: 'First Name is required', 
+                  pattern: { 
+                    value: /^(?! )[A-Za-z]+(?: [A-Za-z]+)*(?<! )$/, 
+                    message: 'Name can only contain letters' 
+                  }
+                })} 
+                type="text" 
+                name='firstName' 
+                placeholder="Enter your First Name" 
+              />
+            </div>
+            {errors.firstName && (
+                <small style={{ color: 'red' }}>
+                  {errors.firstName?.message?.toString()}
+                </small>
+              )}
+            <div>
+              <input 
+                {...register('lastName', {
+                  required: 'Last Name is required', 
+                  pattern: { 
+                    value: /^(?! )[A-Za-z]+(?: [A-Za-z]+)*(?<! )$/, 
+                    message: 'Name can only contain letters' 
+                  }
+                })} 
+                type="text" 
+                name='lastName' 
+                placeholder="Enter your Last Name" 
+              />
+            </div>
+            {errors.lastName && (
+                <small style={{ color: 'red' }}>
+                  {errors.lastName?.message?.toString()}
+                </small>
+              )}
+            <div>
+              <input
+                {...register('password', {
+                  required: 'Please Enter Password', 
+                  pattern: { 
+                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, 
+                    message: 'Password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter, and one number'
+                  }
+                })} 
+                type="password" 
+                name='password' 
+                placeholder="Enter your Password" 
+              />
+            </div>
+            {errors.password && (
+                <small style={{ color: 'red' }}>
+                  {errors.password?.message?.toString()}
+                </small>
+              )}
+          </div>
+          <button className="continue-btn" type="submit">Sign Up</button>
+        </form>
       </div>
     </>
   );

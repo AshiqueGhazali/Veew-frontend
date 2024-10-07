@@ -1,0 +1,81 @@
+/* Basic reset and styling */
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+   */
+  /* Navbar Styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    padding: 10px 20px;
+  }
+  
+  .logo img {
+    width: 90px;
+  }
+  .navCenter{
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 50px;
+  }
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: black;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+  
+  .nav-links li a:hover {
+    color: var(--darkgreen-color);
+  }
+  
+  .nav-links li a.active {
+    color: #00B4DB;
+    border-bottom: 2px solid #00B4DB; 
+  }
+  
+  .nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .icon-button {
+    background-color: white;
+    border: none;
+    color: black;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+  
+  .icon-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .profile-icon {
+    background-color: yellow;
+    border-radius: 50%;
+    padding: 5px;
+  }
+  
+  .profile-icon span {
+    font-size: 1.2rem;
+  }
+  

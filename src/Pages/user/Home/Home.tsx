@@ -1,7 +1,14 @@
+import UserNavbar from '../../../Components/user/UserNavbar/UserNavbar'
+import './Home.css'
+
 
 const Home = () => {
   return (
-    <div>Home</div>
+  <>
+    <div className="hero-banner">
+      <UserNavbar/>
+    </div>
+  </>
   )
 }
 
