@@ -2,20 +2,20 @@ import React from 'react';
 import './RegistrationForm.css';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Api from '../../../services/axios';
+import { userRegister } from '../../../api/user';
 
 const RegistrationForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const navigate = useNavigate();
-  // const password = watch('password', '');
 
   const onSubmit = async (data: any) => {
     try {
       console.log(data);
       ;
       
-      const response = await Api.post('/register', data);
+      const response = await userRegister(data);
+
 
       if (response.status === 200) {
         navigate('/');

@@ -4,8 +4,10 @@ import FeatursCard from '../../../Components/user/FeatursCard/FeatursCard'
 import Accordion from '../../../Components/user/Accordion/Accordion'
 import Footer from '../../../Components/user/Footer/Footer'
 import { useNavigate } from 'react-router-dom'
+import UseProtectLoginAndRegistration from '../../../hook/userSIde/useProtectLoginAndRegistration'
 
 const LandingPage = () => {
+  UseProtectLoginAndRegistration()
   const navigate = useNavigate()
   const handleAuthentication =()=>{
     navigate('/sign-up')

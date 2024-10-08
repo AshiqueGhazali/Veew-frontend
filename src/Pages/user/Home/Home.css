@@ -1,5 +1,59 @@
 .hero-banner {
     background-image: url('../../../assets/hero-banner.jpg');
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 80vh;
+    margin: 0;
 }
+
+.homePage-header {
+    color: white;
+    text-align: center;
+}
+
+.homePage-header h1{
+    font-size: 40px;
+    line-height: 1.1;
+    color: var(--background-color);
+    opacity: .9;
+}
+
+.search-input {
+    margin-top: 10px;
+    padding: 12px;
+    width: 300px;
+    border: 2px solid white;
+    border-radius: 8px 0 0 8px;
+    background-color: transparent;
+    position: relative;
+    color: white;
+}
+
+.search-btn{
+    padding: 12px 30px;
+    margin-left: 8px;
+    overflow: hidden;
+    transition: color 0.4s ease-in-out;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    border-radius: 0 8px 8px 0;
+    border: 2px solid white;
+    
+}
+
+
+@media (max-width: 480px) {
+    .homePage-header h1{
+      font-size: 20px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+  
+    .homePage-header p{
+      font-size: 10px;
+      line-height: 1.1
+    }
+  }

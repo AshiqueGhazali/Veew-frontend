@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './RegistrationForm.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Api from '../../../services/axios';
 import { toast } from 'react-toastify';
+import { verifyOtp,sendOtp } from '../../../api/user';
 
 const UserOtp: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
@@ -74,7 +74,9 @@ const UserOtp: React.FC = () => {
   const handleVerification = async() => {
     const userOtp = Number(otp.join(''))
     try {
-      const response = await Api.post('/verify-otp', { userOtp });
+      // const response = await Api.post('/verify-otp', { userOtp });
+      const response = await verifyOtp(userOtp)
+
 
       console.log("res is",response);
       
@@ -97,7 +99,9 @@ const UserOtp: React.FC = () => {
   const resendOtp = async()=>{
 
     try {
-      const response = await Api.post('/send-otp',{email:userEmail})
+      // const response = await Api.post('/send-otp',{email:userEmail})
+      const response = await sendOtp(userEmail)
+
 
       if(response.status===200){
         setTimeLeft(180)

@@ -7,9 +7,12 @@ import EnterEmail from '../../../Components/user/RegistrationForm/EnterEmail'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import ProgressBar from '../../../Components/user/ProgressBar/ProgressBar'
 import { useEffect, useState } from 'react'
+import UseProtectLoginAndRegistration from '../../../hook/userSIde/useProtectLoginAndRegistration'
 
 
 const UserRegistration = () => {
+  UseProtectLoginAndRegistration()
+  
   const [step, setStep] = useState(1);
   const location = useLocation();
 

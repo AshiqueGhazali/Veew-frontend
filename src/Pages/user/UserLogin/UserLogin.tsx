@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 import './UserLogin.css'
 import GuestNavbar from '../../../Components/user/GuestNavbar/GuestNavbar'
 import { toast } from 'react-toastify';
-import Api from '../../../services/axios';
+import { userLogin } from '../../../api/user';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { login } from '../../../Redux/slice/userAuthSlice';
+import UseProtectLoginAndRegistration from '../../../hook/userSIde/useProtectLoginAndRegistration';
+
 
 interface loginForm {
     email:string;
@@ -11,10 +15,13 @@ interface loginForm {
 }
 
 export const UserLogin:React.FC = () => {
+    UseProtectLoginAndRegistration()
     const [formData,setFormdata] = useState<loginForm>({
         email:'',
         password:''
     })
+
+    const dispatch = useDispatch()
 
     const [error,setError]= useState<string|null>(null)
 
@@ -23,9 +30,10 @@ export const UserLogin:React.FC = () => {
 
 const handleContinue = async()=>{
     try {
-        const response = await Api.post('/login',formData)
+        const response = await userLogin(formData)
 
-        if(response.status===200){
+        if(response.status===200){            
+            dispatch(login(response.data.userData?.id))
             navigate('/')
         }
     } catch (err:any) {

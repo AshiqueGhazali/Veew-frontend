@@ -1,81 +1,132 @@
-/* Basic reset and styling */
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-  }
-   */
-  /* Navbar Styling */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: transparent;
-    padding: 10px 20px;
-  }
-  
-  .logo img {
-    width: 90px;
-  }
-  .navCenter{
-    background-color: #f0f0f0;
-    padding: 10px 20px;
-    border-radius: 50px;
-  }
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav-links li a {
-    color: black;
-    text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 20px;
-  }
-  
-  .nav-links li a:hover {
-    color: var(--darkgreen-color);
-  }
-  
-  .nav-links li a.active {
-    color: #00B4DB;
-    border-bottom: 2px solid #00B4DB; 
-  }
-  
-  .nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .icon-button {
-    background-color: white;
-    border: none;
-    color: black;
-    font-size: 1.2rem;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-  }
-  
-  .icon-button:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .profile-icon {
-    background-color: yellow;
-    border-radius: 50%;
-    padding: 5px;
-  }
-  
-  .profile-icon span {
-    font-size: 1.2rem;
-  }
-  
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+}
+
+.logo img {
+  width: 90px;
+}
+
+.navCenter {
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  color: black;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.nav-links li a:hover {
+  color: var(--orange-color);
+}
+
+.nav-links li a.active {
+  color: var(--orange-color);
+  border-bottom: 2px solid var(--orange-color);
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-button {
+  background-color: white;
+  border: none;
+  color: black;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  background-color: var(--yellow-color);
+}
+
+.profile-icon {
+  color: yellow;
+  font-size: 30px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 250px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-size: 1rem;
+}
+
+.user-email {
+  font-size: 0.7rem;
+  color: grey;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dropdown-menu li {
+  color: black;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.dropdown-menu .dropdown-link {
+  text-decoration: none;
+}
+
+.dropdown-menu li:hover {
+  background-color: var(--yellow-color);
+}
+
+.dropdown-menu .navlink-icons{
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.dropdown-menu .active{
+  background-color: #e8f5dc;
+}

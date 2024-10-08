@@ -5,6 +5,7 @@ import UserRegistration from '../Pages/user/UserRegisteration/UserRegistration'
 import 'react-toastify/dist/ReactToastify.css';
 import { UserLogin } from '../Pages/user/UserLogin/UserLogin'
 import Home from '../Pages/user/Home/Home'
+import UserProtectRoutes from './UserProtectRoutes';
 
 
 
@@ -13,10 +14,12 @@ const UserRoutes:React.FC = () => {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home/>}/>
         <Route path='/landing' element={<LandingPage/>}/>
         <Route path='/sign-up/*' element={<UserRegistration/>}/>
         <Route path='/login' element={<UserLogin/>}/>
+        <Route element={<UserProtectRoutes/>} >
+          <Route path='/' element={<Home/>}/>
+        </Route>
       </Routes>
     </>
   )
