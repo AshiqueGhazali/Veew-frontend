@@ -1,0 +1,38 @@
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.admin-dashboard {
+    display: flex;
+    padding: 30px;
+    flex: 1;
+}
+
+.dashboard-pages{
+    padding-left: 30px;
+    margin-left: 230px;
+}
+
+
+
+@media (max-width: 1024px) {
+    .dashboard-pages {
+        margin-left: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-dashboard {
+        display: flex;
+        padding: 15px;
+    }
+
+    .dashboard-pages {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin-left: 0;
+    }
+    
+}

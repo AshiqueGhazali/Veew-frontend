@@ -72,3 +72,4 @@ export const userLogin = async({email,password}:LoginParams):Promise<LoginRespon
 
 export const userLogout = async():Promise<Response>=>await Api.post(userRoutes.logout)
 export const getToken = async (): Promise<getTokenRes> => await Api.get(userRoutes.getToken);
+export const getUserProfileData = async(userId?:string) => await Api.get(`${userRoutes.getUserProfileData}?userId=${userId}`)

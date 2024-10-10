@@ -92,12 +92,14 @@
 }
 
 .user-name {
-  font-size: 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .user-email {
   font-size: 0.7rem;
   color: grey;
+  cursor: pointer;
 }
 
 .dropdown-menu ul {

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import { getToken } from '../api/user';
 import { Navigate, Outlet } from 'react-router-dom';
@@ -20,8 +19,7 @@ function UserProtectRoutes() {
   const dispatch=useDispatch()
  
   const [loading,setIsLoading]=useState<boolean>(true)
-  console.log('response hiii')
-  
+
   useEffect(() => {
 
     const checkAuth = async () => {
@@ -33,7 +31,7 @@ function UserProtectRoutes() {
         const data:DecodedJwt= response.data.decoded as DecodedJwt
         setIsLoading(true)
         if (response.data) {
-            dispatch(login(data))
+            dispatch(login(data.id))
             setStatus(true)
         }
       }catch (error){

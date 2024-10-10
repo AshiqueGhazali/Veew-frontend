@@ -18,7 +18,7 @@ const RegistrationForm: React.FC = () => {
 
 
       if (response.status === 200) {
-        navigate('/');
+        navigate('/login');
       }
     } catch (error) {
       console.error(error);

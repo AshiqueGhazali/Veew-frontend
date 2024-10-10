@@ -5,7 +5,8 @@ const userRoutes = {
     register:'/register',
     login:'/login',
     logout:'/logout',
-    getToken:'/getToken'
+    getToken:'/getToken',
+    getUserProfileData:'/getUserData'
 }
 
 export default userRoutes

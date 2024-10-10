@@ -10,19 +10,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../Redux/slice/userAuthSlice';
 import { userLogout } from '../../../api/user';
+import { IUser } from '../../../interface/userInterface';
 
 
+interface UserNavbarProps {
+  userData: IUser|null; 
+}
 
-
-const UserNavbar:React.FC = () => {
+const UserNavbar:React.FC<UserNavbarProps> = ({userData}) => {
 
   const [dropdownVisible,setDropdownVisible]=useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  const toggleDropdown = ()=>{
-    setDropdownVisible(!dropdownVisible)
-  }
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -70,8 +69,8 @@ const UserNavbar:React.FC = () => {
           <div className="user-info">
             <img src="https://via.placeholder.com/50" alt="User" className="profile-pic" />
             <div>
-              <p className="user-name">User Name</p>
-              <p className="user-email">example123@gmail.com</p>
+              <p className="user-name">{`${userData?.firstName} ${userData?.lastName}`}</p>
+              <p className="user-email">{userData?.email}</p>
             </div>
           </div>
           <ul>

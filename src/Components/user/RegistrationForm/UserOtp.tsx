@@ -10,7 +10,7 @@ const UserOtp: React.FC = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const [timeLeft, setTimeLeft] = useState<number>(180); 
-  const [resendAvailable, setResendAvailable] = useState<boolean>(false);
+  // const [resendAvailable, setResendAvailable] = useState<boolean>(false);
 
   const navigate = useNavigate()
   const location = useLocation();
@@ -22,9 +22,10 @@ const UserOtp: React.FC = () => {
         setTimeLeft(timeLeft-1)
       },1000)
       return ()=>clearTimeout(timerId)
-    }else{
-      setResendAvailable(true)
     }
+    // else{
+    //   setResendAvailable(true)
+    // }
   },[timeLeft])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -105,7 +106,7 @@ const UserOtp: React.FC = () => {
 
       if(response.status===200){
         setTimeLeft(180)
-        setResendAvailable(false)
+        // setResendAvailable(false)
         toast.info('OTP resent successfully!')
       }
     } catch (error) {

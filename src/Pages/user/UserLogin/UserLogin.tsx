@@ -20,11 +20,9 @@ export const UserLogin:React.FC = () => {
         email:'',
         password:''
     })
-
-    const dispatch = useDispatch()
-
     const [error,setError]= useState<string|null>(null)
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
 
@@ -32,7 +30,7 @@ const handleContinue = async()=>{
     try {
         const response = await userLogin(formData)
 
-        if(response.status===200){            
+        if(response.status===200){                        
             dispatch(login(response.data.userData?.id))
             navigate('/')
         }

@@ -1,0 +1,156 @@
+.side-bar{
+    background-color: #ffffff;
+    height: 90vh;
+    width: 230px;
+    border-radius: 16px;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    position: fixed;
+}
+
+.side-bar img{
+    width: 80px;
+}
+
+.sidebar-list{
+    margin-top: 50px;
+    flex-grow: 1;
+}
+
+.sidebar-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-list li {
+    color: black;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.sidebar-icons{
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.sidebar-link{
+    text-decoration: none;
+}
+
+.sidebar-list .active{
+    color: #ffffff;
+    background-color: #000000;
+    border-radius: 8px;
+}
+
+.sidebar-list li:hover {
+    color: #ffffff;
+    background-color: #404040;
+    border-radius: 8px;
+}
+
+.logout-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout-button button {
+    width: 100%;
+    padding: 13px 13px;  
+    background-color: #000000;  
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-button button:hover {
+    background-color: #404040; 
+}
+
+
+@media (max-width: 1024px) {
+    .side-bar {
+        width: 80px;  
+        padding: 20px 10px;
+    }
+
+    .side-bar img {
+        width: 50px;  
+    }
+    .sidebar-list li {
+        justify-content: center;  
+    }
+
+    .sidebar-list li {
+        font-size: 0;
+    }
+
+    .side-bar.open {
+        width: 230px;
+        position: absolute;
+    }
+
+    .side-bar.open img {
+        width: 80px;  
+    }
+
+    .side-bar.open .sidebar-list li {
+        font-size: 14px; 
+        justify-content: start;
+    }
+
+    .side-bar.open .logout-button {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .side-bar {
+        width: 80px; 
+        background-color: transparent;
+        box-shadow: none;
+        padding: 10px;
+        margin: 0;
+        position: absolute;
+    }
+
+    .side-bar img {
+        width: 50px; 
+    }
+
+    .sidebar-list {
+        display: none; 
+    }
+
+    .side-bar.open {
+        width: 130px;
+        background-color: #ffffff;
+        box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
+        margin: 15px;
+    }
+
+    .side-bar.open .sidebar-list {
+        display: flex;
+    }
+
+    .side-bar.open img {
+        width: 80px;
+    }
+
+    .logout-button {
+        display: none;
+    }
+
+    .side-bar.open .logout-button {
+        display: flex;
+    }
+}
