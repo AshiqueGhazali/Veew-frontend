@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { login } from '../../../Redux/slice/userAuthSlice';
 import UseProtectLoginAndRegistration from '../../../hook/userSIde/useProtectLoginAndRegistration';
+import ForgotPasswordModal from '../../../Components/user/ForgotPasswordModal/ForgotPasswordModal';
 
 
 interface loginForm {
@@ -21,6 +22,7 @@ export const UserLogin:React.FC = () => {
         password:''
     })
     const [error,setError]= useState<string|null>(null)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -45,6 +47,7 @@ const handleContinue = async()=>{
 }
 
 
+
 useEffect(()=>{
     if(error){
         toast.error(error)
@@ -67,7 +70,10 @@ useEffect(()=>{
                 </div>
                 <button className="continue-btn" onClick={handleContinue}>Continue</button>
             </div>
+            <p onClick={() => setIsModalOpen(true)}>Forgot Password?</p>
         </div>
+
+        <ForgotPasswordModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
     </div>
   )
 }

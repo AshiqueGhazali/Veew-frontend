@@ -20,7 +20,7 @@ const AdminRoutes:React.FC = () => {
   return (
     <>
         <Routes>
-            <Route path='/' element={<AdminDashboard/>}/>
+            <Route path='/*' element={<AdminDashboard/>}/>
             <Route path='/login' element={<AdminLogin />} />
         </Routes>
     </>

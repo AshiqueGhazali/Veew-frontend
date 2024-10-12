@@ -47,9 +47,25 @@ export const sendOtp = async(email:string):Promise<Response> =>{
     }
 }
 
+export const setForgotPasswordOtp = async(email:string):Promise<Response> =>{
+    const response = await Api.post(userRoutes.setForgotPasswordOtp, { email })
+    return {
+        status:response.status,
+        data: response.data
+    }
+}
+
 export const verifyOtp = async(userOtp:number):Promise<Response> =>{
     const response = await Api.post(userRoutes.verifyOtp, { userOtp });
     
+    return {
+        status:response.status,
+        data: response.data
+    } 
+}
+
+export const verifyForgotPasswordOtp = async(userOtp:number, email:string):Promise<Response> =>{
+    const response = await Api.post(userRoutes.verifyForgotPasswordOtp, { userOtp, email });
     return {
         status:response.status,
         data: response.data
@@ -69,6 +85,8 @@ export const userLogin = async({email,password}:LoginParams):Promise<LoginRespon
     const response = await Api.post(userRoutes.login,{email,password});
     return response
 }
+
+export const resetPassword = async(email:string,password:string):Promise<Response>=>await Api.post(userRoutes.resetPassword,{password,email})
 
 export const userLogout = async():Promise<Response>=>await Api.post(userRoutes.logout)
 export const getToken = async (): Promise<getTokenRes> => await Api.get(userRoutes.getToken);

@@ -1,24 +1,66 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './AdminDashboard.css'
 import SideBar from '../../../Components/admin/SideBar/SideBar'
 import AdminFooter from '../../../Components/admin/AdminFooter/AdminFooter'
 import UseAdminRouteProtect from '../../../hook/admin/useAdminProtectRoute'
+import AdminHead from '../../../Components/admin/AdminHead.tsx/AdminHead'
+import {  Route, Routes } from 'react-router-dom'
+import UserManagement from '../../../Components/admin/AdminManagements/UserManagement'
+
 
 
 const AdminDashboard:React.FC = () => {
-  UseAdminRouteProtect()
+  const redirect = UseAdminRouteProtect()
+  if(redirect)return redirect
+
+
+  const [isNearFooter, setIsNearFooter] = useState(false); 
+  const [searchQuery, setSearch]= useState<string>('')
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (footerRef.current) {
+        const footerTop = footerRef.current.offsetTop;
+        const windowBottom = window.innerHeight + window.scrollY; 
+
+        if (windowBottom >= footerTop) {
+          setIsNearFooter(true);
+        } else {
+          setIsNearFooter(false); 
+        }
+      }
+    };
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll); 
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
   return (
     <div className='dashboard'>
       <div className='admin-dashboard'>
-          <SideBar/>
+          <SideBar isNearFooter={isNearFooter}/>
           <div className='dashboard-pages'>
-            <div>
-              <h2>Dashboard</h2>
+            <AdminHead setSearch={setSearch}/>
+            <div className='managements'>
+            <Routes>
+              <Route path='/'/>
+              <Route path='user-management'  element={<UserManagement search={searchQuery}/>}/>
+              <Route path='pricing-management'/>
+              <Route path='event-management'/>
+              <Route path='ticket-management'/>
+            </Routes>
             </div>
           </div>
       </div>
-      <AdminFooter/>
+      <div ref={footerRef}>
+        <AdminFooter/>
+      </div>
     </div>
   )
 }

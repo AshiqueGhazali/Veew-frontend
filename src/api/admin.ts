@@ -29,3 +29,6 @@ export const adminLogin = async({userName,password}:LoginParams):Promise<Respons
 
 export const adminGetToken = async():Promise<adminGetTokenResponse>=>await Api.get(adminRoutes.getToken)
 export const adminLogout = async():Promise<Response>=>await Api.post(adminRoutes.adminLogout)
+
+export const getAllUsers = async()=>await Api.get(adminRoutes.getUsersData)
+export const blockUser = async(userId:string):Promise<Response>=>await Api.post(adminRoutes.blockUser, {userId})

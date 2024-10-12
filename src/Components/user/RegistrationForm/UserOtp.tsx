@@ -10,7 +10,6 @@ const UserOtp: React.FC = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const [timeLeft, setTimeLeft] = useState<number>(180); 
-  // const [resendAvailable, setResendAvailable] = useState<boolean>(false);
 
   const navigate = useNavigate()
   const location = useLocation();
@@ -23,9 +22,7 @@ const UserOtp: React.FC = () => {
       },1000)
       return ()=>clearTimeout(timerId)
     }
-    // else{
-    //   setResendAvailable(true)
-    // }
+   
   },[timeLeft])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -35,7 +32,6 @@ const UserOtp: React.FC = () => {
       newOtp[index] = value;
       setOtp(newOtp);
 
-      // Move to next input 
       if (index < otp.length - 1) {
         inputRefs.current[index + 1]?.focus();
       }
@@ -75,7 +71,6 @@ const UserOtp: React.FC = () => {
   const handleVerification = async() => {
     const userOtp = Number(otp.join(''))
     try {
-      // const response = await Api.post('/verify-otp', { userOtp });
       const response = await verifyOtp(userOtp)
 
 
@@ -100,13 +95,11 @@ const UserOtp: React.FC = () => {
   const resendOtp = async()=>{
 
     try {
-      // const response = await Api.post('/send-otp',{email:userEmail})
       const response = await sendOtp(userEmail)
 
 
       if(response.status===200){
         setTimeLeft(180)
-        // setResendAvailable(false)
         toast.info('OTP resent successfully!')
       }
     } catch (error) {

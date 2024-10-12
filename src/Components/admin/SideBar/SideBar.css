@@ -9,6 +9,8 @@
     flex-direction: column;
     justify-content: space-between; 
     position: fixed;
+    transition: height 1.1s ease-in-out;
+    z-index: 1;
 }
 
 .side-bar img{
@@ -51,7 +53,7 @@
 
 .sidebar-list li:hover {
     color: #ffffff;
-    background-color: #404040;
+    background-color: #676767;
     border-radius: 8px;
 }
 

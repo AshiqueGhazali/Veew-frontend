@@ -16,8 +16,7 @@ interface loginForm {
 }
 
 const AdminLogin:React.FC = () => {
-    const redirect = UseAdminProtectLogin()
-    
+    const redirect = UseAdminProtectLogin()  
     if(redirect)return redirect;
 
     const [formData,setFormdata] = useState<loginForm>({

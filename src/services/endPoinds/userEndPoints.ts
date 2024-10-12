@@ -6,7 +6,10 @@ const userRoutes = {
     login:'/login',
     logout:'/logout',
     getToken:'/getToken',
-    getUserProfileData:'/getUserData'
+    getUserProfileData:'/getUserData',
+    setForgotPasswordOtp:'/setForgotPasswordOtp',
+    verifyForgotPasswordOtp:'/verifyForgotPasswordOtp',
+    resetPassword:'/resetPassword',
 }
 
 export default userRoutes

@@ -4,7 +4,7 @@ import { Navigate} from 'react-router-dom';
 
 const UseAdminProtectLogin = () => {
     const adminStatus = useSelector((state:RootState)=>state.admin.Admin.status)
-    const prevRoute = localStorage.getItem("prevRoute") || "/";
+    const prevRoute = localStorage.getItem("prevRoute") || "/";    
 
     if (adminStatus) {
         return <Navigate to={prevRoute} replace />; 
