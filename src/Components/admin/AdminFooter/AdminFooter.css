@@ -92,7 +92,6 @@
   }
 }
 
-/* Adjust for small devices (mobile, 480px and smaller) */
 @media (max-width: 480px) {
   .admin-footer {
       padding: 15px 20px; 

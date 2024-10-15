@@ -74,7 +74,7 @@ const SideBar:React.FC<sideBarProp> = ({isNearFooter}) => {
             <img src={Logo} alt="Logo" className='logo' onClick={toggleSidebar} />
             <div className={`sidebar-list ${isOpen ? 'show' : ''}`}>
                 <ul>
-                <Link to='/admin/' className='sidebar-link'><li className={isActive('/admin/')}><span className='sidebar-icons'><FaHome/></span>{isOpen && 'Home'}</li></Link>
+                <Link to='/admin' className='sidebar-link'><li className={isActive('/admin')}><span className='sidebar-icons'><FaHome/></span>{isOpen && 'Home'}</li></Link>
                 <Link to='/admin/user-management' className='sidebar-link'><li className={isActive('/admin/user-management')}><span className='sidebar-icons'><FaUsers /></span>{isOpen && 'Users'}</li></Link>
                 <Link to='/admin/pricing-management' className='sidebar-link'><li className={isActive('/admin/pricing-management')}><span className='sidebar-icons'><IoMdPricetags/></span>{isOpen && 'Pricing'}</li></Link>
                 <Link to='/admin/event-management' className='sidebar-link'><li className={isActive('/admin/event-management')}><span className='sidebar-icons'><IoMdList/></span>{isOpen && 'Events'}</li></Link>

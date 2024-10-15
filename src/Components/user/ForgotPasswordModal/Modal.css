@@ -17,6 +17,7 @@
     border-radius: 8px;
     width: 400px;
     max-width: 90%;
+    border-top: solid red 10px;
   }
   
   .modal-header {

@@ -5,7 +5,8 @@ import AdminFooter from '../../../Components/admin/AdminFooter/AdminFooter'
 import UseAdminRouteProtect from '../../../hook/admin/useAdminProtectRoute'
 import AdminHead from '../../../Components/admin/AdminHead.tsx/AdminHead'
 import {  Route, Routes } from 'react-router-dom'
-import UserManagement from '../../../Components/admin/AdminManagements/UserManagement'
+import UserManagement from '../../../Components/admin/UserManagement/UserManagement'
+import PricingManagement from '../../../Components/admin/PricingManagement/PricingManagement'
 
 
 
@@ -51,7 +52,7 @@ const AdminDashboard:React.FC = () => {
             <Routes>
               <Route path='/'/>
               <Route path='user-management'  element={<UserManagement search={searchQuery}/>}/>
-              <Route path='pricing-management'/>
+              <Route path='pricing-management' element={<PricingManagement/>}/>
               <Route path='event-management'/>
               <Route path='ticket-management'/>
             </Routes>

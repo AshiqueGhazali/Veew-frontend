@@ -27,8 +27,8 @@
 .nav-links li a {
   color: black;
   text-decoration: none;
-  padding: 5px 10px;
-  border-radius: 20px;
+  /* padding: 5px 6px; */
+  /* border-radius: 20px; */
 }
 
 .nav-links li a:hover {
@@ -37,7 +37,7 @@
 
 .nav-links li a.active {
   color: var(--orange-color);
-  border-bottom: 2px solid var(--orange-color);
+  border-bottom: 3px solid var(--orange-color);
 }
 
 .nav-icons {

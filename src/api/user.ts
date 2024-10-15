@@ -37,7 +37,17 @@ interface getTokenRes {
       status:boolean,
       decoded?:object
     };
-  }
+}
+
+interface editProfileParams {
+    id:string
+    firstName: string;
+    lastName: string;
+    phone?:string;
+    gender?:string;
+    age?:number;
+    image?:string
+}
 
 export const sendOtp = async(email:string):Promise<Response> =>{
     const response = await Api.post(userRoutes.sendOtp, { email })
@@ -91,3 +101,7 @@ export const resetPassword = async(email:string,password:string):Promise<Respons
 export const userLogout = async():Promise<Response>=>await Api.post(userRoutes.logout)
 export const getToken = async (): Promise<getTokenRes> => await Api.get(userRoutes.getToken);
 export const getUserProfileData = async(userId?:string) => await Api.get(`${userRoutes.getUserProfileData}?userId=${userId}`)
+export const editProfile= async({id,firstName,lastName,phone,gender,age,image}:editProfileParams):Promise<Response>=>await Api.patch(userRoutes.editProfile,{id,firstName,lastName,phone,gender,age,image})
+export const uploadImg = async(formData:any):Promise<Response>=>await Api.post('/upload-img',formData,{headers: {
+    'Content-Type': 'multipart/form-data',
+},})

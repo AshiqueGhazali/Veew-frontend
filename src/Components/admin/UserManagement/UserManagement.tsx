@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './AdminManagement.css'
+import './UserManagement.css'
 import { getAllUsers, blockUser } from '../../../api/admin';
 import { toast } from 'react-toastify';
 

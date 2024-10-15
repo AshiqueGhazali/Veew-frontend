@@ -2,9 +2,12 @@
 
 :root {
   --text-color: #1A2634;
-  --green-color: #3b5d50;
-  --darkgreen-color:#203c31;
-  --orange-color: #FFA500;
+  /* --green-color: #3b5d50; */
+  --green-color: #002e51;
+  /* --darkgreen-color:#203c31; */
+  --darkgreen-color:#937e54;
+  /* --orange-color: #FFA500; */
+  --orange-color: #bea980;
   --yellow-color: #FFD700;
   --lightYellow-color: #FFE570;
   --extralightYellow-color: #FFF3B2;

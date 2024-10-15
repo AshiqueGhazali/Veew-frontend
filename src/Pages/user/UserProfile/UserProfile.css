@@ -1,0 +1,13 @@
+.user-profile{
+    display: flex;
+    width: 100%;
+    padding: 30px 50px;
+    gap: 30px;
+}
+.profile-page{
+    width: 80%;
+    height: 190vh;
+    background-color: #ffffff;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
+
+}

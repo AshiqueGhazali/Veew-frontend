@@ -1,0 +1,98 @@
+.user-sidebar{
+    background-color: #ffffff;
+    width: 250px;
+    height: 90vh;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    position: fixed;
+    transition: height 1.1s ease-in-out;
+    z-index: 1;
+}
+
+.profile-image img{
+    width: 210px;
+    height: 220px;
+}
+
+.profile-image h4{
+    font-weight: normal;
+    text-align: center;
+    color: #ffffff;
+    padding: 6px 0;
+    background-color: var(--text-color);
+}
+
+
+.profile-details ul{
+    list-style: none;
+    padding: 0;
+}
+
+.profile-details li{
+    color: black;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.profile-btn{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.profile-btn button{
+    width: 100%;
+    padding: 13px 13px;  
+    background-color: var(--green-color);  
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.profile-btn button:hover{
+    background-color: var(--darkgreen-color);
+}
+.edit-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.edit-details input {
+    width: 210px;
+    padding: 6px;
+}
+
+.edit-details .err-text{
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}
+
+.edit-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.edit-btn .btn{
+    border: 0;
+    outline: 0;
+    padding: 8px 20px;
+    width: 100%;
+    display: inline-flex;
+    font-size: 15px;   
+    color: #ffffff;
+    background: var(--green-color);
+    cursor: pointer;
+}
+
+.edit-btn .btn:hover{
+    background: var(--darkgreen-color);
+}

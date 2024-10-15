@@ -6,7 +6,7 @@ import { RiCalendarScheduleFill } from "react-icons/ri";
 import { IoTicketSharp, IoWalletSharp  } from "react-icons/io5";
 import { MdNotificationsActive } from "react-icons/md";
 import { TbLogout2 } from "react-icons/tb";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../Redux/slice/userAuthSlice';
 import { userLogout } from '../../../api/user';
@@ -22,6 +22,7 @@ const UserNavbar:React.FC<UserNavbarProps> = ({userData}) => {
   const [dropdownVisible,setDropdownVisible]=useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -43,6 +44,10 @@ const UserNavbar:React.FC<UserNavbarProps> = ({userData}) => {
       
     }
   }
+
+  const isActive = (path:string)=>{
+    return location.pathname===path ? "active" :""
+  }
   return (
     <nav className="navbar">
     <div className="logo">
@@ -50,10 +55,11 @@ const UserNavbar:React.FC<UserNavbarProps> = ({userData}) => {
     </div>
     <div className='navCenter'>
         <ul className="nav-links">
-          <li><a href="/" className="active">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/events">Events</a></li>
-          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/" className={isActive('/')}>Home</a></li>
+          <li><a href="/profile" className={isActive('/profile')}>Profile</a></li>
+          <li><a href="/about" className={isActive('/about')}>About</a></li>
+          <li><a href="/events" className={isActive('/events')}>Events</a></li>
+          <li><a href="/pricing" className={isActive('/pricing')}>Pricing</a></li>
         </ul>
     </div>
     <div className="nav-icons">
