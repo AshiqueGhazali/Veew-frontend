@@ -52,7 +52,7 @@ const AdminDashboard:React.FC = () => {
             <Routes>
               <Route path='/'/>
               <Route path='user-management'  element={<UserManagement search={searchQuery}/>}/>
-              <Route path='pricing-management' element={<PricingManagement/>}/>
+              <Route path='pricing-management' element={<PricingManagement search={searchQuery}/>}/>
               <Route path='event-management'/>
               <Route path='ticket-management'/>
             </Routes>

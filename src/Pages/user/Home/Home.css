@@ -1,6 +1,6 @@
 .hero-banner {
-    /* background-image: url('../../../assets/hero-banner.jpg'); */
-    background: linear-gradient(to bottom, #012540 20%, #084675 60%, #0f558b ,#6396bd, var(--background-color) 100%);
+    background-image: url('../../../assets/hero-banner2.jpg');
+    /* background: linear-gradient(to bottom, #012540 20%, #084675 60%, #0f558b ,#6396bd, var(--background-color) 100%); */
     display: flex;
     justify-content: center;
     align-items: center;

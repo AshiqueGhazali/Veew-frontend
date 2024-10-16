@@ -1,0 +1,45 @@
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--green-color);
+}
+
+.logo-svg {
+    width: 20%;
+    height: auto;
+}
+
+.logo-path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 3;
+    stroke-dasharray: 1000; 
+    stroke-dashoffset: 1000; 
+    animation: draw 4s ease-in-out forwards, fade-in 1s 3s forwards; 
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0; 
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        fill: rgba(255, 255, 255, 0);
+    }
+    100% {
+        fill: rgba(255, 255, 255, 1); 
+    }
+}
+
+
+@media(max-width:480px){
+    .logo-svg {
+        width: 30%;
+        height: auto;
+    }
+}

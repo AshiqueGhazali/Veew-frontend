@@ -3,6 +3,7 @@ import { getToken } from '../api/user';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useDispatch} from 'react-redux';
 import { login } from '../Redux/slice/userAuthSlice';
+import LogoAnimation from '../Components/user/LogoAnimation/LogoAnimation';
 
 
 export interface DecodedJwt{
@@ -32,7 +33,9 @@ function UserProtectRoutes() {
         setIsLoading(true)
         if (response.data) {
             dispatch(login(data.id))
-            setStatus(true)
+            setTimeout(()=>{
+              setStatus(true)
+            },4000)
         }
       }catch (error){
         console.log(error)
@@ -47,7 +50,7 @@ function UserProtectRoutes() {
 
   
   if(loading && !status){
-     return <div>loaidng...</div>
+     return <LogoAnimation/>
   }
   
   return status ?<Outlet/>:<Navigate to="/landing"/>;
