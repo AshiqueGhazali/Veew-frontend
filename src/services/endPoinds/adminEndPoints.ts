@@ -3,7 +3,8 @@ const adminRoutes = {
     getToken:'/admin/getToken',
     adminLogout:'/admin/logout',
     getUsersData:'/admin/getUsersData',
-    blockUser:'/admin/blockUser'
+    blockUser:'/admin/blockUser',
+    addPlan:'/admin/addPlan'
 }
 
 export default adminRoutes

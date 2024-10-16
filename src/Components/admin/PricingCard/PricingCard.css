@@ -67,11 +67,11 @@
         justify-content: center;
         align-items: center;
     }
-}
 
-@media (max-width: 380px) {
     .pricing-plan{
-        width: 320px;
+        max-width: 90%
     }
 }
+
+
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import './PricingCard.css'
 
+
+
 const PricingCard:React.FC = () => {
   return (
     <div className='pricing-plans'>

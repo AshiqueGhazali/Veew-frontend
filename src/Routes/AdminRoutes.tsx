@@ -8,18 +8,17 @@ const AdminRoutes:React.FC = () => {
 
   useEffect(() => {
     const currentRoute = localStorage.getItem("currentRoute") || "/";
-    // const prevRoute = localStorage.getItem("prevRoute") || "/";
 
     localStorage.setItem("prevRoute", currentRoute); 
     localStorage.setItem("currentRoute", location.pathname); 
   }, [location.pathname]); 
 
-  // const currentRoute = localStorage.getItem("currentRoute") || "/";
-  // const prevRoute = localStorage.getItem("prevRoute") || "/";
+
 
   return (
     <>
         <Routes>
+            <Route path='/add-pricing' element={<AdminDashboard/>}/>
             <Route path='/*' element={<AdminDashboard/>}/>
             <Route path='/login' element={<AdminLogin />} />
         </Routes>

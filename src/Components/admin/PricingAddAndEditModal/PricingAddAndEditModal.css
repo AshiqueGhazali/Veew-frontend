@@ -1,0 +1,145 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+.pricing-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px;
+  max-width: 90%;
+  border-top: solid #27d095 10px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.pricing-modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  margin: 20px 0;
+}
+
+.pricing-modal-body input{
+  padding: 10px;
+  width: 500px;
+  max-width: 90%;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.error-text{
+  color: #ffffff;
+  width: 500px;
+  padding: 6px;
+  max-width: 100%;
+  background-color: #f77b87;
+  margin-top: 10px;
+  animation: fadeIn 0.5s ease-in-out; 
+}
+.pricing-modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.pricing-modal-footer button{
+  width: 500px;
+  max-width: 90%;
+  color: #ffffff;
+  background-color: #000000;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.pricing-modal-footer button:hover {
+  background-color: #1a1b1b;
+}
+
+.custom-dropdown {
+  position: relative;
+  width: 500px;
+  max-width: 90%;
+  margin-top: 10px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+}
+
+.dropdown-header {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: #333;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  /* border-radius: 5px; */
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+
+.dropdown-item:hover {
+  background-color: #27d095;
+  color: white;
+}
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
