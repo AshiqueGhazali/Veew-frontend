@@ -1,25 +1,24 @@
-import './UserRegistration.css'
-import FeatureList from "../../../Components/user/FeatureList/FeatureList"
-import GuestNavbar from "../../../Components/user/GuestNavbar/GuestNavbar"
-import RegistrationForm from "../../../Components/user/RegistrationForm/RegistrationForm"
-import UserOtp from '../../../Components/user/RegistrationForm/UserOtp'
-import EnterEmail from '../../../Components/user/RegistrationForm/EnterEmail'
-import { Route, Routes, useLocation } from 'react-router-dom'
-import ProgressBar from '../../../Components/user/ProgressBar/ProgressBar'
-import { useEffect, useState } from 'react'
-import UseProtectLoginAndRegistration from '../../../hook/userSIde/useProtectLoginAndRegistration'
-
+import "./UserRegistration.css";
+import FeatureList from "../../../Components/user/FeatureList/FeatureList";
+import GuestNavbar from "../../../Components/user/GuestNavbar/GuestNavbar";
+import RegistrationForm from "../../../Components/user/RegistrationForm/RegistrationForm";
+import UserOtp from "../../../Components/user/RegistrationForm/UserOtp";
+import EnterEmail from "../../../Components/user/RegistrationForm/EnterEmail";
+import { Route, Routes, useLocation } from "react-router-dom";
+import ProgressBar from "../../../Components/user/ProgressBar/ProgressBar";
+import { useEffect, useState } from "react";
+import UseProtectLoginAndRegistration from "../../../hook/userSIde/useProtectLoginAndRegistration";
 
 const UserRegistration = () => {
-  UseProtectLoginAndRegistration()
-  
+  UseProtectLoginAndRegistration();
+
   const [step, setStep] = useState(1);
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/sign-up/verification') {
+    if (location.pathname === "/sign-up/verification") {
       setStep(2);
-    } else if (location.pathname === '/sign-up/register') {
+    } else if (location.pathname === "/sign-up/register") {
       setStep(3);
     } else {
       setStep(1);
@@ -28,20 +27,20 @@ const UserRegistration = () => {
 
   return (
     <div className="user-registration">
-      <GuestNavbar page='signIn' />
+      <GuestNavbar page="signIn" />
       <div className="content">
         <FeatureList />
-        <div className='registration-form'>
-          <ProgressBar step={step}/>
+        <div className="registration-form">
+          <ProgressBar step={step} />
           <Routes>
-            <Route path="/" element={ <EnterEmail/>} /> 
-            <Route path='verification' element={<UserOtp/>}/>
+            <Route path="/" element={<EnterEmail />} />
+            <Route path="verification" element={<UserOtp />} />
             <Route path="register" element={<RegistrationForm />} />
           </Routes>
-        </div>         
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserRegistration
+export default UserRegistration;

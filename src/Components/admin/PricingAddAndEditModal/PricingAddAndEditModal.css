@@ -1,3 +1,14 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -18,6 +29,8 @@
   width: 600px;
   max-width: 90%;
   border-top: solid #27d095 10px;
+  animation: fadeIn 1s ease-in-out; 
+
 }
 
 .modal-header {
@@ -57,16 +70,7 @@
 }
 
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+
 .error-text{
   color: #ffffff;
   width: 500px;

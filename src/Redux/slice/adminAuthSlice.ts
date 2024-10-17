@@ -1,37 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface adminState {
-    Admin:{
-        status:boolean
-    }
+  Admin: {
+    status: boolean;
+  };
 }
 
-const initialState:adminState = {
-    Admin:{
-        status:false
-    }
-}
-
+const initialState: adminState = {
+  Admin: {
+    status: false,
+  },
+};
 
 const adminAuthSlice = createSlice({
-    name:"admin",
-    initialState:initialState,
+  name: "admin",
+  initialState: initialState,
 
-    reducers:{
-        adminlogin:(state)=>{
-            state.Admin={
-                status:true
-            }
-        },
+  reducers: {
+    adminlogin: (state) => {
+      state.Admin = {
+        status: true,
+      };
+    },
 
-        adminlogout:(state)=>{
-            state.Admin={
-                status:false
-            }
-        }
-    }
-})
+    adminlogout: (state) => {
+      state.Admin = {
+        status: false,
+      };
+    },
+  },
+});
 
-
-export const {adminlogin,adminlogout} = adminAuthSlice.actions
-export default adminAuthSlice.reducer
+export const { adminlogin, adminlogout } = adminAuthSlice.actions;
+export default adminAuthSlice.reducer;

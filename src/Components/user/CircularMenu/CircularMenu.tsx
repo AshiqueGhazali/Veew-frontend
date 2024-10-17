@@ -1,8 +1,7 @@
-import React from 'react';
-import './CircularMenu.css';
+import React from "react";
+import "./CircularMenu.css";
 
 const CircularMenu: React.FC = () => {
-
   return (
     <div className="center">
       <div className="menu">

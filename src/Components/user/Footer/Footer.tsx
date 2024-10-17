@@ -1,15 +1,14 @@
-import './Footer.css'
-import Logo from '../../../assets/veewBlackLogo.png'
+import "./Footer.css";
+import Logo from "../../../assets/veewBlackLogo.png";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaFacebookF } from "react-icons/fa";
 
-
 const Footer = () => {
   return (
     <div className="clint-footer">
-       <footer className="footer">
+      <footer className="footer">
         <div className="footer-container">
           <div className="footer-left">
             {/* <h2>Logo</h2> */}
@@ -28,13 +27,13 @@ const Footer = () => {
                 <FaInstagram />
               </li>
               <li>
-                <FaLinkedinIn/>
+                <FaLinkedinIn />
               </li>
               <li>
-                <FaXTwitter/>
+                <FaXTwitter />
               </li>
               <li>
-                <FaFacebookF/>
+                <FaFacebookF />
               </li>
             </ul>
           </div>
@@ -45,7 +44,7 @@ const Footer = () => {
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

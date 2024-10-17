@@ -1,15 +1,15 @@
-import React from 'react'
-import './AdminFooter.css'
-import Logo from '../../../assets/veewWhiteLogo.png'
+import React from "react";
+import "./AdminFooter.css";
+import Logo from "../../../assets/veewWhiteLogo.png";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaFacebookF } from "react-icons/fa";
 
-const AdminFooter:React.FC = () => {
+const AdminFooter: React.FC = () => {
   return (
     <div className="admin-footer">
-       <footer className="footer-admin">
+      <footer className="footer-admin">
         <div className="footer-container">
           <div className="footer-left">
             <img src={Logo} alt="" />
@@ -27,13 +27,13 @@ const AdminFooter:React.FC = () => {
                 <FaInstagram />
               </li>
               <li>
-                <FaLinkedinIn/>
+                <FaLinkedinIn />
               </li>
               <li>
-                <FaXTwitter/>
+                <FaXTwitter />
               </li>
               <li>
-                <FaFacebookF/>
+                <FaFacebookF />
               </li>
             </ul>
           </div>
@@ -44,7 +44,7 @@ const AdminFooter:React.FC = () => {
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default AdminFooter
+export default AdminFooter;

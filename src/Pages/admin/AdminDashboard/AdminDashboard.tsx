@@ -1,69 +1,71 @@
-import React, { useEffect, useRef, useState } from 'react'
-import './AdminDashboard.css'
-import SideBar from '../../../Components/admin/SideBar/SideBar'
-import AdminFooter from '../../../Components/admin/AdminFooter/AdminFooter'
-import UseAdminRouteProtect from '../../../hook/admin/useAdminProtectRoute'
-import AdminHead from '../../../Components/admin/AdminHead.tsx/AdminHead'
-import {  Route, Routes } from 'react-router-dom'
-import UserManagement from '../../../Components/admin/UserManagement/UserManagement'
-import PricingManagement from '../../../Components/admin/PricingManagement/PricingManagement'
+import React, { useEffect, useRef, useState } from "react";
+import "./AdminDashboard.css";
+import SideBar from "../../../Components/admin/SideBar/SideBar";
+import AdminFooter from "../../../Components/admin/AdminFooter/AdminFooter";
+import UseAdminRouteProtect from "../../../hook/admin/useAdminProtectRoute";
+import AdminHead from "../../../Components/admin/AdminHead.tsx/AdminHead";
+import { Route, Routes } from "react-router-dom";
+import UserManagement from "../../../Components/admin/UserManagement/UserManagement";
+import PricingManagement from "../../../Components/admin/PricingManagement/PricingManagement";
 
+const AdminDashboard: React.FC = () => {
+  const redirect = UseAdminRouteProtect();
+  if (redirect) return redirect;
 
-
-const AdminDashboard:React.FC = () => {
-  const redirect = UseAdminRouteProtect()
-  if(redirect)return redirect
-
-
-  const [isNearFooter, setIsNearFooter] = useState(false); 
-  const [searchQuery, setSearch]= useState<string>('')
+  const [isNearFooter, setIsNearFooter] = useState(false);
+  const [searchQuery, setSearch] = useState<string>("");
   const footerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       if (footerRef.current) {
         const footerTop = footerRef.current.offsetTop;
-        const windowBottom = window.innerHeight + window.scrollY; 
+        const windowBottom = window.innerHeight + window.scrollY;
 
         if (windowBottom >= footerTop) {
           setIsNearFooter(true);
         } else {
-          setIsNearFooter(false); 
+          setIsNearFooter(false);
         }
       }
     };
-    handleScroll()
+    handleScroll();
 
-    window.addEventListener('scroll', handleScroll); 
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-
   return (
-    <div className='dashboard'>
-      <div className='admin-dashboard'>
-          <SideBar isNearFooter={isNearFooter}/>
-          <div className='dashboard-pages'>
-            <AdminHead setSearch={setSearch}/>
-            <div className='managements'>
+    <div className="dashboard">
+      <div className="admin-dashboard">
+        <SideBar isNearFooter={isNearFooter} />
+        <div className="dashboard-pages">
+          <AdminHead setSearch={setSearch} />
+          <div className="managements">
             <Routes>
-              <Route path='/'/>
-              <Route path='user-management'  element={<UserManagement search={searchQuery}/>}/>
-              <Route path='pricing-management' element={<PricingManagement search={searchQuery}/>}/>
-              <Route path='event-management'/>
-              <Route path='ticket-management'/>
+              <Route path="/" />
+              <Route
+                path="user-management"
+                element={<UserManagement search={searchQuery} />}
+              />
+              <Route
+                path="pricing-management"
+                element={<PricingManagement search={searchQuery} />}
+              />
+              <Route path="event-management" />
+              <Route path="ticket-management" />
             </Routes>
-            </div>
           </div>
+        </div>
       </div>
       <div ref={footerRef}>
-        <AdminFooter/>
+        <AdminFooter />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminDashboard
+export default AdminDashboard;
