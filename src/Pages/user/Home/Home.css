@@ -1,25 +1,57 @@
-.hero-banner {
+/* .hero-banner {
     background-image: url('../../../assets/hero-banner2.jpg');
-    /* background: linear-gradient(to bottom, #012540 20%, #084675 60%, #0f558b ,#6396bd, var(--background-color) 100%); */
+    background: linear-gradient(to bottom, #012540 20%, #084675 60%, #0f558b ,#6396bd, var(--background-color) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 80vh;
     margin: 0;
-}
+} */
 
-.homePage-header {
-    color: white;
+.home-hero{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.hero-banner{
+    width: 100%;
+    min-height: 250px;
+    max-height: 70vh;
+    object-fit: cover;
+}
+.hero-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4); 
+    color: #ffffff;
     text-align: center;
+    padding: 20px;
 }
 
-.homePage-header h1{
+.hero-caption h1 {
     font-size: 40px;
     line-height: 1.1;
     color: var(--background-color);
     opacity: .9;
 }
+
+.hero-caption p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.1
+}
+
 
 .search-input {
     margin-top: 10px;
@@ -46,15 +78,35 @@
 }
 
 
+
+
+  @media (max-width: 768px) {
+    .hero-caption h1 {
+        font-size: 26px;
+    }
+    .hero-caption p {
+        font-size: 14px;
+    }
+}
+
 @media (max-width: 480px) {
-    .homePage-header h1{
-      font-size: 20px;
-      line-height: 1.1;
-      margin-bottom: 8px;
+    .hero-caption h1 {
+        font-size: 20px;
     }
-  
-    .homePage-header p{
-      font-size: 10px;
-      line-height: 1.1
+    .hero-caption p {
+        font-size: 12px;
+        margin-bottom: 10px;
     }
-  }
+
+        
+    .search-input {
+        padding: 10px;
+        width: 200px;
+    }
+
+    .search-btn{
+        padding: 10px 30px;
+        margin-left: 6px;        
+    }
+
+}

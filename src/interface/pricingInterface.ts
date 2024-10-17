@@ -1,7 +1,7 @@
 export interface IPricingPlan {
-    id:string;
+    id: string;
     title:string;
-    category:"PRICING" | "SUBSCRIPTION";
+    category:'PRICING' | 'SUBSCRIPTION';
     price:number;
     numberOfEvents:number;
     expireAfter?:number;

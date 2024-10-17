@@ -1,0 +1,100 @@
+.plan-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.user-pricing-plans{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.subscribe-card{
+    background-color: #ffffff;
+    width: 300px;
+    height: 415px;
+    border-radius: 8px;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    /* border-bottom:solid #000000 10px; */
+    border-left: solid var(--green-color) 10px;
+    padding: 20px 30px;
+}
+
+.plan-descriptions{
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.plan-descriptions span{
+    font-size: 16px;
+}
+
+.plan-descriptions .desctiption{
+    font-size: 11px;
+    line-height: 1.1;
+    margin-left: 10px;
+    margin-top: 3px;
+}
+
+.plan-descriptions .plan-feature{
+    font-weight: 500;
+}
+
+.plan-buy-btn{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.plan-buy-btn button{
+    background-color: var(--green-color);
+    color: #ffffff;
+    width: 260px;
+    padding: 8px 20px;
+    border-radius: 4px;
+}
+
+.plan-buy-btn button:hover{
+    background-color: var(--darkgreen-color);
+}
+
+
+
+@media (max-width: 1024px) {
+    .user-pricing-plans{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .subscribe-card{
+        width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-pricing-plans{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .subscribe-card{
+        width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-pricing-plans{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subscribe-card{
+        max-width: 90%
+    }
+}
+
+
+

@@ -1,4 +1,4 @@
-import { IPricingPlan } from "../interface/pricingInterface";
+// import { IPricingPlan } from "../interface/pricingInterface";
 import Api from "../services/axios";
 import adminRoutes from "../services/endPoinds/adminEndPoints";
 

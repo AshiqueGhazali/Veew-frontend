@@ -33,9 +33,10 @@ function UserProtectRoutes() {
         setIsLoading(true)
         if (response.data) {
             dispatch(login(data.id))
-            setTimeout(()=>{
-              setStatus(true)
-            },4000)
+            setStatus(true)
+            // setTimeout(()=>{
+            //   setStatus(true)
+            // },4000)
         }
       }catch (error){
         console.log(error)

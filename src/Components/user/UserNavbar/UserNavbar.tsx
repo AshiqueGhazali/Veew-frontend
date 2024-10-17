@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import Logo from '../../../assets/veewWhiteLogo.png'
 import { CgProfile } from "react-icons/cg";
 import './UserNavbar.css'
@@ -9,20 +9,45 @@ import { TbLogout2 } from "react-icons/tb";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../Redux/slice/userAuthSlice';
-import { userLogout } from '../../../api/user';
+import { getUserProfileData, userLogout } from '../../../api/user';
 import { IUser } from '../../../interface/userInterface';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Redux/store/store';
 
 
-interface UserNavbarProps {
-  userData: IUser|null; 
-}
+// interface UserNavbarProps {
+//   userData: IUser|null; 
+// }
 
-const UserNavbar:React.FC<UserNavbarProps> = ({userData}) => {
+const UserNavbar:React.FC = () => {
 
   const [dropdownVisible,setDropdownVisible]=useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
+
+  const userId = useSelector((state: RootState) => state.user.userData.id)  
+  const [userData,setUserData] = useState<IUser|null>(null)
+  
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (userId) {
+        try {
+          const response = await getUserProfileData(userId);
+          if (response.status === 200) {
+            setUserData(response.data.userData);
+          }
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
+      } else {
+        console.error('User ID is null or undefined');
+      }
+    };
+
+    fetchUserData(); 
+
+  }, [userId]);
 
   const handleMouseEnter = () => {
     setDropdownVisible(true);
@@ -72,7 +97,7 @@ const UserNavbar:React.FC<UserNavbarProps> = ({userData}) => {
 
     {dropdownVisible && (
         <div className="dropdown-menu" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
-          <div className="user-info">
+          <div className="user-info" onClick={()=>navigate('/profile')}>
             <img src="https://via.placeholder.com/50" alt="User" className="profile-pic" />
             <div>
               <p className="user-name">{`${userData?.firstName} ${userData?.lastName}`}</p>

@@ -10,7 +10,8 @@ const userRoutes = {
     setForgotPasswordOtp:'/setForgotPasswordOtp',
     verifyForgotPasswordOtp:'/verifyForgotPasswordOtp',
     resetPassword:'/resetPassword',
-    editProfile:'/editProfile'
+    editProfile:'/editProfile',
+    getSubscriptionPlans:'/getAllPlans'
 }
 
 export default userRoutes

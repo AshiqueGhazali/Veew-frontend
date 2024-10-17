@@ -1,3 +1,4 @@
+import { IPricingPlan } from "../interface/pricingInterface";
 import { IUser } from "../interface/userInterface";
 import Api from "../services/axios";
 import userRoutes from "../services/endPoinds/userEndPoints";
@@ -47,6 +48,11 @@ interface editProfileParams {
     gender?:string;
     age?:number;
     image?:string
+}
+
+interface getPlansResponse{
+    status:number;
+    data:IPricingPlan[] | null
 }
 
 export const sendOtp = async(email:string):Promise<Response> =>{
@@ -105,3 +111,11 @@ export const editProfile= async({id,firstName,lastName,phone,gender,age,image}:e
 export const uploadImg = async(formData:any):Promise<Response>=>await Api.post('/upload-img',formData,{headers: {
     'Content-Type': 'multipart/form-data',
 },})
+
+export const getSubscriptionPlans = async():Promise<getPlansResponse>=>{
+    const response = await Api.get(userRoutes.getSubscriptionPlans)
+    return {
+        status:response.status,
+        data:response.data
+    }
+}

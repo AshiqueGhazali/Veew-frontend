@@ -1,48 +1,33 @@
-import { useEffect, useState } from 'react'
 import UserNavbar from '../../../Components/user/UserNavbar/UserNavbar'
 import './Home.css'
-import { getUserProfileData } from '../../../api/user'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../Redux/store/store';
-import { IUser } from '../../../interface/userInterface'
+import Banner from '../../../assets/hero-banner2.jpg'
+
 
 
 
 const Home = () => {
-  const userId = useSelector((state: RootState) => state.user.userData.id)  
-  const [userData,setUserData] = useState<IUser|null>(null)
-  
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (userId) {
-        try {
-          const response = await getUserProfileData(userId);
-          if (response.status === 200) {
-            setUserData(response.data.userData);
-          }
-        } catch (error) {
-          console.error("Failed to fetch user data:", error);
-        }
-      } else {
-        console.error('User ID is null or undefined');
-      }
-    };
-
-    fetchUserData(); 
-
-  }, [userId]);
-
-
   return (
   <>
-    <UserNavbar userData={userData}/>
-    <div className="hero-banner">
+    <UserNavbar/>
+    {/* <div className="hero-banner">
       <div className='homePage-header'>
           <h1>Ready for Something New?<br />
           Start Searching!</h1>
           <input type="text" className='search-input' />
           <button className='btn search-btn'>Search</button>
       </div>
+    </div> */}
+    <div className='home-hero'> 
+        <img src={Banner} alt="" className='hero-banner' />
+        <div className='hero-caption'>
+        <h1>Ready for Something New?<br />
+          Start Searching!</h1>
+          <p>Find the right plan to fuel your growth</p>
+          <div className='hero-search-btn'>
+          <input type="text" className='search-input' />
+          <button className='btn search-btn'>Search</button>
+          </div>
+        </div> 
     </div>
   </>
   )

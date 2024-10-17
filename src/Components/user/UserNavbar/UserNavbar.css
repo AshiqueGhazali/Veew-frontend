@@ -6,6 +6,7 @@
   padding: 10px 20px;
   position: fixed;
   width: 100%;
+  z-index: 1;
 }
 
 .logo img {
@@ -16,6 +17,7 @@
   background-color: #f0f0f0;
   padding: 10px 20px;
   border-radius: 50px;
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .nav-links {
@@ -58,7 +60,7 @@
 }
 
 .icon-button:hover {
-  background-color: var(--yellow-color);
+  background-color: var(  --orange-color);
 }
 
 .profile-icon {
@@ -121,7 +123,7 @@
 }
 
 .dropdown-menu li:hover {
-  background-color: var(--yellow-color);
+  background-color: var(  --orange-color);
 }
 
 .dropdown-menu .navlink-icons{
