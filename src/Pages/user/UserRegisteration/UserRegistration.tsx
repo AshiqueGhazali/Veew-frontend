@@ -8,9 +8,11 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import ProgressBar from "../../../Components/user/ProgressBar/ProgressBar";
 import { useEffect, useState } from "react";
 import UseProtectLoginAndRegistration from "../../../hook/userSIde/useProtectLoginAndRegistration";
+import useProtectRoutes from "../../../hook/userSIde/useProtectRegistration";
 
 const UserRegistration = () => {
   UseProtectLoginAndRegistration();
+  useProtectRoutes()
 
   const [step, setStep] = useState(1);
   const location = useLocation();

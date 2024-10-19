@@ -11,6 +11,7 @@ const UserOtp: React.FC = () => {
 
   const [timeLeft, setTimeLeft] = useState<number>(180);
 
+
   const navigate = useNavigate();
   const location = useLocation();
   const { userEmail } = location.state || {};
@@ -80,6 +81,7 @@ const UserOtp: React.FC = () => {
       console.log("res is", response);
 
       if (response.status === 200) {
+        localStorage.setItem("isOtpVerified", "true");
         navigate("/sign-up/register");
       }
     } catch (err: any) {

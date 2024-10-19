@@ -15,3 +15,9 @@
 .login-form p:hover{
     text-decoration: underline;
 }
+
+.google-continue{
+    background-color: transparent;
+    color: black;
+    border: solid #ccc 1px;
+}

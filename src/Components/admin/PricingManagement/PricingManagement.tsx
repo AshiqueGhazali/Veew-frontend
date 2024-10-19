@@ -11,6 +11,7 @@ interface pricingMangmntPropls {
 
 const PricingManagement: React.FC<pricingMangmntPropls> = ({ search }) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   const [allPlans, setAllPlan] = useState<IPricingPlan[] | null>(null);
   const [plan, setPlan] = useState<"PRICING" | "SUBSCRIPTION">("PRICING");
 
@@ -28,7 +29,7 @@ const PricingManagement: React.FC<pricingMangmntPropls> = ({ search }) => {
 
   useEffect(() => {
     getAllPlans();
-  }, []);
+  }, [isModalOpen, isEdit]);
 
   const activePlan = (str: string) => {
     return plan === str ? "active" : "";
@@ -56,7 +57,7 @@ const PricingManagement: React.FC<pricingMangmntPropls> = ({ search }) => {
             <button onClick={() => setModalOpen(true)}>Add plan</button>
           </div>
         </div>
-        <PricingCard plan={plan} planData={allPlans} search={search} />
+        <PricingCard plan={plan} planData={allPlans} search={search} isEdit={isEdit} setIsEdit={setIsEdit}/>
       </div>
       {isModalOpen && (
         <PricingAddAndEditModal

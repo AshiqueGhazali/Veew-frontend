@@ -41,7 +41,7 @@
 }
 
 .complete .step-icon {
-    background-color: var(--darkgreen-color);
+    background-color: var( --text-color);
 }
 
 .progress-line {

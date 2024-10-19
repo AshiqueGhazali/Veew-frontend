@@ -19,6 +19,9 @@ const RegistrationForm: React.FC = () => {
       const response = await userRegister(data);
 
       if (response.status === 200) {
+        localStorage.removeItem("isEmailEntered");
+        localStorage.removeItem("isOtpVerified");
+        localStorage.removeItem("userEmail")
         navigate("/login");
       }
     } catch (error) {

@@ -122,7 +122,7 @@ const UserNavbar: React.FC = () => {
         >
           <div className="user-info" onClick={() => navigate("/profile")}>
             <img
-              src="https://via.placeholder.com/50"
+              src={userData?.image? userData.image: "https://via.placeholder.com/50"}
               alt="User"
               className="profile-pic"
             />

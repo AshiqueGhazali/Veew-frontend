@@ -137,6 +137,10 @@ const PricingAddAndEditModal: React.FC<modalProp> = ({
     }
   };
 
+  const setValuse = (value : number | undefined)=>{
+    return value !== undefined && value !== 0 ? value : ""
+  }
+
   return (
     <div className="modal-overlay">
       <div className="pricing-modal">
@@ -177,7 +181,7 @@ const PricingAddAndEditModal: React.FC<modalProp> = ({
           </div>
           <input
             type="number"
-            value={price !== undefined && price !== 0 ? price : ""}
+            value={setValuse(price)}
             className="no-spinner"
             placeholder="Enter Price"
             min={0}
@@ -185,11 +189,7 @@ const PricingAddAndEditModal: React.FC<modalProp> = ({
           />
           <input
             type="number"
-            value={
-              numberOfEvents !== undefined && numberOfEvents !== 0
-                ? numberOfEvents
-                : ""
-            }
+            value={setValuse(numberOfEvents)}
             className="no-spinner"
             placeholder="Enter Maximum Number of Events"
             onChange={(e) => setNumberOfEvents(Number(e.target.value))}
@@ -197,7 +197,7 @@ const PricingAddAndEditModal: React.FC<modalProp> = ({
           {category === "SUBSCRIPTION" && (
             <input
               type="number"
-              value={expireAfter}
+              value={setValuse(expireAfter)}
               className="no-spinner"
               placeholder="Expired After(Number of Months)"
               min={0}
@@ -206,11 +206,7 @@ const PricingAddAndEditModal: React.FC<modalProp> = ({
           )}
           <input
             type="number"
-            value={
-              maxParticipents !== undefined && maxParticipents !== 0
-                ? maxParticipents
-                : ""
-            }
+            value={setValuse(maxParticipents)}
             className="no-spinner"
             placeholder="Enter Maximum Number of Participants"
             onChange={(e) => setParticipantsCount(Number(e.target.value))}

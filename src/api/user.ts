@@ -54,6 +54,15 @@ interface getPlansResponse {
   data: IPricingPlan[] | null;
 }
 
+interface verifyPeymentParams{
+  orderCreationId: string,
+  razorpayPaymentId: string,
+  razorpayOrderId: string,
+  razorpaySignature: string,
+  planId:string
+}
+
+
 export const sendOtp = async (email: string): Promise<Response> => {
   const response = await Api.post(userRoutes.sendOtp, { email });
   return {
@@ -125,6 +134,9 @@ export const resetPassword = async (
 ): Promise<Response> =>
   await Api.post(userRoutes.resetPassword, { password, email });
 
+  export const googleAuth=async (email:string,firstName:string,lastName:string,image:string)=> await Api.post(userRoutes.googleAuth,{email,firstName,lastName,image})
+
+
 export const userLogout = async (): Promise<Response> =>
   await Api.post(userRoutes.logout);
 export const getToken = async (): Promise<getTokenRes> =>
@@ -163,3 +175,7 @@ export const getSubscriptionPlans = async (): Promise<getPlansResponse> => {
     data: response.data,
   };
 };
+
+
+export const createPayment = async(planId:string)=>await Api.post(userRoutes.createPayment,{planId})
+export const verifyPayment = async(data:verifyPeymentParams)=>await Api.post(userRoutes.verifyPayment,data)

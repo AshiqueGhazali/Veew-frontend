@@ -54,3 +54,5 @@ export const addPlan = async (data: IAddPlan): Promise<Response> =>
 export const getPlans = async () => await Api.get(adminRoutes.getPlans);
 export const updatePlan = async (data: IAddPlan): Promise<Response> =>
   await Api.put(adminRoutes.updatePlan, data);
+export const deletePlan = async(planId:string):Promise<Response>=>
+  await Api.delete(`${adminRoutes.deletePlan}?planId=${planId}`)

@@ -32,6 +32,11 @@
   .footer-middle li {
     cursor: pointer;
   }
+
+  .footer-middle li:hover {
+    cursor: pointer;
+    color: var(--darkgreen-color);
+  }
   
   .footer-right ul {
     list-style: none;
@@ -53,7 +58,6 @@
   }
   
   .footer-bottom {
-    /* text-align: center; */
     font-size: 14px;
   }
   
@@ -63,6 +67,10 @@
   
   .social-icons i {
     color: #1b3b45; 
+  }
+
+  .social-icons :hover {
+    color: var(--darkgreen-color); 
   }
   
   /* Adjust for tablets (768px and smaller) */

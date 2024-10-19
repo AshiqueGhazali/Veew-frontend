@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import "./PricingCard.css";
 import { IPricingPlan } from "../../../interface/pricingInterface";
 import PricingAddAndEditModal from "../PricingAddAndEditModal/PricingAddAndEditModal";
+import { deletePlan } from "../../../api/admin";
+import { toast } from "react-toastify";
 
 interface pricingCardProp {
   plan: string;
   planData: IPricingPlan[] | null;
   search: string;
+  isEdit:boolean;
+  setIsEdit:(status:boolean)=>void
 }
 
-const PricingCard: React.FC<pricingCardProp> = ({ plan, planData, search }) => {
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+const PricingCard: React.FC<pricingCardProp> = ({ plan, planData, search , isEdit, setIsEdit}) => {
   const [editPlanData, setForEdit] = useState<IPricingPlan | null>(null);
 
   const setDescription = (count: number) => {
@@ -34,6 +37,19 @@ const PricingCard: React.FC<pricingCardProp> = ({ plan, planData, search }) => {
     setForEdit(data);
     setIsEdit(true);
   };
+
+  const handleDelete = async(planId:string)=>{
+    try {
+      const response= await deletePlan(planId)
+      if(response.status===200){
+        toast.success(response.data.message)
+        setIsEdit(false)
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
   return (
     <>
       <div className="pricing-plans">
@@ -55,7 +71,7 @@ const PricingCard: React.FC<pricingCardProp> = ({ plan, planData, search }) => {
                 }, ${setDescription(data.numberOfEvents)}`}</p>
                 <div className="plan-action-btn">
                   <button onClick={() => handleEditModal(data)}>Edit</button>
-                  <button>Unlist</button>
+                  <button onClick={()=>handleDelete(data.id)}>Delete</button>
                 </div>
               </div>
             );

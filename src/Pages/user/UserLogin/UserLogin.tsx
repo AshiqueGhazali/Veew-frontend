@@ -6,8 +6,10 @@ import { userLogin } from "../../../api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../../Redux/slice/userAuthSlice";
+
 import UseProtectLoginAndRegistration from "../../../hook/userSIde/useProtectLoginAndRegistration";
 import ForgotPasswordModal from "../../../Components/user/ForgotPasswordModal/ForgotPasswordModal";
+import useGoogleAuth from "../../../services/googleAuth";
 
 interface loginForm {
   email: string;
@@ -26,12 +28,17 @@ export const UserLogin: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { googleLogin } = useGoogleAuth();
+
   const handleContinue = async () => {
     try {
       const response = await userLogin(formData);
 
       if (response.status === 200) {
         dispatch(login(response.data.userData?.id));
+        localStorage.removeItem("isEmailEntered");
+        localStorage.removeItem("isOtpVerified");
+        localStorage.removeItem("userEmail")
         navigate("/");
       }
     } catch (err: any) {
@@ -82,6 +89,17 @@ export const UserLogin: React.FC = () => {
           </button>
         </div>
         <p onClick={() => setIsModalOpen(true)}>Forgot Password?</p>
+
+        <div>
+          <button
+            className="continue-btn google-continue"
+            onClick={() => {
+              googleLogin();
+            }}
+          >
+            Continue with google
+          </button>
+        </div>
       </div>
 
       <ForgotPasswordModal

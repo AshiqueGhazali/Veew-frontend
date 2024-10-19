@@ -4,11 +4,16 @@ import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { sendOtp } from "../../../api/user";
+import useGoogleAuth from "../../../services/googleAuth";
+
+
+
 
 const EnterEmail = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const { googleLogin } = useGoogleAuth();
 
   const navigate = useNavigate();
 
@@ -33,6 +38,8 @@ const EnterEmail = () => {
       const response = await sendOtp(email);
 
       if (response.status === 200) {
+        localStorage.setItem("isEmailEntered", "true");
+        localStorage.setItem("userEmail",email)
         navigate("/sign-up/verification", {
           state: {
             userEmail: email,
@@ -83,7 +90,7 @@ const EnterEmail = () => {
         <p>or continue with</p>
       </div>
       <div className="social-buttons">
-        <button className="google-btn social-button">
+        <button className="google-btn social-button" onClick={() => googleLogin()}>
           <FaGoogle /> Google
         </button>
         <button className="facebook-btn social-button">
