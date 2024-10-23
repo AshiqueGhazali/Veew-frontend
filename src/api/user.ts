@@ -54,13 +54,6 @@ interface getPlansResponse {
   data: IPricingPlan[] | null;
 }
 
-interface verifyPeymentParams{
-  orderCreationId: string,
-  razorpayPaymentId: string,
-  razorpayOrderId: string,
-  razorpaySignature: string,
-  planId:string
-}
 
 
 export const sendOtp = async (email: string): Promise<Response> => {
@@ -178,4 +171,4 @@ export const getSubscriptionPlans = async (): Promise<getPlansResponse> => {
 
 
 export const createPayment = async(planId:string)=>await Api.post(userRoutes.createPayment,{planId})
-export const verifyPayment = async(data:verifyPeymentParams)=>await Api.post(userRoutes.verifyPayment,data)
+export const subscribePlan = async(planId:string,sessionId:string):Promise<Response>=>await Api.post(userRoutes.subscribePlan,{planId,sessionId})

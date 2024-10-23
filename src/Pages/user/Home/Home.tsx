@@ -1,13 +1,13 @@
 import UserNavbar from "../../../Components/user/UserNavbar/UserNavbar";
 import "./Home.css";
-import Banner from "../../../assets/hero-banner2.jpg";
+import Banner from "../../../assets/hero-banner.jpg";
 
 const Home = () => {
   return (
     <>
+      <img src={Banner} alt="" className="hero-banner" />
       <UserNavbar />
       <div className="home-hero">
-        <img src={Banner} alt="" className="hero-banner" />
         <div className="hero-caption">
           <h1>
             Ready for Something New?

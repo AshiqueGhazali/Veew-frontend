@@ -33,7 +33,7 @@ const AdminLogin: React.FC = () => {
 
       if (response.status === 200) {
         dispatch(adminlogin());
-        navigate("/admin/");
+        navigate("/admin");
       }
     } catch (error: any) {
       if (error.response.status === 401) {

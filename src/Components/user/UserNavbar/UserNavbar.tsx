@@ -59,6 +59,7 @@ const UserNavbar: React.FC = () => {
       const response = await userLogout();
       if (response.status === 200) {
         dispatch(logout());
+        localStorage.removeItem("isLogin")
         navigate("/landing");
       }
     } catch (error) {

@@ -8,6 +8,8 @@ import Home from "../Pages/user/Home/Home";
 import UserProtectRoutes from "./UserProtectRoutes";
 import UserProfile from "../Pages/user/UserProfile/UserProfile";
 import Pricing from "../Pages/user/Pricing/Pricing";
+import SuccessPage from "../Pages/user/SuccessPage/SuccessPage";
+import FailurePage from "../Pages/user/SuccessPage/FailurePage";
 
 const UserRoutes: React.FC = () => {
   return (
@@ -20,6 +22,8 @@ const UserRoutes: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile/*" element={<UserProfile />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/success" element={<SuccessPage/>} />
+          <Route path="/failure" element={<FailurePage/>} />
         </Route>
       </Routes>
     </>

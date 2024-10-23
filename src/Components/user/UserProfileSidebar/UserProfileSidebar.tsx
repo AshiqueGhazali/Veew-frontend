@@ -150,6 +150,7 @@ const UserProfileSidebar: React.FC<UserSidebarProps> = ({
 
       if (response.status === 200) {
         dispatch(logout());
+        localStorage.removeItem("isLogin")
         navigate("/login");
       }
     } catch (error) {

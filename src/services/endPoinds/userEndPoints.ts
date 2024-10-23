@@ -14,7 +14,7 @@ const userRoutes = {
   editProfile: "/editProfile",
   getSubscriptionPlans: "/getAllPlans",
   createPayment:'/createPayment',
-  verifyPayment:'/verifyPayment'
+  subscribePlan:'/subscribePlan'
 };
 
 export default userRoutes;

@@ -13,6 +13,11 @@ const LandingPage = () => {
     navigate("/sign-up");
   };
 
+  // const isStart = JSON.parse(localStorage.getItem("isEmailEntered")||'')
+  // if(isStart){
+  //   navigate('/sign-up')
+  // }
+
   return (
     <>
       <GuestNavbar page="signIn" />

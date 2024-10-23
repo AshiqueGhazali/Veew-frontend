@@ -36,6 +36,7 @@ export const UserLogin: React.FC = () => {
 
       if (response.status === 200) {
         dispatch(login(response.data.userData?.id));
+        localStorage.setItem("isLogin","true")
         localStorage.removeItem("isEmailEntered");
         localStorage.removeItem("isOtpVerified");
         localStorage.removeItem("userEmail")

@@ -11,10 +11,26 @@ const UserOtp: React.FC = () => {
 
   const [timeLeft, setTimeLeft] = useState<number>(180);
 
-
   const navigate = useNavigate();
   const location = useLocation();
   const { userEmail } = location.state || {};
+
+  useEffect(() => {
+    const storedStartTime = localStorage.getItem("otpStartTime");
+    const currentTime = Date.now();
+    
+    if (storedStartTime) {
+      const elapsedTime = Math.floor((currentTime - parseInt(storedStartTime, 10)) / 1000);
+      const updatedTimeLeft = Math.max(180 - elapsedTime, 0);
+      setTimeLeft(updatedTimeLeft);
+
+      if (updatedTimeLeft === 0) {
+        localStorage.removeItem("otpStartTime");
+      }
+    } else {
+      localStorage.setItem("otpStartTime", currentTime.toString());
+    }
+  }, []);
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -24,6 +40,8 @@ const UserOtp: React.FC = () => {
       return () => clearTimeout(timerId);
     }
   }, [timeLeft]);
+
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,

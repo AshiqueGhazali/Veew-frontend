@@ -2,17 +2,25 @@ import { useNavigate } from "react-router-dom";
 import { getToken } from "../../api/user";
 import { login } from "../../Redux/slice/userAuthSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const UseProtectLoginAndRegistration = async () => {
   const dispath = useDispatch();
   const navigate = useNavigate();
+  const [loginStatus , setStatus] = useState<boolean>(false)
+  const status = JSON.parse(localStorage.getItem("isLogin") || '')
 
-  let response = await getToken();
+  if(status){
+    let response = await getToken();
+    setStatus(response.data.status)
+  }
 
-  if (response.data.status) {
-    dispath(login(response.data.decoded));
+
+  if (loginStatus) {
+    dispath(login(loginStatus));
     navigate("/");
   }
+
 
   return;
 };
