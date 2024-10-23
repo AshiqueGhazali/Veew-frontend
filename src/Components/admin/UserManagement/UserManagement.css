@@ -47,4 +47,25 @@ tr:hover {
     transition: background-color 0.5s ease, box-shadow 0.3s ease; 
     outline: none; 
 }
-  
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+
+.page-btn {
+    padding: 0 12px;
+    margin: 0 5px;
+    background-color: #f1f1f1;
+    border: none;
+    border: solid #ccc 1px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.page-btn.active {
+    background-color: #000000;
+    color: white;
+}

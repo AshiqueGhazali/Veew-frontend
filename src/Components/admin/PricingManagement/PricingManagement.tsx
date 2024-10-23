@@ -4,6 +4,7 @@ import PricingCard from "../PricingCard/PricingCard";
 import PricingAddAndEditModal from "../PricingAddAndEditModal/PricingAddAndEditModal";
 import { IPricingPlan } from "../../../interface/pricingInterface";
 import { getPlans } from "../../../api/admin";
+import Subscribers from "../Subscribers/Subscribers";
 
 interface pricingMangmntPropls {
   search: string;
@@ -58,6 +59,7 @@ const PricingManagement: React.FC<pricingMangmntPropls> = ({ search }) => {
           </div>
         </div>
         <PricingCard plan={plan} planData={allPlans} search={search} isEdit={isEdit} setIsEdit={setIsEdit}/>
+        <Subscribers/>
       </div>
       {isModalOpen && (
         <PricingAddAndEditModal

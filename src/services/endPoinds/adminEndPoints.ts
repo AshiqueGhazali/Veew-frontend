@@ -7,7 +7,8 @@ const adminRoutes = {
   addPlan: "/admin/addPlan",
   getPlans: "/admin/getPlan",
   updatePlan: "/admin/updatePlan",
-  deletePlan:"/admin/deletePlan"
+  deletePlan:"/admin/deletePlan",
+  getSubscribers:'/admin/getAllSubscribers'
 };
 
 export default adminRoutes;
