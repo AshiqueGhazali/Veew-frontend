@@ -1,0 +1,105 @@
+.add-event-form-content {
+    flex-grow: 1;
+}
+
+.event-form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-form-group input,
+.event-form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: transparent;
+}
+.event-form-group label{
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .event-form-group input{
+    width: 450px;
+}
+
+.form-row-date{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.form-row-date input{
+    min-width: 250px;
+}
+
+.continue-button {
+    background-color: #003b5c;
+    color: white;
+    padding: 10px 80px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.event-form-btn{
+    display: flex;
+    gap: 15px;
+    justify-content: end;
+}
+.event-form-btn input{
+    padding: 10px 40px;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.event-form-btn input:hover{
+    background-color: #003b5c;
+    color: #ffffff;
+}
+
+hr{
+    margin-bottom: 15px;
+}
+
+@media(max-width:1024px){
+    .event-form-group {
+        display: flex;
+        width: 90%;
+        flex-direction: column;
+        align-items: start;
+    }
+    .event-form-btn{
+        display: flex;
+        justify-content: center;
+    }
+    .form-row{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .form-row-date{
+        flex-direction: column;
+        gap: 10px;
+        align-items: start;
+    }
+}
+
+@media(max-width:480px){
+    .event-form-group input,
+    .event-form-group textarea {
+        width: 350px;
+
+    }
+    .form-row .event-form-group input{
+        width: 350px;
+    }
+}

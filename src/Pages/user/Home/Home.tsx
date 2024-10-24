@@ -16,7 +16,7 @@ const Home = () => {
           </h1>
           <p>Find the right plan to fuel your growth</p>
           <div className="hero-search-btn">
-            <input type="text" className="search-input" placeholder="search..."/>
+            <input type="search" className="search-input" placeholder="search..."/>
             <button className="btn search-btn">Search</button>
           </div>
         </div>

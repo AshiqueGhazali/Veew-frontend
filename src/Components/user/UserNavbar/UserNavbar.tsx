@@ -70,6 +70,10 @@ const UserNavbar: React.FC = () => {
   const isActive = (path: string) => {
     return location.pathname === path ? "active" : "";
   };
+
+  const navigateToAddEvent = ()=>{
+    navigate('/add-new-event')
+  }
   return (
     <nav className="navbar">
       <div className="logo">
@@ -105,7 +109,7 @@ const UserNavbar: React.FC = () => {
         </ul>
       </div>
       <div className="nav-icons">
-        <button className="icon-button">+</button>
+        <button className="icon-button" onClick={navigateToAddEvent}>+</button>
         <div
           className="profile-icon"
           onMouseEnter={handleMouseEnter}

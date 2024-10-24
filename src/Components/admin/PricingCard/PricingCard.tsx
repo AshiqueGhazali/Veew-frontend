@@ -39,16 +39,23 @@ const PricingCard: React.FC<pricingCardProp> = ({ plan, planData, search , isEdi
   };
 
   const handleDelete = async(planId:string)=>{
-    try {
-      const response= await deletePlan(planId)
-      if(response.status===200){
-        toast.success(response.data.message)
-        setIsEdit(false)
+      const cardElement = document.querySelector(`.pricing-plan[data-id="${planId}"]`);
+  
+      if (cardElement) {
+        cardElement.classList.add('removing');
       }
-    } catch (error) {
-      console.log(error);
       
-    }
+      setTimeout(async () => {
+        try {
+          const response = await deletePlan(planId);
+          if (response.status === 200) {
+            toast.success(response.data.message);
+            setIsEdit(false);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }, 500); 
   }
   return (
     <>

@@ -37,6 +37,10 @@ const Subscribers:React.FC = () => {
 
         fetchSubscribers()
     },[])
+
+    const setDate = (date:Date = new Date())=>{
+      return new Date(date).toLocaleDateString()
+    }
     
   return (
     <div className="list-table">
@@ -61,11 +65,11 @@ const Subscribers:React.FC = () => {
                     <td>{index+1}</td>
                     <td>{`${subscriber.user.firstName} ${subscriber.user.lastName}`}</td>
                     <td>{subscriber.user.email}</td>
+                    <td style={{color:'green'}}>{subscriber.pricing.category}</td>
                     <td>{subscriber.pricing.title}</td>
-                    <td>{subscriber.pricing.category}</td>
-                    <td>{subscriber.pricing.category}</td>
-                    <td>{subscriber.pricing.category}</td>
-                    <td>{subscriber.maxNumberOfEvents}</td>
+                    <td>{`${setDate(subscriber.startDate)}`}</td>
+                    <td>{`${setDate(subscriber.expireDate)}`}</td>
+                    <td>{subscriber.numberOfEventsUsed}</td>
                 </tr>
                 )
               })
