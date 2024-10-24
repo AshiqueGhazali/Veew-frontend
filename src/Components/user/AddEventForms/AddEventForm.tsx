@@ -1,7 +1,10 @@
 import React from "react";
 import "./AddEventForm.css";
 
-const AddEventForm: React.FC = () => {
+interface AddFormProps {
+     setForm:()=>void
+}
+const AddEventForm: React.FC<AddFormProps> = ({setForm}) => {
   return (
     <div className="add-event-form-content">
       <form>
@@ -39,8 +42,9 @@ const AddEventForm: React.FC = () => {
         </div>
         <hr/>
         <div className="event-form-btn">
-        <input type="reset" />
-          <button type="submit" className="continue-button">CONTINUE</button>
+            {/* <p>afdsssssssssssssss</p> */}
+            <input type="reset" />
+          <button type="submit" className="continue-button" onClick={setForm}>CONTINUE</button>
         </div>
       </form>
     </div>

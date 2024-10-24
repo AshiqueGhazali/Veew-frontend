@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './AddEvent.css'
 import AddEventStatusBar from '../../../Components/user/UserAddEventSidebar/AddEventStatusBar'
 import AddEventForm from '../../../Components/user/AddEventForms/AddEventForm'
+import ImageUploader from '../../../Components/user/AddEventForms/ImageUploader'
 
 const AddEvent:React.FC = () => {
+    const [IsForm , setForm] = useState<boolean>(false)
   return (
     <div className='addEventPage'>
         <AddEventStatusBar/>
@@ -12,7 +14,10 @@ const AddEvent:React.FC = () => {
             <p>Create, schedule, and promote your event in just three simple steps.
             Let's make your event unforgettable!</p>
             <div className='add-event-form'>
-                <AddEventForm/>
+                {IsForm ? 
+                <ImageUploader setForm={()=>setForm(false)}/> : 
+                <AddEventForm setForm={()=>setForm(true)}/>}
+                
             </div>
         </div>
     </div>

@@ -29,24 +29,3 @@ const AddEventStatusBar:React.FC= () => {
 }
 
 export default AddEventStatusBar
-
-
-// <div className='event-adding-status'>
-    //     <img src={Logo} alt="" onClick={()=>{navigate(-2)}}/>
-    //     <div className='progress-status'>
-    //         <div className='event-progressbar'>
-    //             <div className={`form-step ${step===1 && 'active'} ${step > 1 && 'completed'}`}>
-    //                 <div className="prog-icon">1</div>
-    //                 <p>Add Event Info</p>
-    //             </div>
-    //             <div className={`form-step ${step===2 && 'active'} ${step > 2 && 'completed'}`}>
-    //                 <div className="prog-icon">2</div>
-    //                 <p>Schedule Date & Time</p>
-    //             </div>
-    //             <div className={`form-step ${step===3 && 'active'} ${step > 3 && 'completed'}`}>
-    //                 <div className="prog-icon">3</div>
-    //                 <p>Media & Banner</p>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div>
