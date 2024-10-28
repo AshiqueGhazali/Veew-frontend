@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./PricingManagement.css";
-import PricingCard from "../PricingCard/PricingCard";
-import PricingAddAndEditModal from "../PricingAddAndEditModal/PricingAddAndEditModal";
+import PricingCard from "../../../Components/admin/PricingCard/PricingCard";
+import PricingAddAndEditModal from "../../../Components/admin/PricingAddAndEditModal/PricingAddAndEditModal";
 import { IPricingPlan } from "../../../interface/pricingInterface";
 import { getPlans } from "../../../api/admin";
-import Subscribers from "../Subscribers/Subscribers";
+import Subscribers from "../../../Components/admin/Subscribers/Subscribers";
 
-interface pricingMangmntPropls {
+interface pricingMangmntProps {
   search: string;
 }
 
-const PricingManagement: React.FC<pricingMangmntPropls> = ({ search }) => {
+const PricingManagement: React.FC<pricingMangmntProps> = ({ search }) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [allPlans, setAllPlan] = useState<IPricingPlan[] | null>(null);

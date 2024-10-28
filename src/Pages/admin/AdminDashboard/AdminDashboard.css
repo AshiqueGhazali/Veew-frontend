@@ -12,6 +12,7 @@
 .dashboard-pages{
     padding-left: 30px;
     margin-left: 230px;
+    max-width: 85%;
 }
 
 .managements {

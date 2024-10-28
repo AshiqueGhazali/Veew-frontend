@@ -1,6 +1,7 @@
 .event-features{
     width: 40%;
     background-color: #d3dad7;
+    /* height: 90vh; */
 }
 .hosting-feature-list {
     display: flex;
@@ -39,7 +40,8 @@
 
 @media(min-width:1024px){
     .event-features{
-        height: 100%;
+        height: 90vh;
+        /* margin-top: 0; */
     }
     .hosting-feature-list{
         height: 90%;

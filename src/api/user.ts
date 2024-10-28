@@ -55,6 +55,18 @@ interface getPlansResponse {
 }
 
 
+// interface createEventParams {
+//   image: File;       
+//   eventTitle: string;
+//   category: string;  
+//   description: string;
+//   date: Date;
+//   startTime: string;
+//   endTime: string;
+//   participantCount: number;
+//   ticketPrice: number;
+// }
+
 
 export const sendOtp = async (email: string): Promise<Response> => {
   const response = await Api.post(userRoutes.sendOtp, { email });
@@ -172,3 +184,9 @@ export const getSubscriptionPlans = async (): Promise<getPlansResponse> => {
 
 export const createPayment = async(planId:string)=>await Api.post(userRoutes.createPayment,{planId})
 export const subscribePlan = async(planId:string,sessionId:string):Promise<Response>=>await Api.post(userRoutes.subscribePlan,{planId,sessionId})
+export const getPlanOfUser = async()=>await Api.get(userRoutes.getPlanOfUser)
+export const createEvent = async(data:FormData)=>await Api.post(userRoutes.createEvent,data ,{
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+})

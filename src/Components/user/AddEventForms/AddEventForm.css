@@ -21,23 +21,23 @@
     font-size: 13px;
     margin-bottom: 5px;
 }
-.form-row {
+/* .form-row {
     display: flex;
     gap: 20px;
 }
 
 .form-row .event-form-group input{
     width: 450px;
-}
+} */
 
-.form-row-date{
+.form-row{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
 }
 
-.form-row-date input{
+.form-row input{
     min-width: 250px;
 }
 
@@ -138,11 +138,11 @@ hr{
         display: flex;
         justify-content: center;
     }
-    .form-row{
+    /* .form-row{
         flex-direction: column;
         gap: 10px;
-    }
-    .form-row-date{
+    } */
+    .form-row{
         flex-direction: column;
         gap: 10px;
         align-items: start;
@@ -178,3 +178,4 @@ hr{
       transform: translateX(0);
     }
 }
+
