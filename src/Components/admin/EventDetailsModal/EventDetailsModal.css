@@ -1,0 +1,116 @@
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+  
+  .eventDetails-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 600px;
+    max-width: 90%;
+    border-top: solid #27d095 10px;
+    animation: fadeIn 1s ease-in-out; 
+  
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-header h3 {
+    margin: 0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .eventDetails-modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    margin: 20px 0;
+  }
+
+  .eventDetails-modal-body img{
+    width: 480px;
+    max-width: 100%;
+    height: 270px;
+  }
+
+  .eventDetails-modal-body .body-text{
+    margin-top: 20px;
+    text-align: start;
+  }
+
+  .eventDetails-modal-body .event-details-text{
+    display: flex;
+    gap: 20px;
+  }
+  
+  .eventDetails-modal-body .event-details-text span{
+    font-weight:500;
+    color: #f54f5f;
+  }
+  .eventDetails-modal-body input{
+    padding: 10px;
+    width: 500px;
+    max-width: 90%;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .eventDetails-modal-footer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .eventDetails-modal-footer button{
+    width: 500px;
+    max-width: 90%;
+    color: #ffffff;
+    background-color: #000000;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .eventDetails-modal-footer button:hover {
+    background-color: #1a1b1b;
+  }
+  
+  @media (max-width:780px) {
+    .eventDetails-modal-body .event-details-text{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+  }

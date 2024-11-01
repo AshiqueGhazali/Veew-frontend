@@ -95,15 +95,16 @@ const AddEventForm: React.FC<AddFormProps> = ({setForm, formData,setFormData ,ma
     if(!validateForm()){
       return
     }
-    console.log("form data is :",formData);
     setForm()
     
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+
+  const eventTypes = ["SEMINAR","WEBINAR","WORKSHOP","CONFERENCE","OTHER"]
 
   const resetForm = ()=>{
     setFormData({
@@ -132,7 +133,14 @@ const AddEventForm: React.FC<AddFormProps> = ({setForm, formData,setFormData ,ma
         <div className="form-row">
           <div className="event-form-group">
             <label htmlFor="">Event Category</label>
-            <input type="text" value={formData.category} name="category" onChange={handleInputChange}/>
+            {/* <input type="select" value={formData.category} name="category" onChange={handleInputChange}/> */}
+            <select name="category" id="" onChange={handleInputChange}>
+            {eventTypes.map((value,index)=>{
+              return (
+                <option value={value} key={index}>{value}</option>
+              )
+            })}
+            </select>
           </div>
           <div className="event-form-group">
             <label htmlFor="">Ticket Price</label>

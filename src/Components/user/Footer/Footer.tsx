@@ -1,18 +1,24 @@
+import React from "react";
 import "./Footer.css";
 import Logo from "../../../assets/veewBlackLogo.png";
+import WhiteLogo from "../../../assets/veewWhiteLogo.png"
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaFacebookF } from "react-icons/fa";
 
-const Footer = () => {
+interface footerProb{
+  theme?:'light' | 'dark';
+}
+
+const Footer:React.FC<footerProb> = ({theme}) => {
   return (
-    <div className="clint-footer">
+    <div className={`clint-footer ${theme==='light'&& 'footer-white'}`}>
       <footer className="footer">
         <div className="footer-container">
           <div className="footer-left">
-            {/* <h2>Logo</h2> */}
-            <img src={Logo} alt="" />
+            {theme==='light' ? <img src={WhiteLogo} alt="" /> : <img src={Logo} alt="" /> }
+            
           </div>
           <div className="footer-middle">
             <ul>

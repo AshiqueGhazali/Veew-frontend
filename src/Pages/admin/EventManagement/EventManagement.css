@@ -38,7 +38,6 @@
     background-color: black;
 }
 
-
 @media(max-width : 480px){
     .eventhandle-btn button{
         width: 100px;

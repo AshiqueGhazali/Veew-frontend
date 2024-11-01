@@ -9,3 +9,12 @@ export interface IUser {
   image?: string;
   phone?: string;
 }
+
+
+export enum EventTypes {
+  SEMINAR = "SEMINAR",
+  WEBINAR = "WEBINAR",
+  WORKSHOP = "WORKSHOP",
+  CONFERENCE = "CONFERENCE",
+  OTHER = "OTHER"
+}

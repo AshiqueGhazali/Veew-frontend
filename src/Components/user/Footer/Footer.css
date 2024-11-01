@@ -72,6 +72,13 @@
   .social-icons :hover {
     color: var(--darkgreen-color); 
   }
+
+  .footer-white .footer{
+    color: #ffffff;
+  }
+  .footer-white{
+    border-top: 1.5px solid #ccc;
+  }
   
   /* Adjust for tablets (768px and smaller) */
 @media (max-width: 768px) {
