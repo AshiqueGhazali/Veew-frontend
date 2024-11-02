@@ -47,7 +47,7 @@ const AdminHead: React.FC<AdminHeadProps> = ({ setSearch }) => {
           <h2>{head}</h2>
         </div>
         <div className="admin-search-input">
-          <label>Search for stuff</label>
+          <label>Search...</label>
           <input
             id="search"
             type="search"

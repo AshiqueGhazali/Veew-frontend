@@ -11,6 +11,8 @@ import Pricing from "../Pages/user/Pricing/Pricing";
 import SuccessPage from "../Pages/user/SuccessPage/SuccessPage";
 import FailurePage from "../Pages/user/SuccessPage/FailurePage";
 import AddEvent from "../Pages/user/AddEvent/AddEvent";
+import EventsPage from "../Pages/user/EventsPage/EventsPage";
+import EventDetailsPage from "../Pages/user/EventDetailsPage/EventDetailsPage";
 
 const UserRoutes: React.FC = () => {
   return (
@@ -21,11 +23,13 @@ const UserRoutes: React.FC = () => {
         <Route path="/login" element={<UserLogin />} />
         <Route element={<UserProtectRoutes />}>
           <Route path="/" element={<Home />} />
+          <Route path="/events" element={<EventsPage/>}/>
           <Route path="/profile/*" element={<UserProfile />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/success" element={<SuccessPage/>} />
           <Route path="/failure" element={<FailurePage/>} />
           <Route path="/add-new-event" element={<AddEvent/>}/>
+          <Route path="/event-details" element={<EventDetailsPage/>}/>
         </Route>
       </Routes>
     </>

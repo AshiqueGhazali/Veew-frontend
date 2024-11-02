@@ -16,7 +16,10 @@ const userRoutes = {
   createPayment:'/createPayment',
   subscribePlan:'/subscribePlan',
   getPlanOfUser:'/getPlanOfUser',
-  createEvent: '/createEvent'
+  createEvent: '/createEvent',
+  getUpcomingEvents: '/getAllEvents',
+  getAllCategories: '/getAllCategories',
+  getEventDetails: '/getEventDetails'
 };
 
 export default userRoutes;

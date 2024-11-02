@@ -1,11 +1,47 @@
 import UserNavbar from "../../../Components/user/UserNavbar/UserNavbar";
 import "./Home.css";
 import Banner from "../../../assets/hero-banner.jpg";
-import EventCard from "../../../Components/admin/EventCard/EventCard";
-import { EventTypes } from "../../../interface/userInterface";
 import Footer from "../../../Components/user/Footer/Footer";
+import { useEffect, useState } from "react";
+import IEvents from "../../../interface/EventsInterface";
+import { getAllCategories, getUpcomingEvents } from "../../../api/user";
+import HomeEvents from "../../../Components/user/HomeEvents/HomeEvents";
+import StatsSection from "../../../Components/user/StatusSection/StatusSection";
 
 const Home = () => {
+  const [events,setEvents] = useState<IEvents[]|null>(null)
+  const [categories , setCategories] = useState<string[]>()
+
+  useEffect(() => {            
+    const getAllEventDetails = async()=>{
+      try {
+        const response = await getUpcomingEvents()
+
+        if(response.status === 200){
+          setEvents(response.data)
+          
+        }
+      } catch (error) {
+        console.log("somthing went wronggg");
+        
+      }
+    }
+
+    const getCategories = async()=>{
+      try {
+        const response = await getAllCategories()          
+
+        if(response.status===200){            
+          setCategories(response.data)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+      getAllEventDetails()
+      getCategories()
+  }, []);
+
   return (
     <>
       <img src={Banner} alt="" className="hero-banner" />
@@ -25,10 +61,15 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <StatsSection/>
         <div className="event-card-home">
-          {/* <EventCard category={EventTypes.SEMINAR}/>
-          <EventCard category={EventTypes.SEMINAR}/>
-          <EventCard category={EventTypes.SEMINAR}/> */}
+          {
+            categories?.map((category)=>{
+              return (
+                <HomeEvents category={category} events={events} key={category}/>
+              )
+            })
+          }
         </div>
 
         <Footer theme="light"/>

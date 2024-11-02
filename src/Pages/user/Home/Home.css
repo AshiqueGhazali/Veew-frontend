@@ -79,7 +79,9 @@
 }
 
 .event-card-home{
-    padding: 6%;
+    padding: 1% 6%;
+    /* background-color: var(--darkgreen-color); */
+    /* box-shadow: inset 0 10px 10px rgba(14, 24, 35, 0.5); */
 }
 
 

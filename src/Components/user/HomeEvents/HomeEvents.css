@@ -6,6 +6,7 @@
 
 .home-titleCards h2{
     margin-bottom: 8px;
+    color: #ffffff;
 }
 
 .card-list{
@@ -25,9 +26,9 @@
     left: 0; 
     right: 0; 
     bottom: 0; 
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(240, 240, 240, 0.5); 
     border-radius: 4px;
-    color: white; 
+    color: #000000; 
     display: flex; 
     justify-content: center; 
     align-items: center; 

@@ -190,3 +190,7 @@ export const createEvent = async(data:FormData)=>await Api.post(userRoutes.creat
     'Content-Type': 'multipart/form-data',
   },
 })
+
+export const getUpcomingEvents = async()=>await Api.get(userRoutes.getUpcomingEvents)
+export const getAllCategories = async()=>await Api.get(userRoutes.getAllCategories)
+export const getEventDetails = async(eventId:string)=> Api.get(`${userRoutes.getEventDetails}?eventId=${eventId}`)

@@ -1,6 +1,7 @@
 import React from 'react'
-import './EventCard.css'
+import './HomeEvents.css'
 import IEvents from '../../../interface/EventsInterface';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -9,7 +10,8 @@ interface eventCardProps {
   events : IEvents[] | null;
 }
 
-const EventCard:React.FC<eventCardProps> = ({category,events}) => {
+const HomeEvents:React.FC<eventCardProps> = ({category,events}) => {
+  const navigate = useNavigate()
 
   const filteredEvents = events?.filter((event) => {
     return (
@@ -25,7 +27,7 @@ const EventCard:React.FC<eventCardProps> = ({category,events}) => {
         <div className="card-list">
           {filteredEvents?.map((event,ind)=>{
             return (
-              <div className='card' key={ind}>
+              <div className='card' key={ind} onClick={()=>navigate(`/event-details?eventId=${event.id}`)}>
                   <img src={event.imageUrl} alt="" />
                   <div className='home-card-overlay'>
                   <p>{event.eventTitle}</p>
@@ -40,4 +42,4 @@ const EventCard:React.FC<eventCardProps> = ({category,events}) => {
   )
 }
 
-export default EventCard
+export default HomeEvents
