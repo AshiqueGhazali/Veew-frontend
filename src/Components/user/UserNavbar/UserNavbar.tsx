@@ -78,14 +78,14 @@ const UserNavbar: React.FC = () => {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <button
               type="button"
-              className="inline-flex mr-2 items-center rounded-md bg-[#937e54] px-3 py-2 text-xs font-normal  text-white shadow-sm hover:bg-[#bea980]"
+              className="inline-flex mr-2 items-center rounded-md bg-[#937e54] px-2 py-1 text-xs font-normal  text-white shadow-sm hover:bg-[#bea980]"
               onClick={navigateToAddEvent}
             >
               ADD EVENT
             </button>
             <button
               type="button"
-              className="inline-flex items-center rounded-md bg-[#937e54] px-3 py-2  font-normal text-xs text-white shadow-sm hover:bg-[#bea980]"
+              className="inline-flex items-center rounded-md bg-[#937e54] px-2 py-1  font-normal text-xs text-white shadow-sm hover:bg-[#bea980]"
               onClick={handleLogout}
             >
               LOGOUT
