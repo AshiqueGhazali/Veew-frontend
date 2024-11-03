@@ -5,9 +5,23 @@
     gap: 30px;
 }
 .profile-page{
-    width: 80%;
+    width: 100%;
     height: 190vh;
+    padding: 30px 50px;
     background-color: #ffffff;
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
 
+}
+
+@media(max-width:480px){
+    .user-profile{
+        display: flex;
+        width: 100%;
+        padding: 10px 10px;
+        gap: 30px;
+    }
+
+    .profile-page{
+        padding: 10px 15px;
+    }
 }

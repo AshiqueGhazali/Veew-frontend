@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { Radio, RadioGroup } from "@headlessui/react";
-
-import banner from "../../../assets/event_background_banner.jpg";
+import { getEventDetails } from "../../../api/user";
+import { useLocation, useNavigate } from "react-router-dom";
+import IEvents from "../../../interface/EventsInterface";
+import queryString from "query-string";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -31,21 +31,6 @@ const product = {
       alt: "Model wearing plain white basic tee.",
     },
   ],
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
-  sizes: [
-    { name: "XXS", inStock: false },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "2XL", inStock: true },
-    { name: "3XL", inStock: true },
-  ],
   description:
     'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
   highlights: [
@@ -57,14 +42,38 @@ const product = {
   details:
     'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 };
-const reviews = { href: "#", average: 4, totalCount: 117 };
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
 const EventDetailsPage: React.FC = () => {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+
+  const [eventDetails , setEventDetails] = useState<IEvents | null>(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+
+  useEffect(()=>{
+    const eventId = queryString.parse(location.search).eventId as string
+
+      const fetchEventDetails = async()=>{
+          try {
+              const response = await getEventDetails(eventId)
+
+              if(response.status===200){
+                console.log(response.data)
+                setEventDetails(response.data)
+              }
+          } catch (error) {
+              console.log(error);
+              navigate('/events')
+              
+          }
+      }
+
+      fetchEventDetails()
+  },[])
+
+  const getDate = (date?:string)=>{
+    return date && new Date(date).toLocaleDateString()
+  }
 
   return (
     <div className="bg-white">
@@ -108,8 +117,8 @@ const EventDetailsPage: React.FC = () => {
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="overflow-hidden rounded-lg h-[500px]">
             <img
-              alt={product.images[0].alt}
-              src={banner}
+              alt='event banner'
+              src={eventDetails?.imageUrl}
               className="h-full w-full object-cover object-center"
             />
           </div>
@@ -119,47 +128,96 @@ const EventDetailsPage: React.FC = () => {
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              {product.name}
+              {eventDetails?.eventTitle}
             </h1>
           </div>
 
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">
-              {product.price}
+            <p className="text-3xl tracking-tight font-semibold text-gray-900">
+              {eventDetails && eventDetails?.ticketPrice > 0 ? `₹ ${eventDetails?.ticketPrice}` : 'FREE'}
             </p>
 
             {/* Reviews */}
             <div className="mt-6">
-              <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center">
-                <div className="flex items-center">
-                  {[0, 1, 2, 3, 4].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      aria-hidden="true"
-                      className={classNames(
-                        reviews.average > rating
-                          ? "text-gray-900"
-                          : "text-gray-200",
-                        "h-5 w-5 flex-shrink-0"
-                      )}
-                    />
-                  ))}
+                <div className="flex  flex-col">
+                  <p className="cursor-pointer"><span className="text-base font-medium">Date </span> : {getDate(eventDetails?.date)}</p>
+                  <p className="cursor-pointer"><span className="text-base font-medium">Time </span> : {`${eventDetails?.startTime} TO ${eventDetails?.endTime}`}</p>
+                  <p className="cursor-pointer"><span className="text-base font-medium">Hosts By </span> : <span className="hover:underline">{`${eventDetails?.user.firstName} ${eventDetails?.user.lastName}`}</span></p>
+                  <p className="cursor-pointer"><span className="text-base font-medium">Category </span> : {eventDetails?.category}</p>
+
                 </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a
-                  href={reviews.href}
-                  className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  {reviews.totalCount} reviews
-                </a>
               </div>
             </div>
 
-            <form className="mt-10">
-              {/* Colors */}
+            <button
+                type="submit"
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-darkBlue px-8 py-3 text-base font-medium text-white hover:bg-secondaryColor focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                BOOK TICKET
+              </button>
+          </div>
+
+          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+            {/* Description and details */}
+            <div>
+              <h3 className="sr-only">Description</h3>
+
+              <div className="space-y-6">
+                <p className="text-base text-gray-900">{eventDetails?.description}</p>
+              </div>
+            </div>
+
+            <div className="mt-10">
+              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+
+              <div className="mt-4">
+                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                    <li  className="text-gray-400">
+                      <span className="text-gray-600">Limited spots</span>
+                    </li>
+                    <li  className="text-gray-400">
+                      <span className="text-gray-600">Insightful Discussions</span>
+                    </li>
+                    <li  className="text-gray-400">
+                      <span className="text-gray-600">Networking Opportunities</span>
+                    </li>
+                    <li  className="text-gray-400">
+                      <span className="text-gray-600">Interactive Q&A</span>
+                    </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-10">
+              <h2 className="text-sm font-medium text-gray-900">Details</h2>
+
+              <div className="mt-4 space-y-6">
+                <p className="text-sm text-gray-600"> Limited spots left! Book now to secure your place among {eventDetails?.participantCount} attendees.
+                {eventDetails?.ticketPrice === 0 ? 
+                  " This event is fully free—don’t miss out!" : 
+                  ` Only ${eventDetails?.ticketPrice} for this valuable session!`} ,
+                    Join us on {getDate(eventDetails?.date)} from {eventDetails?.startTime} to {eventDetails?.endTime}. 
+                    This insightful session will be hosted by {eventDetails?.user?.firstName} {eventDetails?.user?.lastName}.                  
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EventDetailsPage;
+
+
+
+
+
+            {/* <form className="mt-10">
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Color</h3>
 
@@ -192,7 +250,6 @@ const EventDetailsPage: React.FC = () => {
                 </fieldset>
               </div>
 
-              {/* Sizes */}
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
@@ -254,52 +311,4 @@ const EventDetailsPage: React.FC = () => {
                   </RadioGroup>
                 </fieldset>
               </div>
-
-              <button
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Add to bag
-              </button>
-            </form>
-          </div>
-
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-            {/* Description and details */}
-            <div>
-              <h3 className="sr-only">Description</h3>
-
-              <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{product.details}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default EventDetailsPage;
+            </form> */}

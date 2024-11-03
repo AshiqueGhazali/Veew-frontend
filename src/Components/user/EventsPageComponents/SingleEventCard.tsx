@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import IEvents from '../../../interface/EventsInterface';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,9 +8,8 @@ interface eventCardProps {
 }
 
 const SingleEventCard:React.FC<eventCardProps> = ({events,category}) => {
-    const [evetDetails , setEventDetails] = useState<IEvents | null>(null)
-
     const navigate = useNavigate()
+
     const dateSetUp = (date:string)=>{
         const newDate = new Date(date)
         return newDate.toLocaleDateString()

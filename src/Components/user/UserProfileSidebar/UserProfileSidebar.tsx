@@ -161,7 +161,9 @@ const UserProfileSidebar: React.FC<UserSidebarProps> = ({
   return (
     <div className="user-sidebar">
       <div className="profile-image">
-        <img src={imagestring} alt="" />
+        <div  className="cercle-img">
+         <img src={imagestring} alt="" />
+        </div>
         {isEdit ? (
           <div className="edit-btn">
             {/* <button>Edit Image</button> */}
@@ -243,15 +245,3 @@ const UserProfileSidebar: React.FC<UserSidebarProps> = ({
 };
 
 export default UserProfileSidebar;
-
-{
-  /* <div className='profile-links' >
-            <ul>
-            <Link to='/profile' className='profile-link'><li className={isActive('/profile')}><span className='sidebar-icons'><CgProfile/></span>Profile</li></Link>
-            <Link to='/profile/events' className='profile-link'><li className={isActive('/profile/events')}><span className='sidebar-icons'><RiCalendarScheduleFill/></span>My Events</li></Link>
-            <Link to='/profile/tickets' className='profile-link'><li className={isActive('/profile/tickets')}><span className='sidebar-icons'>< IoTicketSharp/></span>My Tickets</li></Link>
-            <Link to='/profile/wallet' className='profile-link'><li className={isActive('/profile/wallet')}><span className='sidebar-icons'><IoWalletSharp/></span>Wallet</li></Link>
-            <Link to='/profile/notification' className='profile-link'><li className={isActive('/profile/notification')}><span className='sidebar-icons'><MdNotificationsActive/></span>Notifications</li></Link>
-            </ul>
-        </div> */
-}

@@ -6,6 +6,8 @@ module.exports = {
       extend: {
         colors: {
             customPurple: '#640133',
+            darkBlue: '#002e51',
+            secondaryColor: '#937e54',
           },
           gridTemplateRows: {
             '[auto,auto,1fr]': 'auto auto 1fr',
