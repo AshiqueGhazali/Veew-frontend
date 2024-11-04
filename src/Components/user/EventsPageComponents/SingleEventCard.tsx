@@ -44,7 +44,7 @@ const SingleEventCard:React.FC<eventCardProps> = ({events,category}) => {
                         <p className='text-customPurple text-sm'>10:30 AM</p>
                     </div>
                     </div>
-                    <a onClick={()=>navigate(`/event-details?eventId=${event.id}`)} className="flex items-center justify-center no-underline rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    <a onClick={()=>navigate(`/event-details?eventId=${event.id}`)} className="flex items-center justify-center no-underline rounded-md bg-slate-900 cursor-pointer px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     VIEW DETAILS</a>
                 </div>
             </div>

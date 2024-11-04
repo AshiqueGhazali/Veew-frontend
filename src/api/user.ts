@@ -194,3 +194,4 @@ export const createEvent = async(data:FormData)=>await Api.post(userRoutes.creat
 export const getUpcomingEvents = async()=>await Api.get(userRoutes.getUpcomingEvents)
 export const getAllCategories = async()=>await Api.get(userRoutes.getAllCategories)
 export const getEventDetails = async(eventId:string)=> Api.get(`${userRoutes.getEventDetails}?eventId=${eventId}`)
+export const getHostedEvents = async()=> Api.get(userRoutes.getHostedEvents)

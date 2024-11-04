@@ -19,7 +19,8 @@ const userRoutes = {
   createEvent: '/createEvent',
   getUpcomingEvents: '/getAllEvents',
   getAllCategories: '/getAllCategories',
-  getEventDetails: '/getEventDetails'
+  getEventDetails: '/getEventDetails',
+  getHostedEvents: '/getHostedEvents'
 };
 
 export default userRoutes;

@@ -15,7 +15,7 @@ import {
   MenuButton,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import ProfileHeader from "../../../Components/user/UserProfileComponents/ProfileHeader";
 import UserEvent from "../UserEvents/UserEvent";
 import SpeedDialMenu from "../../../Components/user/SpeedDialMenu/SpeedDialMenu";
@@ -186,14 +186,15 @@ const UserProfile: React.FC = () => {
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              {/* {pageTitle} */}
               <ProfileHeader title={pageTitle} listType={listType} setListType={setListType}/>
             </h1>
           </div>
         </header>
         <main>
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <UserEvent/>
+            <Routes>
+              <Route path="/events" element={<UserEvent/>}/>
+            </Routes>  
           </div>
         </main>
       </div>
