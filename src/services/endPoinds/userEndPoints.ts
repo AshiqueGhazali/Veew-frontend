@@ -20,7 +20,8 @@ const userRoutes = {
   getUpcomingEvents: '/getAllEvents',
   getAllCategories: '/getAllCategories',
   getEventDetails: '/getEventDetails',
-  getHostedEvents: '/getHostedEvents'
+  getHostedEvents: '/getHostedEvents',
+  editEventDetails: '/editEventDetails'
 };
 
 export default userRoutes;

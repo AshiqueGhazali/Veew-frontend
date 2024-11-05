@@ -55,17 +55,16 @@ interface getPlansResponse {
 }
 
 
-// interface createEventParams {
-//   image: File;       
-//   eventTitle: string;
-//   category: string;  
-//   description: string;
-//   date: Date;
-//   startTime: string;
-//   endTime: string;
-//   participantCount: number;
-//   ticketPrice: number;
-// }
+interface editEventParams {
+  eventId : string;
+  eventTitle: string;
+  description: string;
+  ticketPrice: number;
+  // date: Date;
+  // startTime: string;
+  // endTime: string;
+  // participantCount: number;
+}
 
 
 export const sendOtp = async (email: string): Promise<Response> => {
@@ -195,3 +194,4 @@ export const getUpcomingEvents = async()=>await Api.get(userRoutes.getUpcomingEv
 export const getAllCategories = async()=>await Api.get(userRoutes.getAllCategories)
 export const getEventDetails = async(eventId:string)=> Api.get(`${userRoutes.getEventDetails}?eventId=${eventId}`)
 export const getHostedEvents = async()=> Api.get(userRoutes.getHostedEvents)
+export const editEventDetails = async(data:editEventParams)=> Api.patch(userRoutes.editEventDetails,data)

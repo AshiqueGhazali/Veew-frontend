@@ -99,7 +99,7 @@ const UserProfile: React.FC = () => {
                 <div className="ml-4 flex items-center md:ml-6">
                   <button
                     type="button"
-                    className="relative rounded-full bg-[#0e1822] p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="relative rounded-full bg-[#0e1822] p-1 text-gray-400 hover:text-white focus:outline-none"
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
@@ -107,7 +107,7 @@ const UserProfile: React.FC = () => {
                   </button>
                   <Menu as="div" className="relative ml-3">
                     <div onClick={() => setOpen(true)}>
-                      <MenuButton className="relative flex max-w-xs items-center rounded-full bg-[#0e1822] text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <MenuButton className="relative flex max-w-xs items-center rounded-full bg-[#0e1822] text-sm focus:outline-none ">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <img
