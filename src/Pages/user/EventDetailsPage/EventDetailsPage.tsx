@@ -72,7 +72,7 @@ const EventDetailsPage: React.FC = () => {
   },[])
 
   const getDate = (date?:string)=>{
-    return date && new Date(date).toLocaleDateString()
+    return date && new Date(date).toDateString()
   }
 
   return (

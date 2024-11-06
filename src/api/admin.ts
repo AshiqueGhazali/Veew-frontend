@@ -59,3 +59,4 @@ export const deletePlan = async(planId:string):Promise<Response>=>
 export const getSubscribers = async()=>await Api.get(adminRoutes.getSubscribers)
 export const getAllEvents = async()=>await Api.get(adminRoutes.getAllEvents)
 export const getAllCategories = async()=>await Api.get(adminRoutes.getAllCategories)
+export const adminCancelEvent = async(eventId:string)=>Api.patch(`${adminRoutes.adminCancelEvent}?eventId=${eventId}`)

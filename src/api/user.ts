@@ -60,10 +60,13 @@ interface editEventParams {
   eventTitle: string;
   description: string;
   ticketPrice: number;
-  // date: Date;
-  // startTime: string;
-  // endTime: string;
-  // participantCount: number;
+}
+
+interface editDateParams {
+  eventId:string,
+  date: string;
+  startTime: string;
+  endTime: string;
 }
 
 
@@ -195,3 +198,5 @@ export const getAllCategories = async()=>await Api.get(userRoutes.getAllCategori
 export const getEventDetails = async(eventId:string)=> Api.get(`${userRoutes.getEventDetails}?eventId=${eventId}`)
 export const getHostedEvents = async()=> Api.get(userRoutes.getHostedEvents)
 export const editEventDetails = async(data:editEventParams)=> Api.patch(userRoutes.editEventDetails,data)
+export const editEventDate = async(data:editDateParams)=>Api.patch(userRoutes.editEventDate,data)
+export const cancelEvent = async(eventId:string)=>Api.patch(`${userRoutes.cancelEvent}?eventId=${eventId}`)

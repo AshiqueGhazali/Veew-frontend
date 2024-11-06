@@ -67,9 +67,9 @@ const EventManagement:React.FC<eventMangmntProps> = ({search}) => {
 
         <div className='all-event-card'> 
             {categories && categories.length > 0 ? (
-              categories?.map((category)=>{
+              categories?.map((category, index)=>{
                 return (
-                  <EventCard category={category} events={events} searchQuery={search}/>
+                  <EventCard category={category} events={events} searchQuery={search} key={index}/>
                 )
               })
             ) :

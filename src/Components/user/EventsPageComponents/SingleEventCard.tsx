@@ -17,7 +17,8 @@ const SingleEventCard:React.FC<eventCardProps> = ({events,category}) => {
 
     const filterdEvents = events?.filter((event)=>{
         return (
-            category ? event.category === category : event 
+            category ? event.category === category : event &&
+            event.isCancelled === false
         )
     })
 

@@ -15,5 +15,6 @@ export default interface IEvents {
     startTime: string;
     ticketPrice: number;
     updatedAt: string;
+    isCancelled:boolean;
     user: IUser;
 }

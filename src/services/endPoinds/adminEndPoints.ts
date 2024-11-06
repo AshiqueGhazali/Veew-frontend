@@ -10,7 +10,8 @@ const adminRoutes = {
   deletePlan:"/admin/deletePlan",
   getSubscribers:'/admin/getAllSubscribers',
   getAllEvents:'/admin/getAllEvents',
-  getAllCategories:'/admin/getAllCategoris'
+  getAllCategories:'/admin/getAllCategoris',
+  adminCancelEvent: '/admin/cancellEvent'
 };
 
 export default adminRoutes;

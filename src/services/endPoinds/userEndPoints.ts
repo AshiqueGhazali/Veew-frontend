@@ -21,7 +21,9 @@ const userRoutes = {
   getAllCategories: '/getAllCategories',
   getEventDetails: '/getEventDetails',
   getHostedEvents: '/getHostedEvents',
-  editEventDetails: '/editEventDetails'
+  editEventDetails: '/editEventDetails',
+  editEventDate : '/editEventDate',
+  cancelEvent:'/cancelEvent'
 };
 
 export default userRoutes;

@@ -9,37 +9,35 @@ import HomeEvents from "../../../Components/user/HomeEvents/HomeEvents";
 import StatsSection from "../../../Components/user/StatusSection/StatusSection";
 
 const Home = () => {
-  const [events,setEvents] = useState<IEvents[]|null>(null)
-  const [categories , setCategories] = useState<string[]>()
+  const [events, setEvents] = useState<IEvents[] | null>(null);
+  const [categories, setCategories] = useState<string[]>();
 
-  useEffect(() => {            
-    const getAllEventDetails = async()=>{
+  useEffect(() => {
+    const getAllEventDetails = async () => {
       try {
-        const response = await getUpcomingEvents()
+        const response = await getUpcomingEvents();
 
-        if(response.status === 200){
-          setEvents(response.data)
-          
+        if (response.status === 200) {
+          setEvents(response.data);
         }
       } catch (error) {
         console.log("somthing went wronggg");
-        
       }
-    }
+    };
 
-    const getCategories = async()=>{
+    const getCategories = async () => {
       try {
-        const response = await getAllCategories()          
+        const response = await getAllCategories();
 
-        if(response.status===200){            
-          setCategories(response.data)
+        if (response.status === 200) {
+          setCategories(response.data);
         }
       } catch (error) {
         console.log(error);
       }
-    }
-      getAllEventDetails()
-      getCategories()
+    };
+    getAllEventDetails();
+    getCategories();
   }, []);
 
   return (
@@ -56,23 +54,28 @@ const Home = () => {
             </h1>
             <p>Find the right plan to fuel your growth</p>
             <div className="hero-search-btn">
-              <input type="search" className="search-input" placeholder="search..."/>
+              <input
+                type="search"
+                className="search-input"
+                placeholder="search..."
+              />
               <button className="btn search-btn">Search</button>
             </div>
           </div>
         </div>
-        <StatsSection/>
+        <StatsSection />
         <div className="event-card-home">
-          {
-            categories?.map((category)=>{
-              return (
-                <HomeEvents category={category} events={events} key={category}/>
-              )
-            })
-          }
+          {categories?.map((category) => {
+            const isEvent = events?.some(
+              (event) => event.category === category && !event.isCancelled
+            );
+            return isEvent ? (
+              <HomeEvents category={category} events={events} key={category} />
+            ) : null;
+          })}
         </div>
 
-        <Footer theme="light"/>
+        <Footer theme="light" />
       </div>
     </>
   );

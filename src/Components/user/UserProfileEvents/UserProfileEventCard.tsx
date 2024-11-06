@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import EditHostedEventDetails from "./EditHostedEventDetails";
+import EditEventDateAndTime from "./EditEventDateAndTime";
+import { toast } from "react-toastify";
+import { cancelEvent } from "../../../api/user";
 
 interface EventCardProps {
   eventData: IEvents;
@@ -29,6 +32,26 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
     setIsEditDetailsModal(true);
   };
 
+  const openDateAndTimeEditModal = () => {
+    setDateEditModalOpen(true);
+  };
+
+  const handleEventCancellation = async (eventId: string) => {
+    try {
+      const response = await cancelEvent(eventId);
+
+      if (response.status === 200) {
+        toast.success("Event Cancelled successfully!");
+      }
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        toast.error(error.response.message);
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <>
       <div className="bg-white rounded-lg p-4 shadow-md sm:w-full">
@@ -49,54 +72,72 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
           </div>
         </div>
         <hr className="h-px my-3 bg-gray-200 border-0 dark:bg-gray-700" />
-        <div className="flex items-center justify-center">
-          <Menu as="div" className="relative ml-3 ">
-            <MenuButton className="inline-flex items-center rounded-md bg-white px-3 py-2 mr-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400">
-              Edit
-              <ChevronDownIcon
-                aria-hidden="true"
-                className="-mr-1 ml-1.5 h-5 w-5 text-gray-400"
-              />
-            </MenuButton>
+        {!eventData.isCancelled ? (
+          <div className="flex items-center justify-center">
+            <Menu as="div" className="relative ml-3 ">
+              <MenuButton className="inline-flex items-center rounded-md bg-white px-3 py-2 mr-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400">
+                Edit
+                <ChevronDownIcon
+                  aria-hidden="true"
+                  className="-mr-1 ml-1.5 h-5 w-5 text-gray-400"
+                />
+              </MenuButton>
 
-            <MenuItems
-              transition
-              className="absolute right-0 z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              <MenuItems
+                transition
+                className="absolute right-0 z-10 -mr-1 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition  data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              >
+                <MenuItem>
+                  <div
+                    onClick={openEditDetailModal}
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none cursor-pointer"
+                  >
+                    Edit Details
+                  </div>
+                </MenuItem>
+                <MenuItem>
+                  <div
+                    onClick={openDateAndTimeEditModal}
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none cursor-pointer"
+                  >
+                    Edit Date & Time
+                  </div>
+                </MenuItem>
+              </MenuItems>
+            </Menu>
+
+            <button
+              type="button"
+              onClick={() => handleEventCancellation(eventData.id)}
+              className="text-black hover:text-white border border-black hover:bg-arkblue  font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500"
             >
-              <MenuItem>
-                <div
-                  onClick={openEditDetailModal}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none cursor-pointer"
-                >
-                  Edit Details
-                </div>
-              </MenuItem>
-              <MenuItem>
-                <div className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none cursor-pointer">
-                  Edit Date & Time
-                </div>
-              </MenuItem>
-            </MenuItems>
-          </Menu>
-          <button
-            type="button"
-            className="text-black hover:text-white border border-black hover:bg-arkblue focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900"
-          >
-            CANCEL
-          </button>
-          <button
-            type="button"
-            className="text-black hover:text-white border border-black hover:bg-arkblue focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900"
-          >
-            START
-          </button>
-        </div>
+              CANCEL
+            </button>
+            <button
+              type="button"
+              className="text-black hover:text-white border border-black hover:bg-arkblue  font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500"
+            >
+              START
+            </button>
+          </div>
+        ) : (
+          <div>
+            <p className="text-red-500 text-center cursor-pointer">EVENT CANCELLED!</p>
+          </div>
+        )}
       </div>
       <EditHostedEventDetails
         isOpen={isEditDetailsModal}
         setIsOpen={() => setIsEditDetailsModal(false)}
         eventData={eventData}
       />
+      {isDateEditModalOpen && (
+        <EditEventDateAndTime
+          isOpen={isDateEditModalOpen}
+          onClose={() => setDateEditModalOpen(false)}
+          eventData={eventData}
+        />
+      )}
     </>
   );
 };
