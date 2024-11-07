@@ -91,6 +91,8 @@ const SpeedDialButton: React.FC<SpeedDialButtonProps> = ({
   return (
     <button
       type="button"
+
+      
       onClick={()=>navigate(path)}
       data-tooltip-target={tooltipId}
       data-tooltip-placement="left"

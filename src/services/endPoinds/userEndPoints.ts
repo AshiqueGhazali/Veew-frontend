@@ -23,7 +23,9 @@ const userRoutes = {
   getHostedEvents: '/getHostedEvents',
   editEventDetails: '/editEventDetails',
   editEventDate : '/editEventDate',
-  cancelEvent:'/cancelEvent'
+  cancelEvent:'/cancelEvent',
+  addAmountToWallet:'/addAmountToWallet',
+  conformWalletAmount:'/conformWalletAmount'
 };
 
 export default userRoutes;

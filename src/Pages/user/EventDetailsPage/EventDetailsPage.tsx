@@ -44,36 +44,33 @@ const product = {
 };
 
 const EventDetailsPage: React.FC = () => {
+  const [eventDetails, setEventDetails] = useState<IEvents | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [eventDetails , setEventDetails] = useState<IEvents | null>(null)
-  const navigate = useNavigate()
-  const location = useLocation()
+  useEffect(() => {
+    const eventId = queryString.parse(location.search).eventId as string;
 
+    const fetchEventDetails = async () => {
+      try {
+        const response = await getEventDetails(eventId);
 
-  useEffect(()=>{
-    const eventId = queryString.parse(location.search).eventId as string
-
-      const fetchEventDetails = async()=>{
-          try {
-              const response = await getEventDetails(eventId)
-
-              if(response.status===200){
-                console.log(response.data)
-                setEventDetails(response.data)
-              }
-          } catch (error) {
-              console.log(error);
-              navigate('/events')
-              
-          }
+        if (response.status === 200) {
+          console.log(response.data);
+          setEventDetails(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+        navigate("/events");
       }
+    };
 
-      fetchEventDetails()
-  },[])
+    fetchEventDetails();
+  }, []);
 
-  const getDate = (date?:string)=>{
-    return date && new Date(date).toDateString()
-  }
+  const getDate = (date?: string) => {
+    return date && new Date(date).toDateString();
+  };
 
   return (
     <div className="bg-white">
@@ -117,7 +114,7 @@ const EventDetailsPage: React.FC = () => {
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="overflow-hidden rounded-lg h-[500px]">
             <img
-              alt='event banner'
+              alt="event banner"
               src={eventDetails?.imageUrl}
               className="h-full w-full object-cover object-center"
             />
@@ -130,34 +127,50 @@ const EventDetailsPage: React.FC = () => {
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               {eventDetails?.eventTitle}
             </h1>
+           { eventDetails?.isCancelled && <h4 className="text-red-600">EVENT CANCELLED</h4> }
           </div>
 
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight font-semibold text-gray-900">
-              {eventDetails && eventDetails?.ticketPrice > 0 ? `₹ ${eventDetails?.ticketPrice}` : 'FREE'}
+              {eventDetails && eventDetails?.ticketPrice > 0
+                ? `₹ ${eventDetails?.ticketPrice}`
+                : "FREE"}
             </p>
 
             {/* Reviews */}
             <div className="mt-6">
               <div className="flex items-center">
                 <div className="flex  flex-col">
-                  <p className="cursor-pointer"><span className="text-base font-medium">Date </span> : {getDate(eventDetails?.date)}</p>
-                  <p className="cursor-pointer"><span className="text-base font-medium">Time </span> : {`${eventDetails?.startTime} TO ${eventDetails?.endTime}`}</p>
-                  <p className="cursor-pointer"><span className="text-base font-medium">Hosts By </span> : <span className="hover:underline">{`${eventDetails?.user.firstName} ${eventDetails?.user.lastName}`}</span></p>
-                  <p className="cursor-pointer"><span className="text-base font-medium">Category </span> : {eventDetails?.category}</p>
-
+                  <p className="cursor-pointer">
+                    <span className="text-base font-medium">Date </span> :{" "}
+                    {getDate(eventDetails?.date)}
+                  </p>
+                  <p className="cursor-pointer">
+                    <span className="text-base font-medium">Time </span> :{" "}
+                    {`${eventDetails?.startTime} TO ${eventDetails?.endTime}`}
+                  </p>
+                  <p className="cursor-pointer">
+                    <span className="text-base font-medium">Hosts By </span> :{" "}
+                    <span className="hover:underline">{`${eventDetails?.user.firstName} ${eventDetails?.user.lastName}`}</span>
+                  </p>
+                  <p className="cursor-pointer">
+                    <span className="text-base font-medium">Category </span> :{" "}
+                    {eventDetails?.category}
+                  </p>
                 </div>
               </div>
             </div>
 
-            <button
+            {!eventDetails?.isCancelled && (
+              <button
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-darkBlue px-8 py-3 text-base font-medium text-white hover:bg-secondaryColor focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 BOOK TICKET
               </button>
+            )}
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
@@ -166,7 +179,9 @@ const EventDetailsPage: React.FC = () => {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{eventDetails?.description}</p>
+                <p className="text-base text-gray-900">
+                  {eventDetails?.description}
+                </p>
               </div>
             </div>
 
@@ -175,18 +190,22 @@ const EventDetailsPage: React.FC = () => {
 
               <div className="mt-4">
                 <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                    <li  className="text-gray-400">
-                      <span className="text-gray-600">Limited spots</span>
-                    </li>
-                    <li  className="text-gray-400">
-                      <span className="text-gray-600">Insightful Discussions</span>
-                    </li>
-                    <li  className="text-gray-400">
-                      <span className="text-gray-600">Networking Opportunities</span>
-                    </li>
-                    <li  className="text-gray-400">
-                      <span className="text-gray-600">Interactive Q&A</span>
-                    </li>
+                  <li className="text-gray-400">
+                    <span className="text-gray-600">Limited spots</span>
+                  </li>
+                  <li className="text-gray-400">
+                    <span className="text-gray-600">
+                      Insightful Discussions
+                    </span>
+                  </li>
+                  <li className="text-gray-400">
+                    <span className="text-gray-600">
+                      Networking Opportunities
+                    </span>
+                  </li>
+                  <li className="text-gray-400">
+                    <span className="text-gray-600">Interactive Q&A</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -195,12 +214,18 @@ const EventDetailsPage: React.FC = () => {
               <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
               <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600"> Limited spots left! Book now to secure your place among {eventDetails?.participantCount} attendees.
-                {eventDetails?.ticketPrice === 0 ? 
-                  " This event is fully free—don’t miss out!" : 
-                  ` Only ${eventDetails?.ticketPrice} for this valuable session!`} ,
-                    Join us on {getDate(eventDetails?.date)} from {eventDetails?.startTime} to {eventDetails?.endTime}. 
-                    This insightful session will be hosted by {eventDetails?.user?.firstName} {eventDetails?.user?.lastName}.                  
+                <p className="text-sm text-gray-600">
+                  {" "}
+                  Limited spots left! Book now to secure your place among{" "}
+                  {eventDetails?.participantCount} attendees.
+                  {eventDetails?.ticketPrice === 0
+                    ? " This event is fully free—don’t miss out!"
+                    : ` Only ${eventDetails?.ticketPrice} for this valuable session!`}{" "}
+                  , Join us on {getDate(eventDetails?.date)} from{" "}
+                  {eventDetails?.startTime} to {eventDetails?.endTime}. This
+                  insightful session will be hosted by{" "}
+                  {eventDetails?.user?.firstName} {eventDetails?.user?.lastName}
+                  .
                 </p>
               </div>
             </div>
@@ -213,9 +238,8 @@ const EventDetailsPage: React.FC = () => {
 
 export default EventDetailsPage;
 
-
-
-{/* <nav className="flex" aria-label="Breadcrumb">
+{
+  /* <nav className="flex" aria-label="Breadcrumb">
   <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
     <li className="inline-flex items-center">
       <a href="#" className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
@@ -242,4 +266,5 @@ export default EventDetailsPage;
       </div>
     </li>
   </ol>
-</nav> */}
+</nav> */
+}

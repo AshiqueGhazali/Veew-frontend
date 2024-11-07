@@ -12,6 +12,15 @@ module.exports = {
           gridTemplateRows: {
             '[auto,auto,1fr]': 'auto auto 1fr',
           },
+          animation: {
+            'slide-down': 'slideDown 1s ease-out forwards',
+          },
+          keyframes: {
+            slideDown: {
+              '0%': { transform: 'translateY(-1000px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+          },
       },
     },
     corePlugins: {

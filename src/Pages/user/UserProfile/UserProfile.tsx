@@ -19,6 +19,7 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import ProfileHeader from "../../../Components/user/UserProfileComponents/ProfileHeader";
 import UserEvent from "../UserEvents/UserEvent";
 import SpeedDialMenu from "../../../Components/user/SpeedDialMenu/SpeedDialMenu";
+import { UserWallet } from "../UserWallet/UserWallet";
 
 export type listType = 'UPCOMING' | 'EXPIRED' 
 
@@ -69,7 +70,7 @@ const UserProfile: React.FC = () => {
   return (
     <>
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-[#0e1822]">
+        <Disclosure as="nav" className="bg-[#0e1822] z-10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
@@ -194,6 +195,7 @@ const UserProfile: React.FC = () => {
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <Routes>
               <Route path="/events" element={<UserEvent/>}/>
+              <Route path="/wallet" element={<UserWallet/>}/>
             </Routes>  
           </div>
         </main>

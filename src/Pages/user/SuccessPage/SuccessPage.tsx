@@ -3,7 +3,13 @@ import './SuccessPage.css';
 import success_banner from '../../../assets/success-banner.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
-import { subscribePlan } from '../../../api/user';
+import { conformWalletAmount, subscribePlan } from '../../../api/user';
+
+export const paymentType = {
+  SUBSCRIPTION : 'SUBSCRIPTION',
+  WALLET : 'WALLET',
+  TICKETBOOKING : 'TICKERBOOKING'
+} as const
 
 const SuccessPage: React.FC = () => {
   const navigate = useNavigate();
@@ -23,28 +29,46 @@ const SuccessPage: React.FC = () => {
     const sessionId = params.session_id as string;
     const planId = params.plan_id as string;
     const eventId = params.event_id as string;
+    const paymentFor = params.payment_for as string
 
-    // Only proceed if the API call has not been made yet
-    if (planId && !calledOnceRef.current) {
-      const conformSubscription = async () => {
-        const response = await subscribePlan(planId, sessionId);
+    if(!calledOnceRef.current){
+      if (paymentFor === paymentType.SUBSCRIPTION && planId) {
+        const conformSubscription = async () => {
+          const response = await subscribePlan(planId, sessionId);
+    
+          if (response.status === 200) {
+            setMessage('Thank you for your purchase! Explore your Subscription');
+            setTimeout(() => {
+              localStorage.removeItem('isPayment');
+              navigate('/');
+            }, 5000);
+          } else {
+            setMessage("Something went wrong, your money will be refunded");
+          }
+        };
   
-        if (response.status === 200) {
-          setMessage('Thank you for your purchase! Explore your Subscription');
-          setTimeout(() => {
-            localStorage.removeItem('isPayment');
-            navigate('/');
-          }, 5000);
-        } else {
-          setMessage("Something went wrong, your money will be refunded");
-        }
-      };
+        conformSubscription();
+        calledOnceRef.current = true; // Mark as called
+      } else if (paymentFor === paymentType.WALLET) {
+        const conformWalletFund = async()=>{
+          const response = await conformWalletAmount(sessionId)
 
-      conformSubscription();
-      calledOnceRef.current = true; // Mark as called
-    } else if (eventId) {
-      console.log("hellloooo");
-    } 
+          if (response.status === 200) {
+            setMessage('Amount added to wallet, explore featurs');
+            setTimeout(() => {
+              localStorage.removeItem('isPayment');
+              navigate('/');
+            }, 5000);
+          } else {
+            setMessage("Something went wrong, your money will be refunded");
+          }
+        }
+
+        conformWalletFund()
+        calledOnceRef.current = true; 
+      } 
+    }
+    
     
   }, [location, navigate]);
 
