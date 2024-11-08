@@ -6,7 +6,7 @@ import Logoo from '../../../assets/veewWhiteLogo.png'
 const CardContainer = styled.div`
   display: flex;
   justify-content: center;
-  height: 100vh;
+  height: 40vh;
   position: relative;
 `;
 
@@ -46,7 +46,11 @@ const cardVariants = {
   }),
 };
 
-const WalletCards: React.FC = () => {
+
+interface walletProps {
+  balanceAmount:number
+}
+const WalletCards: React.FC<walletProps> = ({balanceAmount}) => {
   return (
     <CardContainer>
       <StyledCard
@@ -58,7 +62,7 @@ const WalletCards: React.FC = () => {
         style={{ right: '20px', zIndex: 1 }}
       >
         <Logo><img src={Logoo} alt=""  className='w-24'/></Logo>
-        <Amount>₹ 1,200</Amount>
+        <Amount>₹ {balanceAmount}</Amount>
       </StyledCard>
 
       <StyledCard

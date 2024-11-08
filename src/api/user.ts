@@ -54,21 +54,19 @@ interface getPlansResponse {
   data: IPricingPlan[] | null;
 }
 
-
 interface editEventParams {
-  eventId : string;
+  eventId: string;
   eventTitle: string;
   description: string;
   ticketPrice: number;
 }
 
 interface editDateParams {
-  eventId:string,
+  eventId: string;
   date: string;
   startTime: string;
   endTime: string;
 }
-
 
 export const sendOtp = async (email: string): Promise<Response> => {
   const response = await Api.post(userRoutes.sendOtp, { email });
@@ -141,8 +139,13 @@ export const resetPassword = async (
 ): Promise<Response> =>
   await Api.post(userRoutes.resetPassword, { password, email });
 
-  export const googleAuth=async (email:string,firstName:string,lastName:string,image:string)=> await Api.post(userRoutes.googleAuth,{email,firstName,lastName,image})
-
+export const googleAuth = async (
+  email: string,
+  firstName: string,
+  lastName: string,
+  image: string
+) =>
+  await Api.post(userRoutes.googleAuth, { email, firstName, lastName, image });
 
 export const userLogout = async (): Promise<Response> =>
   await Api.post(userRoutes.logout);
@@ -183,22 +186,53 @@ export const getSubscriptionPlans = async (): Promise<getPlansResponse> => {
   };
 };
 
+export const createPayment = async (planId: string) =>
+  await Api.post(userRoutes.createPayment, { planId });
+export const subscribePlan = async (
+  planId: string,
+  sessionId: string
+): Promise<Response> =>
+  await Api.post(userRoutes.subscribePlan, { planId, sessionId });
+export const getPlanOfUser = async () =>
+  await Api.get(userRoutes.getPlanOfUser);
+export const createEvent = async (data: FormData) =>
+  await Api.post(userRoutes.createEvent, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
-export const createPayment = async(planId:string)=>await Api.post(userRoutes.createPayment,{planId})
-export const subscribePlan = async(planId:string,sessionId:string):Promise<Response>=>await Api.post(userRoutes.subscribePlan,{planId,sessionId})
-export const getPlanOfUser = async()=>await Api.get(userRoutes.getPlanOfUser)
-export const createEvent = async(data:FormData)=>await Api.post(userRoutes.createEvent,data ,{
-  headers: {
-    'Content-Type': 'multipart/form-data',
-  },
-})
-
-export const getUpcomingEvents = async()=>await Api.get(userRoutes.getUpcomingEvents)
-export const getAllCategories = async()=>await Api.get(userRoutes.getAllCategories)
-export const getEventDetails = async(eventId:string)=> Api.get(`${userRoutes.getEventDetails}?eventId=${eventId}`)
-export const getHostedEvents = async()=> Api.get(userRoutes.getHostedEvents)
-export const editEventDetails = async(data:editEventParams)=> Api.patch(userRoutes.editEventDetails,data)
-export const editEventDate = async(data:editDateParams)=>Api.patch(userRoutes.editEventDate,data)
-export const cancelEvent = async(eventId:string)=>Api.patch(`${userRoutes.cancelEvent}?eventId=${eventId}`)
-export const addAmountToWallet = async(amount:number)=>Api.post(userRoutes.addAmountToWallet,{amount})
-export const conformWalletAmount = async(sessionId:string):Promise<Response>=>await Api.post(userRoutes.conformWalletAmount,{sessionId})
+export const getUpcomingEvents = async () =>
+  await Api.get(userRoutes.getUpcomingEvents);
+export const getAllCategories = async () =>
+  await Api.get(userRoutes.getAllCategories);
+export const getEventDetails = async (eventId: string) =>
+  Api.get(`${userRoutes.getEventDetails}?eventId=${eventId}`);
+export const getHostedEvents = async () => Api.get(userRoutes.getHostedEvents);
+export const editEventDetails = async (data: editEventParams) =>
+  Api.patch(userRoutes.editEventDetails, data);
+export const editEventDate = async (data: editDateParams) =>
+  Api.patch(userRoutes.editEventDate, data);
+export const cancelEvent = async (eventId: string) =>
+  Api.patch(`${userRoutes.cancelEvent}?eventId=${eventId}`);
+export const addAmountToWallet = async (amount: number) =>
+  Api.post(userRoutes.addAmountToWallet, { amount });
+export const conformWalletAmount = async (
+  sessionId: string
+): Promise<Response> =>
+  await Api.post(userRoutes.conformWalletAmount, { sessionId });
+export const getUserWallet = async () =>
+  await Api.get(userRoutes.getUserWallet);
+export const getWalletTransactions = async () =>
+  await Api.get(userRoutes.getWalletTransactions);
+export const payForTicket = async (eventId: string) =>
+  await Api.post(userRoutes.payForTicket, { eventId });
+export const conformTicketBooking = async (
+  eventId: string,
+  sessionId: string
+): Promise<Response> =>
+  await Api.post(userRoutes.conformTicketBooking, { eventId, sessionId });
+export const bookTicketWithWallet = async (
+  eventId: string
+): Promise<Response> =>
+  await Api.post(userRoutes.bookTicketWithWallet, { eventId });

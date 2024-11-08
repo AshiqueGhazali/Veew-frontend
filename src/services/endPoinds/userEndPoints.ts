@@ -25,7 +25,12 @@ const userRoutes = {
   editEventDate : '/editEventDate',
   cancelEvent:'/cancelEvent',
   addAmountToWallet:'/addAmountToWallet',
-  conformWalletAmount:'/conformWalletAmount'
+  conformWalletAmount:'/conformWalletAmount',
+  getUserWallet:'/getUserWallet',
+  getWalletTransactions:'/getWalletTransactions',
+  payForTicket:'/payForTicket',
+  conformTicketBooking:'/conformTicketBooking',
+  bookTicketWithWallet: '/bookTicketWithWallet'
 };
 
 export default userRoutes;

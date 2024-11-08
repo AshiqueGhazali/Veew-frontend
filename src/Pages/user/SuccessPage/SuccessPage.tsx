@@ -3,7 +3,7 @@ import './SuccessPage.css';
 import success_banner from '../../../assets/success-banner.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
-import { conformWalletAmount, subscribePlan } from '../../../api/user';
+import { conformTicketBooking, conformWalletAmount, subscribePlan } from '../../../api/user';
 
 export const paymentType = {
   SUBSCRIPTION : 'SUBSCRIPTION',
@@ -57,7 +57,7 @@ const SuccessPage: React.FC = () => {
             setMessage('Amount added to wallet, explore featurs');
             setTimeout(() => {
               localStorage.removeItem('isPayment');
-              navigate('/');
+              navigate('/profile/wallet');
             }, 5000);
           } else {
             setMessage("Something went wrong, your money will be refunded");
@@ -66,7 +66,29 @@ const SuccessPage: React.FC = () => {
 
         conformWalletFund()
         calledOnceRef.current = true; 
-      } 
+      } else if(paymentFor === paymentType.TICKETBOOKING && eventId){
+        const conformEventTicketBooking = async()=>{
+          try {
+            const response = await conformTicketBooking(eventId,sessionId)
+
+            if (response.status === 200) {
+              setMessage('Ticket Booking Completed, Enjoy event!');
+              setTimeout(() => {
+                localStorage.removeItem('isPayment');
+                navigate('/profile/tickets');
+              }, 5000);
+            } else {
+              setMessage("Something went wrong, your money will be refunded");
+            }
+          } catch (error) {
+            console.log(error);
+            
+          }
+        }
+
+        conformEventTicketBooking()
+        calledOnceRef.current = true; 
+      }
     }
     
     

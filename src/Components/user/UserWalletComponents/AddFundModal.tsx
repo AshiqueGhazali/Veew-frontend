@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { addAmountToWallet } from "../../../api/user";
+import { loadStripe } from "@stripe/stripe-js";
+import { toast } from "react-toastify";
 
 interface modalProps {
   isOpen: boolean;
@@ -11,6 +14,47 @@ const AddFundModal: React.FC<modalProps> = ({ isOpen, onClose }) => {
   }
 
   const [amount , setAmount] = useState<number>(0)
+  const [err , setErr] = useState<string>('')
+
+  const validate = ()=>{
+    if(amount <= 0 ){
+      setErr("Please Enter valid amount")
+      return false
+    }
+
+    if(amount > 49999){
+      setErr("You can't add more than 49999!")
+      return false
+    }
+
+    return true
+  }
+
+  const makePayment = async()=>{
+    try {
+      if(!validate()){
+        return
+      }
+
+      const stripe = await loadStripe("pk_test_51QCEy6AppvYNPg5GIJ8IZvuM2iTJyMPNijm8fjT6f7YOdBZnJBGZ8QgNnrX9X1aXhHGCcW0zF7yJHdtugFP9Y8IN00BbNw4tmB");
+
+      const response = await addAmountToWallet(amount)
+      if (response.data && response.data.sessionId) {
+        localStorage.setItem('isPayment','true')
+        const result = await stripe?.redirectToCheckout({
+          sessionId: response.data.sessionId,
+        });
+        if (result?.error) {
+          console.error("Stripe checkout error:", result?.error.message);
+        }
+      }  
+
+    } catch (error:any) {
+      toast.error(error.response.data.message)
+      console.log(error);
+      
+    }
+  }
 
   return (
     <>
@@ -50,7 +94,7 @@ const AddFundModal: React.FC<modalProps> = ({ isOpen, onClose }) => {
               </button>
             </div>
             <div className="p-4 md:p-5">
-              <div className="mb-6">
+              <div className="mb-4">
                 <label
                   htmlFor="default-input"
                   className="block mb-2 text-sm font-medium"
@@ -65,8 +109,9 @@ const AddFundModal: React.FC<modalProps> = ({ isOpen, onClose }) => {
                   onChange={(e)=>setAmount(Number(e.target.value))}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:border-gray-600"
                 />
+                <p className="text-center mt-2 text-red-700">{err}</p>
               </div>
-              <button className="text-white inline-flex w-full justify-center bg-[#937e54] hover:bg-[#393a3b] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              <button onClick={makePayment} className="text-white inline-flex w-full justify-center bg-[#937e54] hover:bg-[#393a3b] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                 Next step
               </button>
             </div>
