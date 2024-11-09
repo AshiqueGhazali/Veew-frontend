@@ -21,7 +21,10 @@ import UserEvent from "../UserEvents/UserEvent";
 import SpeedDialMenu from "../../../Components/user/SpeedDialMenu/SpeedDialMenu";
 import { UserWallet } from "../UserWallet/UserWallet";
 
-export type listType = 'UPCOMING' | 'EXPIRED' 
+export enum listTypeEnum {
+  UPCOMING =  'UPCOMING' ,
+  EXPIRED = 'EXPIRED' 
+} 
 
 const UserProfile: React.FC = () => {
   const userId = useSelector((state: RootState) => state.user.userData.id);
@@ -29,7 +32,7 @@ const UserProfile: React.FC = () => {
   const [isEdit, setEdit] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const [pageTitle , setPageTitle] = useState<string>('')
-  const [listType , setListType] = useState<listType>('UPCOMING')
+  const [listType , setListType] = useState<listTypeEnum>(listTypeEnum.UPCOMING)
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -194,7 +197,7 @@ const UserProfile: React.FC = () => {
         <main>
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <Routes>
-              <Route path="/events" element={<UserEvent/>}/>
+              <Route path="/events" element={<UserEvent eventStatus={listType}/>}/>
               <Route path="/wallet" element={<UserWallet/>}/>
             </Routes>  
           </div>

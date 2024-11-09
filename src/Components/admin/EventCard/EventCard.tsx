@@ -8,10 +8,11 @@ import IEvents from '../../../interface/EventsInterface';
 interface eventCardProps {
   category : string;
   events : IEvents[] | null;
-  searchQuery : string
+  searchQuery : string;
+  eventStatus:"EXPIRED" | "UPCOMING"
 }
 
-const EventCard:React.FC<eventCardProps> = ({category,events, searchQuery}) => {
+const EventCard:React.FC<eventCardProps> = ({category,events, searchQuery,eventStatus}) => {
   const [isOpen , setOpen] = useState<boolean>(false)
   const [eventDetail, setEvent] = useState<IEvents|null>(null)
 
@@ -20,12 +21,30 @@ const EventCard:React.FC<eventCardProps> = ({category,events, searchQuery}) => {
     setOpen(true)
   }
 
+  const parseEventDateTime = (date: string, endTime: string): Date => {
+    const eventDate = new Date(date);
+    const [hours, minutes] = endTime.split(':').map(Number);
+    eventDate.setHours(hours, minutes);
+    return eventDate;
+  };
+
+
   const filteredEvents = events?.filter((event) => {
+    const eventDateTime = parseEventDateTime(event.date, event.endTime);
+    const currentDate = new Date();
+
+    const isUpcoming = eventDateTime >= currentDate;
+    const matchesStatus = eventStatus === 'UPCOMING' ? isUpcoming : !isUpcoming;
     return (
       event.category===category &&
-      event.eventTitle.toLowerCase().includes(searchQuery.toLowerCase())   
+      event.eventTitle.toLowerCase().includes(searchQuery.toLowerCase())  &&
+      matchesStatus
     );
   });
+
+  if(!filteredEvents?.length){
+    return null
+  }
 
 
   return (
@@ -58,3 +77,45 @@ export default EventCard
 //     event.category===category &&
 //     event.eventTitle.toLowerCase().includes(searchQuery.toLowerCase())              )
 // })
+
+
+
+
+// const setEventsByStatus  = (eventStatus:"EXPIRED" | "UPCOMING",date:string,endTime:string)=>{
+//   const currentDate = new Date();
+//       const eventDate = new Date(date);
+      // const eventDateOnly = eventDate.toDateString();
+      // const currentDateOnly = currentDate.toDateString();
+
+      // if (eventDate < currentDate && eventDateOnly !== currentDateOnly) {
+      //   return {
+      //     status: false,
+      //     message: "Can't Cancel past events!",
+      //   };
+      // }
+
+      // if
+
+      // const startDateTime = new Date(
+      //   `${eventDate}T${startTime}`
+      // );
+      // const endDateTime = new Date(
+      //   `${eventDate}T${endTime}`
+      // );
+
+      // if (eventDateOnly === currentDateOnly) {
+      //   const currentTime =
+      //     currentDate.getHours() * 60 + currentDate.getMinutes();
+      //   const startMinutes =
+      //     startDateTime.getHours() * 60 + startDateTime.getMinutes();
+      //   const endMinutes =
+      //     endDateTime.getHours() * 60 + endDateTime.getMinutes();
+
+      //   if (startMinutes < currentTime || endMinutes < currentTime) {
+      //     return {
+      //       status: false,
+      //       message: "The Event Time is finished",
+      //     };
+      //   }
+      // }
+// }

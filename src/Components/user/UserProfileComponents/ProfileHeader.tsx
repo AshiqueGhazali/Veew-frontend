@@ -1,13 +1,13 @@
 import { ChevronDownIcon} from '@heroicons/react/20/solid'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { useNavigate } from 'react-router-dom'
-import { listType } from '../../../Pages/user/UserProfile/UserProfile'
+import { listTypeEnum } from '../../../Pages/user/UserProfile/UserProfile'
   
 
 interface headerProp {
     title:string
     listType:string
-    setListType:(type:listType)=>void
+    setListType:(type:listTypeEnum)=>void
 }
 const ProfileHeader:React.FC<headerProp> = ({title , setListType , listType}) => {
     const navigate = useNavigate()
@@ -30,7 +30,7 @@ const ProfileHeader:React.FC<headerProp> = ({title , setListType , listType}) =>
         <span className="hidden sm:block">
           <button
             type="button"
-            onClick={()=>setListType('EXPIRED')}
+            onClick={()=>setListType(listTypeEnum.EXPIRED)}
             className={`${listType==='EXPIRED' ? 'bg-[#937e54] hover:bg-[#bea980] text-white' : 'bg-white hover:bg-gray-50 text-gray-900'} inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300`}
           >
             Expired
@@ -40,7 +40,7 @@ const ProfileHeader:React.FC<headerProp> = ({title , setListType , listType}) =>
         <span className="ml-3 hidden sm:block">
           <button
             type="button"
-            onClick={()=>setListType('UPCOMING')}
+            onClick={()=>setListType(listTypeEnum.UPCOMING)}
             className={`${listType==='UPCOMING' ? 'bg-[#937e54] hover:bg-[#bea980] text-white' : 'bg-white hover:bg-gray-50 text-gray-900'} inline-flex items-center rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300`}
           >
             Upcoming

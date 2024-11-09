@@ -22,6 +22,11 @@ const AddFundModal: React.FC<modalProps> = ({ isOpen, onClose }) => {
       return false
     }
 
+    if(amount < 50){
+      setErr("please add minimum ₹50")
+      return false
+    }
+
     if(amount > 49999){
       setErr("You can't add more than 49999!")
       return false

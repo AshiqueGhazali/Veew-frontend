@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import UserProfileEventCard from "../../../Components/user/UserProfileEvents/UserProfileEventCard";
 import { getHostedEvents } from "../../../api/user";
 import IEvents from "../../../interface/EventsInterface";
+import { listTypeEnum } from "../UserProfile/UserProfile";
 
-const UserEvent: React.FC = () => {
+
+interface userEventProps {
+  eventStatus:listTypeEnum
+}
+const UserEvent: React.FC<userEventProps> = ({eventStatus}) => {
   const [events, setEvents] = useState<IEvents[] | null>(null);
   const [isEditDetailsModal, setIsEditDetailsModal] = useState<boolean>(false);
   const [isDateEditModalOpen, setDateEditModalOpen] = useState<boolean>(false);
@@ -29,11 +34,28 @@ const UserEvent: React.FC = () => {
     }
   }, [isEditDetailsModal]);
 
+  const parseEventDateTime = (date: string, endTime: string): Date => {
+    const eventDate = new Date(date);
+    const [hours, minutes] = endTime.split(':').map(Number);
+    eventDate.setHours(hours, minutes);
+    return eventDate;
+  };
+
   return (
     <>
       {events && events?.length > 0 ? (
         <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {events?.map((event, index) => (
+          {events?.filter((event)=>{
+             const eventDateTime = parseEventDateTime(event.date, event.endTime);
+             const currentDate = new Date();
+         
+             const isUpcoming = eventDateTime >= currentDate;
+             const matchesStatus = eventStatus === 'UPCOMING' ? isUpcoming : !isUpcoming;
+
+             return (
+              matchesStatus
+             )
+          }).map((event, index) => (
             <UserProfileEventCard
               eventData={event}
               key={index}

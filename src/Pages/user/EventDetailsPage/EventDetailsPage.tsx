@@ -110,6 +110,7 @@ const EventDetailsPage: React.FC = () => {
 
       if(response.status===200){
         toast.success(response.data.message)
+        setIsBooking(false)
       }
     } catch (error:any) {
       if(error.response.status === 400 || error.response.status === 401){

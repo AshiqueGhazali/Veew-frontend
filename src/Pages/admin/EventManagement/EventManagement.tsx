@@ -19,8 +19,7 @@ const EventManagement:React.FC<eventMangmntProps> = ({search}) => {
           const response = await getAllEvents()
   
           if(response.status === 200){
-            setEvents(response.data)
-            
+            setEvents(response.data) 
           }
         } catch (error) {
           console.log("somthing went wronggg");
@@ -69,7 +68,7 @@ const EventManagement:React.FC<eventMangmntProps> = ({search}) => {
             {categories && categories.length > 0 ? (
               categories?.map((category, index)=>{
                 return (
-                  <EventCard category={category} events={events} searchQuery={search} key={index}/>
+                  <EventCard category={category} events={events} searchQuery={search} eventStatus={eventStatus} key={index}/>
                 )
               })
             ) :
