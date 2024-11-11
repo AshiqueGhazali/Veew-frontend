@@ -1,50 +1,16 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { bookTicketWithWallet, getEventDetails, payForTicket } from "../../../api/user";
+import {
+  bookTicketWithWallet,
+  getEventDetails,
+  payForTicket,
+} from "../../../api/user";
 import { useLocation, useNavigate } from "react-router-dom";
 import IEvents from "../../../interface/EventsInterface";
 import queryString from "query-string";
 import { loadStripe } from "@stripe/stripe-js";
 import Logo from "../../../assets/veewWhiteLogo.png";
 import { toast } from "react-toastify";
-
-const product = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  href: "",
-  breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
-  images: [
-    {
-      src: "https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
-      alt: "Two each of gray, white, and black shirts laying flat.",
-    },
-    {
-      src: "https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
-      alt: "Model wearing plain gray basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/plus/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
-      alt: "Model wearing plain white basic tee.",
-    },
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-};
 
 const EventDetailsPage: React.FC = () => {
   const [eventDetails, setEventDetails] = useState<IEvents | null>(null);
@@ -60,7 +26,6 @@ const EventDetailsPage: React.FC = () => {
         const response = await getEventDetails(eventId);
 
         if (response.status === 200) {
-          console.log(response.data);
           setEventDetails(response.data);
         }
       } catch (error) {
@@ -76,17 +41,21 @@ const EventDetailsPage: React.FC = () => {
     return date && new Date(date).toDateString();
   };
 
-  const handleTicketBooking = async(eventId:string)=>{
+  const handleTicketBooking = async (eventId: string) => {
     try {
-      if(eventDetails?.ticketPrice || 0 < 50 ){
-        toast.error("stipe payment only availble in morethat 50, please use wallet!")
-        return
+      if (eventDetails?.ticketPrice || 0 < 50) {
+        toast.error(
+          "stipe payment only availble in morethat 50, please use wallet!"
+        );
+        return;
       }
-      const stripe = await loadStripe("pk_test_51QCEy6AppvYNPg5GIJ8IZvuM2iTJyMPNijm8fjT6f7YOdBZnJBGZ8QgNnrX9X1aXhHGCcW0zF7yJHdtugFP9Y8IN00BbNw4tmB");
+      const stripe = await loadStripe(
+        "pk_test_51QCEy6AppvYNPg5GIJ8IZvuM2iTJyMPNijm8fjT6f7YOdBZnJBGZ8QgNnrX9X1aXhHGCcW0zF7yJHdtugFP9Y8IN00BbNw4tmB"
+      );
 
-      const response = await payForTicket(eventId)
+      const response = await payForTicket(eventId);
       if (response.data && response.data.sessionId) {
-        localStorage.setItem('isPayment','true')
+        localStorage.setItem("isPayment", "true");
         const result = await stripe?.redirectToCheckout({
           sessionId: response.data.sessionId,
         });
@@ -94,69 +63,98 @@ const EventDetailsPage: React.FC = () => {
           console.error("Stripe checkout error:", result?.error.message);
         }
       }
-
-    } catch (error:any) {
-      if(error.response.status===400){
-        toast.error(error.response.data.message)
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        toast.error(error.response.data.message);
       }
       console.log("somthing went wrong on booking time!");
-
     }
-  }
+  };
 
-  const handleBookingWithWallet = async(eventId:string)=>{
+  const handleBookingWithWallet = async (eventId: string) => {
     try {
-      const response = await bookTicketWithWallet(eventId)
+      const response = await bookTicketWithWallet(eventId);
 
-      if(response.status===200){
-        toast.success(response.data.message)
-        setIsBooking(false)
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        setIsBooking(false);
       }
-    } catch (error:any) {
-      if(error.response.status === 400 || error.response.status === 401){
-        toast.error(error.response.data.message)
+    } catch (error: any) {
+      if (error.response.status === 400 || error.response.status === 401) {
+        toast.error(error.response.data.message);
       }
       console.log(error);
-      
     }
-  }
+  };
 
   return (
     <div className="bg-white">
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
-          <ol
-            role="list"
-            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
-          >
+          <ol className="mx-auto flex max-w-2xl list-none items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+            <li className="inline-flex items-center">
+              <a
+                href="/"
+                className="inline-flex items-center text-sm font-medium no-underline hover:text-blue-900 text-gray-700  dark:text-gray-400 "
+              >
+                <svg
+                  className="w-3 h-3 me-2.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                </svg>
+                Home
+              </a>
+            </li>
             <li>
               <div className="flex items-center">
+                <svg
+                  className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 9 4-4-4-4"
+                  />
+                </svg>
                 <a
                   href="/events"
-                  className="mr-2 text-sm font-medium text-gray-900"
+                  className="ms-1 text-sm font-medium text-gray-700 no-underline hover:text-blue-900 md:ms-2 dark:text-gray-400 "
                 >
-                  events
+                  Events
                 </a>
-                <svg
-                  fill="currentColor"
-                  width={16}
-                  height={20}
-                  viewBox="0 0 16 20"
-                  aria-hidden="true"
-                  className="h-5 w-4 text-gray-300"
-                >
-                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                </svg>
               </div>
             </li>
-            <li className="text-sm">
-              <a
-                href={product.href}
-                aria-current="page"
-                className="font-medium text-gray-500 hover:text-gray-600"
-              >
-                {product.name}
-              </a>
+            <li aria-current="page">
+              <div className="flex items-center">
+                <svg
+                  className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 9 4-4-4-4"
+                  />
+                </svg>
+                <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
+                  {eventDetails?.eventTitle}
+                </span>
+              </div>
             </li>
           </ol>
         </nav>
@@ -219,7 +217,7 @@ const EventDetailsPage: React.FC = () => {
                 {!isbooking ? (
                   <button
                     type="submit"
-                    onClick={()=>setIsBooking(true)}
+                    onClick={() => setIsBooking(true)}
                     className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-darkBlue px-8 py-3 text-base font-medium text-white hover:bg-secondaryColor"
                   >
                     BOOK TICKET
@@ -228,7 +226,9 @@ const EventDetailsPage: React.FC = () => {
                   <>
                     <button
                       type="button"
-                      onClick={()=>handleTicketBooking(eventDetails?.id || '')}
+                      onClick={() =>
+                        handleTicketBooking(eventDetails?.id || "")
+                      }
                       className="mt-10 uppercase flex w-full items-center justify-center rounded-md border border-transparent bg-secondaryColor px-8 py-3 text-base font-medium text-white hover:bg-[#bea980]"
                     >
                       <svg
@@ -251,7 +251,9 @@ const EventDetailsPage: React.FC = () => {
                     </button>
                     <button
                       type="button"
-                      onClick={()=>handleBookingWithWallet(eventDetails?.id || '')}
+                      onClick={() =>
+                        handleBookingWithWallet(eventDetails?.id || "")
+                      }
                       className="mt-4 uppercase flex w-full items-center justify-center rounded-md border border-transparent bg-secondaryColor px-8 py-3 text-base font-medium text-white hover:bg-[#bea980]"
                     >
                       <img src={Logo} className="w-12" alt="" />
@@ -335,33 +337,37 @@ const EventDetailsPage: React.FC = () => {
 
 export default EventDetailsPage;
 
-{
-  /* <nav className="flex" aria-label="Breadcrumb">
-  <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-    <li className="inline-flex items-center">
-      <a href="#" className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-        <svg className="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-          <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
-        </svg>
-        Home
-      </a>
-    </li>
-    <li>
-      <div className="flex items-center">
-        <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
-        <a href="#" className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Projects</a>
-      </div>
-    </li>
-    <li aria-current="page">
-      <div className="flex items-center">
-        <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
-        <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Flowbite</span>
-      </div>
-    </li>
-  </ol>
-</nav> */
-}
+ {/* <ol
+            role="list"
+            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+          >
+            <li>
+              <div className="flex items-center">
+                <a
+                  href="/events"
+                  className="mr-2 text-sm font-medium text-gray-900"
+                >
+                  events
+                </a>
+                <svg
+                  fill="currentColor"
+                  width={16}
+                  height={20}
+                  viewBox="0 0 16 20"
+                  aria-hidden="true"
+                  className="h-5 w-4 text-gray-300"
+                >
+                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                </svg>
+              </div>
+            </li>
+            <li className="text-sm">
+              <a
+                // href={product.href}
+                aria-current="page"
+                className="font-medium text-gray-500 hover:text-gray-600"
+              >
+                {eventDetails?.eventTitle}
+              </a>
+            </li>
+          </ol> */}

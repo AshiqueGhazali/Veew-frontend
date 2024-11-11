@@ -20,6 +20,7 @@ import ProfileHeader from "../../../Components/user/UserProfileComponents/Profil
 import UserEvent from "../UserEvents/UserEvent";
 import SpeedDialMenu from "../../../Components/user/SpeedDialMenu/SpeedDialMenu";
 import { UserWallet } from "../UserWallet/UserWallet";
+import UserTickets from "../UserTickets/UserTickets";
 
 export enum listTypeEnum {
   UPCOMING =  'UPCOMING' ,
@@ -199,6 +200,7 @@ const UserProfile: React.FC = () => {
             <Routes>
               <Route path="/events" element={<UserEvent eventStatus={listType}/>}/>
               <Route path="/wallet" element={<UserWallet/>}/>
+              <Route path="/tickets" element={<UserTickets eventStatus ={listType}/>}/>
             </Routes>  
           </div>
         </main>

@@ -30,7 +30,9 @@ const userRoutes = {
   getWalletTransactions:'/getWalletTransactions',
   payForTicket:'/payForTicket',
   conformTicketBooking:'/conformTicketBooking',
-  bookTicketWithWallet: '/bookTicketWithWallet'
+  bookTicketWithWallet: '/bookTicketWithWallet',
+  getAllUserTickets: '/getAllUserTickets',
+  cancellTicket: '/cancellTicket'
 };
 
 export default userRoutes;
