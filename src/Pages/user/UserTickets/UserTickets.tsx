@@ -38,7 +38,7 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
         }
     } catch (error:any) {
         if(error.response.status === 400 || error.response.status === 401){
-            toast.error(error.response.data.message)
+            toast.error(error.response.data)
         }
         console.log(error);
         
@@ -112,7 +112,7 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
                         `/event-details?eventId=${ticket.eventDetails.id}`
                       )
                     }
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium whitespace-nowrap text-white"
                   >
                     {ticket.ticketCode}
                   </th>
@@ -120,7 +120,7 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
                   <td className="px-6 py-4">
                     {getDate(ticket.eventDetails.date)}
                   </td>
-                  <td className="px-6 py-4 text-white">
+                  <td className="px-6 py-4 text-black">
                     {ticket.isCancelled
                       ? "Ticket Cancelled"
                       : ticket.eventDetails.isCancelled
@@ -130,6 +130,7 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
                       : "Active"}
                   </td>
                   <td className="px-6 py-4">
+                    {!ticket.isCancelled &&
                     <button
                       type="button"
                       onClick={()=>handleEventCancellation(ticket.id)}
@@ -137,6 +138,7 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
                     >
                       Cancel
                     </button>
+                    }
                   </td>
                 </tr>
               );

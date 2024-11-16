@@ -43,7 +43,10 @@ const EventDetailsPage: React.FC = () => {
 
   const handleTicketBooking = async (eventId: string) => {
     try {
-      if (eventDetails?.ticketPrice || 0 < 50) {
+      if(!eventDetails?.ticketPrice){
+        return
+      }
+      if (eventDetails?.ticketPrice  < 50) {
         toast.error(
           "stipe payment only availble in morethat 50, please use wallet!"
         );

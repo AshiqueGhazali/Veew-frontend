@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IEvents from "../../../interface/EventsInterface";
 import { useNavigate } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
@@ -6,7 +6,9 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import EditHostedEventDetails from "./EditHostedEventDetails";
 import EditEventDateAndTime from "./EditEventDateAndTime";
 import { toast } from "react-toastify";
-import { cancelEvent } from "../../../api/user";
+import { cancelEvent, getAllTicketForEvent } from "../../../api/user";
+import EventTicketsModal from "./EventTicketsModal";
+import { ITickets } from "../../../interface/ticketInterface";
 
 interface EventCardProps {
   eventData: IEvents;
@@ -23,6 +25,9 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
   isDateEditModalOpen,
   setDateEditModalOpen,
 }) => {
+  const [isTicketModalOpen, setTicketModal] = useState<boolean>(false);
+  const [ticketData , setTicket] = useState<ITickets[] | null>(null)
+
   const navigate = useNavigate();
   const navigateTODetailPage = (eventId: string) => {
     navigate(`/event-details?eventId=${eventId}`);
@@ -52,6 +57,24 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
     }
   };
 
+
+  useEffect(()=>{
+    const getAllTickets = async()=>{
+        try {
+            const response = await getAllTicketForEvent(eventData.id)
+
+            if(response.status===200){
+                setTicket(response.data)
+            }
+        } catch (error) {
+            console.log("errrrr",error);
+            
+        }
+    }
+
+    getAllTickets()
+  },[])
+
   return (
     <>
       <div className="bg-white rounded-lg p-4 shadow-md sm:w-full">
@@ -72,6 +95,14 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
           </div>
         </div>
         <hr className="h-px my-3 bg-gray-200 border-0 dark:bg-gray-700" />
+        <div className="flex flex-col items-center ">
+          <button
+            onClick={() => setTicketModal(true)}
+            className="relative inline-flex items-center w-full justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white"
+          >
+            view all tickets
+          </button>
+        </div>
         {!eventData.isCancelled ? (
           <div className="flex items-center justify-center">
             <Menu as="div" className="relative ml-3 ">
@@ -122,7 +153,9 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
           </div>
         ) : (
           <div>
-            <p className="text-red-500 text-center cursor-pointer">EVENT CANCELLED!</p>
+            <p className="text-red-500 text-center cursor-pointer">
+              EVENT CANCELLED!
+            </p>
           </div>
         )}
       </div>
@@ -138,6 +171,12 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
           eventData={eventData}
         />
       )}
+      <EventTicketsModal
+        isOpen={isTicketModalOpen}
+        setIsOpen={() => setTicketModal(false)}
+        event={eventData}
+        ticketData={ticketData}
+      />
     </>
   );
 };

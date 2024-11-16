@@ -32,7 +32,8 @@ const userRoutes = {
   conformTicketBooking:'/conformTicketBooking',
   bookTicketWithWallet: '/bookTicketWithWallet',
   getAllUserTickets: '/getAllUserTickets',
-  cancellTicket: '/cancellTicket'
+  cancellTicket: '/cancellTicket',
+  getAllTicketForEvent: '/getAllTicketForEvent'
 };
 
 export default userRoutes;

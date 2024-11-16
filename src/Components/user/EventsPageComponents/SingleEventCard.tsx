@@ -1,30 +1,29 @@
-import React from 'react'
-import IEvents from '../../../interface/EventsInterface';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import IEvents from "../../../interface/EventsInterface";
+import { useNavigate } from "react-router-dom";
 
 interface eventCardProps {
-    category : string;
-    events : IEvents[] | null;
+  category: string;
+  events: IEvents[] | null;
 }
 
-const SingleEventCard:React.FC<eventCardProps> = ({events,category}) => {
-    const navigate = useNavigate()
+const SingleEventCard: React.FC<eventCardProps> = ({ events, category }) => {
+  const navigate = useNavigate();
 
-    const dateSetUp = (date:string)=>{
-        const newDate = new Date(date)
-        return newDate.toLocaleDateString()
-    }
+  const dateSetUp = (date: string) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString();
+  };
 
-    const filterdEvents = events?.filter((event)=>{
-        return (
-            category ? event.category === category : event &&
-            event.isCancelled === false
-        )
-    })
+  const filterdEvents = events?.filter((event) => {
+    return category
+      ? event.category === category
+      : event && event.isCancelled === false;
+  });
 
   return (
     <>
-    <div className='grid grid-cols-1 m-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center'>
+      {/* <div className='grid grid-cols-1 m-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center'>
      {filterdEvents?.map((event)=>{
         return (
             <div className="relative m-0 flex w-full max-w-xs flex-col overflow-hidden rounded-md border border-gray-100 bg-white shadow-md">
@@ -51,10 +50,24 @@ const SingleEventCard:React.FC<eventCardProps> = ({events,category}) => {
             </div>
         )
      })}
-     </div>
+     </div> */}
+
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
+        {filterdEvents?.map((event, index) => {
+          return (
+            <div key={index} onClick={()=>navigate(`/event-details?eventId=${event.id}`)}>
+              <img
+                className="h-[135px] w-[180px]  md:h-[235px] md:w-[320px] rounded-lg"
+                src={event.imageUrl}
+                // className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                alt=""
+              />
+            </div>
+          );
+        })}
+      </div>
     </>
+  );
+};
 
-  )
-}
-
-export default SingleEventCard
+export default SingleEventCard;

@@ -238,3 +238,4 @@ export const bookTicketWithWallet = async (
   await Api.post(userRoutes.bookTicketWithWallet, { eventId });
 export const getAllUserTickets = async()=>await Api.get(userRoutes.getAllUserTickets)
 export const cancellTicket = async(ticketId:string)=>await Api.post(userRoutes.cancellTicket , {ticketId})
+export const getAllTicketForEvent = async(eventId:string)=>await Api.get(`${userRoutes.getAllTicketForEvent}?eventId=${eventId}`)

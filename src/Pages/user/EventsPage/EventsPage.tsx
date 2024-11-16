@@ -5,6 +5,10 @@ import Footer from '../../../Components/user/Footer/Footer'
 import SingleEventCard from '../../../Components/user/EventsPageComponents/SingleEventCard'
 import IEvents from "../../../interface/EventsInterface";
 import { getAllCategories, getUpcomingEvents } from "../../../api/user";
+import "flowbite";
+import { Datepicker } from 'flowbite';
+
+
 
 
 const EventsPage:React.FC = () => {
@@ -32,6 +36,8 @@ const EventsPage:React.FC = () => {
 
         if(response.status===200){            
           setCategories(response.data)
+          console.log(categories);
+          
         }
       } catch (error) {
         console.log(error);
@@ -39,6 +45,13 @@ const EventsPage:React.FC = () => {
     }
       getAllEventDetails()
       getCategories()
+
+      if (typeof window !== 'undefined') {
+        const datepicker = document.getElementById('datepicker-inline');
+        if (datepicker) {
+          new Datepicker(datepicker); 
+        }
+      }
   }, []);
   return (
     <>
@@ -54,8 +67,13 @@ const EventsPage:React.FC = () => {
             </div>
             </div> 
           </div>
-          <div>
-            <SingleEventCard events={events} category={''}/>
+          <div className='grid grid-cols-1 md:grid-cols-10 gap-4'>
+            <div className='col-span-1 md:col-span-7 p-4'>
+              <SingleEventCard events={events} category={''}/>
+            </div>
+            <div className='col-span-1 md:col-span-3  p-4 justify-items-center'>
+            <div id="datepicker-inline" inline-datepicker data-date="16/11/2024"></div>
+            </div>
           </div>
           <Footer theme='light'/>
         </div>

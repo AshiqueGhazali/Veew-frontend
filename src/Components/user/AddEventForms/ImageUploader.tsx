@@ -57,7 +57,7 @@ const ImageUploader: React.FC<ImgUploadProps> = ({setForm,formData}) => {
       if (response.status === 200) {
         console.log("Event successfully created:", response.data);
         setForm();
-        navigate('/')
+        navigate('/profile/events')
         
       }
     } catch (err) {
