@@ -13,6 +13,7 @@ import FailurePage from "../Pages/user/SuccessPage/FailurePage";
 import AddEvent from "../Pages/user/AddEvent/AddEvent";
 import EventsPage from "../Pages/user/EventsPage/EventsPage";
 import EventDetailsPage from "../Pages/user/EventDetailsPage/EventDetailsPage";
+import VideoCall from "../Pages/user/VideoCall/VideoConferencePage";
 
 const UserRoutes: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const UserRoutes: React.FC = () => {
           <Route path="/failure" element={<FailurePage/>} />
           <Route path="/add-new-event" element={<AddEvent/>}/>
           <Route path="/event-details" element={<EventDetailsPage/>}/>
+          <Route path="/meet" element={<VideoCall/>}/>
         </Route>
       </Routes>
     </>

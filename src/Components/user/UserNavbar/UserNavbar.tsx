@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import "./UserNavbar.css";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -17,9 +17,21 @@ const navigation = [
 ];
 const UserNavbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
     const handleLogout = async () => {
     try {
@@ -41,7 +53,9 @@ const UserNavbar: React.FC = () => {
 
   return (
     <>
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+          isScrolled ? "bg-[#0e1822]" : "bg-transparent"
+        }`}>
         <nav
           aria-label="Global"
           className="flex items-center justify-between p-6 lg:px-8"

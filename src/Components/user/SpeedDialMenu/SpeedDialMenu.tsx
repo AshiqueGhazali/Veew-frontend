@@ -97,7 +97,7 @@ const SpeedDialButton: React.FC<SpeedDialButtonProps> = ({
       data-tooltip-target={tooltipId}
       data-tooltip-placement="left"
 
-      className="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 border-gray-600 shadow-sm hover:text-white text-gray-400 hover:bg-gray-50 bg-gray-700 hover:bg-gray-600"
+      className="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900  rounded-full border border-gray-200 border-gray-600 shadow-sm hover:text-white text-gray-400 hover:bg-gray-50 bg-gray-700 hover:bg-gray-600"
     >
       <svg
         className="w-5 h-5"

@@ -146,6 +146,7 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
             </button>
             <button
               type="button"
+              onClick={() => navigate(`/meet?eventId=${eventData.id}`)}
               className="text-black hover:text-white border border-black hover:bg-arkblue  font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500"
             >
               START
