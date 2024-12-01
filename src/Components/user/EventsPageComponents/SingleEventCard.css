@@ -1,0 +1,33 @@
+
+
+.event-card-overlay {
+    max-height: 135px;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background-color: rgba(240, 240, 240, 0.5); 
+    border-radius: 4px;
+    color: #000000; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    opacity: 0; 
+    transition: opacity 0.3s; 
+}
+
+.event-card:hover .event-card-overlay {
+    opacity: 1; /* Show home-card-overlay on hover */
+}
+.event-card img{
+    width: 240px;
+    height: 135px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.event-card{
+    position: relative;
+}
+

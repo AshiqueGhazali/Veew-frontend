@@ -11,6 +11,8 @@ interface ticketsProps {
 
 const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
   const [userTickets, setUserTickets] = useState<ITickets[] | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [ticketsPerPage] = useState<number>(10);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,6 +66,18 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
 
     return matchesStatus;
   });
+
+  const totalTickets = filterdTickets?.length || 0;
+  const totalPages = Math.ceil(totalTickets / ticketsPerPage);
+  const startIndex = (currentPage - 1) * ticketsPerPage;
+  const endIndex = startIndex + ticketsPerPage;
+  const paginatedTickets = filterdTickets?.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   const getDate = (date: string) => {
     return new Date(date).toLocaleDateString();
@@ -130,14 +144,14 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
                       : "Active"}
                   </td>
                   <td className="px-6 py-4">
-                    {!ticket.isCancelled &&
+                    {!ticket.isCancelled && eventStatus===listTypeEnum.UPCOMING ?
                     <button
                       type="button"
                       onClick={()=>handleEventCancellation(ticket.id)}
                       className="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
                     >
                       Cancel
-                    </button>
+                    </button> : <></>
                     }
                   </td>
                 </tr>
@@ -157,65 +171,25 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
               {filterdTickets?.length}
             </span>
           </span>
-          <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8 list-none">
-            <li>
-              <a
-                href=""
-                className="flex items-center no-underline  justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Previous
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-                className="flex items-center no-underline justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                1
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-                className="flex items-center no-underline justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                2
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-                aria-current="page"
-                className="flex items-center no-underline justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-              >
-                3
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-                className="flex items-center no-underline justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                4
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-                className="flex items-center no-underline justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                5
-              </a>
-            </li>
-            <li>
-              <a
-                href=""
-                className="flex items-center no-underline justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Next
-              </a>
-            </li>
-          </ul>
+          <div>
+          <button
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="text-gray-500 bg-white border border-gray-300 rounded-l-lg px-3 py-1"
+          >
+            Previous
+          </button>
+          <span className="text-gray-500">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="text-gray-500 bg-white border border-gray-300 rounded-r-lg px-3 py-1"
+          >
+            Next
+          </button>
+          </div>
         </nav>
       </div>
     </div>

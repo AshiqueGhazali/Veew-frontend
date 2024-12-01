@@ -34,7 +34,8 @@ const userRoutes = {
   getAllUserTickets: '/getAllUserTickets',
   cancellTicket: '/cancellTicket',
   getAllTicketForEvent: '/getAllTicketForEvent',
-  startEvent:'/startEvent'
+  startEvent:'/startEvent',
+  verifyEventJoining:'/verifyEventJoining'
 };
 
 export default userRoutes;

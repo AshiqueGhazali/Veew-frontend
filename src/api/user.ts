@@ -240,3 +240,4 @@ export const getAllUserTickets = async()=>await Api.get(userRoutes.getAllUserTic
 export const cancellTicket = async(ticketId:string)=>await Api.post(userRoutes.cancellTicket , {ticketId})
 export const getAllTicketForEvent = async(eventId:string)=>await Api.get(`${userRoutes.getAllTicketForEvent}?eventId=${eventId}`)
 export const startEvent = async(eventId:string)=>await Api.get(`${userRoutes.startEvent}?eventId=${eventId}`)
+export const verifyEventJoining= async(meetUrl:string)=> await Api.get(`${userRoutes.verifyEventJoining}?meetURL=${meetUrl}`)

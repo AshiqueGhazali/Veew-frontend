@@ -63,7 +63,7 @@ const AddEventForm: React.FC<AddFormProps> = ({setForm, formData,setFormData ,ma
       return false
     }
 
-    if (!formData.date || selectedDate < currentDate) {
+    if (!formData.date || selectedDate.getDay() < currentDate.getDay()) {
       setErr("Please select a valid future date!")
       return false
     }

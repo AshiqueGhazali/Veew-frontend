@@ -4,6 +4,7 @@ import {
   bookTicketWithWallet,
   getEventDetails,
   payForTicket,
+  verifyEventJoining,
 } from "../../../api/user";
 import { useLocation, useNavigate } from "react-router-dom";
 import IEvents from "../../../interface/EventsInterface";
@@ -11,10 +12,14 @@ import queryString from "query-string";
 import { loadStripe } from "@stripe/stripe-js";
 import Logo from "../../../assets/veewWhiteLogo.png";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Redux/store/store";
 
 const EventDetailsPage: React.FC = () => {
+  const userId = useSelector((state: RootState) => state.user.userData.id);
   const [eventDetails, setEventDetails] = useState<IEvents | null>(null);
   const [isbooking, setIsBooking] = useState<boolean>(false);
+  const [isEventTime, setEventTime] = useState<boolean>(false)
   const navigate = useNavigate();
   const location = useLocation();
   const eventId = queryString.parse(location.search).eventId as string;
@@ -37,6 +42,30 @@ const EventDetailsPage: React.FC = () => {
 
     fetchEventDetails();
   }, []);
+
+  useEffect(()=>{
+    if(eventDetails){
+      const currentDate = new Date()
+      const startDateTime = new Date(
+        `${eventDetails?.date.toString().split('T')[0]}T${eventDetails?.startTime}`
+      );
+      const endDateTime = new Date(
+        `${eventDetails?.date.toString().split('T')[0]}T${eventDetails?.endTime}`
+      );
+
+      const currentTime =
+              currentDate.getHours() * 60 + currentDate.getMinutes();
+            const startMinutes =
+              startDateTime.getHours() * 60 + startDateTime.getMinutes();
+            const endMinutes =
+              endDateTime.getHours() * 60 + endDateTime.getMinutes();
+  
+          if(currentTime >= startMinutes && currentTime <= endMinutes){
+            setEventTime(true)
+          }
+    }
+    
+  },[eventDetails])
 
   const getDate = (date?: string) => {
     return date && new Date(date).toDateString();
@@ -84,15 +113,31 @@ const EventDetailsPage: React.FC = () => {
         setIsBooking(false);
       }
     } catch (error: any) {
-      if (error.response.status === 400 || error.response.status === 401) {
+      if (error.response.status === 400 || error.response.status === 401 || error.response.status==404) {
         toast.error(error.response.data.message);
       }
       console.log(error);
     }
   };
 
-  const handleJoinEvent = () => {
-    navigate(`/event-video-call?eventId=${eventId}`);
+  const handleJoinEvent = async() => {
+    try {
+      if(!eventDetails?.eventMeetUrl){
+        toast.error("event has't in live!")
+        return
+      }
+      const response = await verifyEventJoining(eventDetails?.eventMeetUrl)
+      if(response.status===200){
+        navigate(`/meet?roomID=${eventDetails?.eventMeetUrl}`);
+      }
+    } catch (error:any) {
+      if(error.response.status===400 || error.response.status==401){
+        toast.error(error.response.data.message)
+      }
+
+      console.log(error);
+      
+    }
   };
 
   return (
@@ -220,15 +265,15 @@ const EventDetailsPage: React.FC = () => {
               </div>
             </div>
 
-            {!eventDetails?.isCancelled && (
+            {!eventDetails?.isCancelled && userId === eventDetails?.hostsId ? <></> : (
               <>
-               {1 === 1 ? <>
+               {isEventTime ? <>
                 <button
                     type="submit"
                     onClick={handleJoinEvent}
                     className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-darkBlue px-8 py-3 text-base font-medium text-white hover:bg-secondaryColor"
                   >
-                    JOIN
+                    JOIN NOW
                   </button>
                </> : (<>
                 {!isbooking ? (

@@ -1,82 +1,13 @@
-// import * as React from 'react';
-// import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 
-// function randomID(len:number) {
-//   let result = '';
-//   if (result) return result;
-//   var chars = '12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP',
-//     maxPos = chars.length,
-//     i;
-//   len = len || 5;
-//   for (i = 0; i < len; i++) {
-//     result += chars.charAt(Math.floor(Math.random() * maxPos));
-//   }
-//   return result;
-// }
 
-// export function getUrlParams(
-//   url = window.location.href
-// ) {
-//   let urlStr = url.split('?')[1];
-//   return new URLSearchParams(urlStr);
-// }
-
-// export default function conferancePage() {
-//       const roomID = getUrlParams().get('roomID') || randomID(5);
-//       let myMeeting = async (element:any) => {
-
-//         const userData = {name:"asss", profileImage:''}
-//      // generate Kit Token
-//       const appID = 902961434;
-//       const serverSecret = "9ceb90ac69f6a86ae359870be68c9c8c";
-//       const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID,  randomID(5),userData.name);
-//       // const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID,  randomID(5),  randomID(5),userData.name);
-
-//      // Create instance object from Kit Token.
-//       const zp = ZegoUIKitPrebuilt.create(kitToken);
-//       // start the call
-//       zp.joinRoom({
-//         container: element,
-//         sharedLinks: [
-//           {
-//             name: 'copy link',
-//             url:
-//              window.location.protocol + '//' +
-//              window.location.host + window.location.pathname +
-//               '?roomID=' +
-//               roomID,
-//           },
-//         ],
-//         scenario: {
-//           mode: ZegoUIKitPrebuilt.GroupCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
-//         },
-//         userConfig: {
-//           onUserAvatarUpdate: (user:any) => {
-//             return userData.profileImage
-//               ? `<img src="${userData.profileImage}" alt="User Avatar" />`
-//               : `<div class="avatar">${userData.name.charAt(0).toUpperCase()}</div>`;
-//           },
-//         },
-//       });
-
-//   };
-
-//   return (
-//     <div
-//       className="myCallContainer"
-//       ref={myMeeting}
-//       style={{ width: '100vw', height: '100vh' }}
-//     ></div>
-//   );
-// }
-
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store/store";
-import { getUserProfileData } from "../../../api/user";
+import { getUserProfileData, startEvent, verifyEventJoining } from "../../../api/user";
 import { IUser } from "../../../interface/userInterface";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function randomID(len: number) {
   let result = "";
@@ -116,33 +47,24 @@ export function getUrlParams(
   return new URLSearchParams(urlStr);
 }
 
-export default function App() {
+// export default function App=() =>{
+const videoConference: React.FC = () => {
   const idOfUser = useSelector((state: RootState) => state.user.userData.id);
-  const [userData, setUserData] = React.useState<IUser | null>(null);
+  const [userData, setUserData] = useState<IUser | null>(null);
+  const [status, setStatus] = useState({
+    status: false,
+    message: "Loading...",
+  });
+  const [roomURL , setRoomURL] = useState<string>(randomID(7))
   const navigate = useNavigate();
 
   const room = getUrlParams().get("roomID");
   const eventId = getUrlParams().get("eventId");
 
-  if (!room && !eventId) {
-    // navigate('/profile/events')
-    return (
-      <div className="flex flex-col items-center justify-center h-[100vh]">
-        <h1>Event Not Found</h1>
-        <button
-          type="button"
-          onClick={()=>navigate('/profile/events')}
-          className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-        >
-          BACK TO EVENTS
-        </button>
-      </div>
-    );
-  }
+  
+  
 
-  if (eventId) {
-  }
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchUserData = async () => {
       if (idOfUser) {
         try {
@@ -159,9 +81,52 @@ export default function App() {
     };
 
     fetchUserData();
+
+    if (eventId) {
+      const getStartEvent = async () => {
+        try {
+          const response = await startEvent(eventId);
+          if (response.status === 200) {
+            // toast.success("event starting...");
+            setStatus({status:true,message:"OK"})
+            setRoomURL(response.data.eventMeetUrl)
+          }
+        } catch (error: any) {
+          if (error.response.status === 400 || error.response.status === 401) {
+            setStatus({status:false,message:error.response.data.message})
+          }
+        }
+      };
+  
+      getStartEvent();
+    }
+
+    if (!room && !eventId) {
+      setStatus({status:false,message:"Event Not Found"})
+    }
+
+    if(room){
+      const verifyJoining = async()=>{
+        try {
+          const response = await verifyEventJoining(room)
+
+          if(response.status===200){
+            setStatus({status:true,message:"ticket conformed"})
+          }
+        } catch (error:any) {
+          if(error.response.status === 500){
+            setStatus({status:false,message:"server error"})
+            return
+          }
+          setStatus({status:false,message:error.response.data.message})
+        }
+      }
+
+      verifyJoining()
+    }
   }, [idOfUser]);
 
-  const roomID = room || randomID(5);
+  const roomID = room || roomURL;
   const userID = userData?.id || "";
   const userName = `${userData?.firstName} ${userData?.lastName}`;
   let myMeeting = async (element: HTMLDivElement) => {
@@ -172,6 +137,13 @@ export default function App() {
       userID
     );
 
+    const avatar =
+    userData?.image ||
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      userData?.firstName || "U"
+    )}&background=random`;
+
+
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
       2013980891,
       token,
@@ -181,6 +153,7 @@ export default function App() {
     );
     // create instance object from token
     const zp = ZegoUIKitPrebuilt.create(kitToken);
+
     // start the call
     zp.joinRoom({
       container: element,
@@ -201,11 +174,28 @@ export default function App() {
     });
   };
 
-  return (
-    <div
-      className="myCallContainer"
-      ref={myMeeting}
-      style={{ width: "100vw", height: "100vh" }}
-    ></div>
-  );
-}
+  if (status.status) {
+    return (
+      <div
+        className="myCallContainer"
+        ref={myMeeting}
+        style={{ width: "100vw", height: "100vh" }}
+      ></div>
+    );
+  } else {
+    return (
+      <div className="flex flex-col items-center justify-center h-[100vh]">
+      <h1>{status.message}</h1>
+      <button
+        type="button"
+        onClick={() => navigate("/profile/events")}
+        className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+      >
+        BACK TO EVENTS
+      </button>
+    </div>
+    )
+  }
+};
+
+export default videoConference;

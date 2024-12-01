@@ -5,6 +5,7 @@ import { FaUsers } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { IoPricetagsSharp } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
+import { getDataCounts } from "../../../api/admin";
 
 enum headers {
   Dashboard = "Dashboard",
@@ -14,13 +15,48 @@ enum headers {
   TicketManagement = "Ticket Management",
 }
 
+interface IDataCount {
+  totalUsers:number;
+  totalEvents:number;
+  totalSubscribers:number;
+  totalTickets:number
+}
+
 interface AdminHeadProps {
   setSearch: (search: string) => void;
 }
 const AdminHead: React.FC<AdminHeadProps> = ({ setSearch }) => {
   const [head, setHead] = useState<headers>(headers.Dashboard);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [dataCounts, setDataCounts] = useState<IDataCount>({
+    totalUsers: 0,
+    totalEvents: 0,
+    totalSubscribers: 0,
+    totalTickets: 0,
+  });
   const location = useLocation();
+
+  useEffect(()=>{
+    const setAllDataCounts = async()=>{
+      try {
+        const response = await getDataCounts()
+        if(response.status===200){
+          const {totalUsers, totalEvents, totalSubscribers, totalTickets}= response.data
+          setDataCounts({
+            totalUsers,
+            totalEvents,
+            totalSubscribers,
+            totalTickets
+          })
+        }
+      } catch (error:any) {
+        console.log(error);
+        
+      }
+    }
+
+    setAllDataCounts()
+  },[])
 
   useEffect(() => {
     if (location.pathname === "/admin/") {
@@ -68,7 +104,7 @@ const AdminHead: React.FC<AdminHeadProps> = ({ setSearch }) => {
           </div>
           <div>
             <h4>Users</h4>
-            <p>3099</p>
+            <p>{dataCounts.totalUsers}</p>
           </div>
         </div>
         <div className="dashboard-card">
@@ -77,7 +113,7 @@ const AdminHead: React.FC<AdminHeadProps> = ({ setSearch }) => {
           </div>
           <div>
             <h4>Subscriptions</h4>
-            <p>3099</p>
+            <p>{dataCounts.totalSubscribers}</p>
           </div>
         </div>
         <div className="dashboard-card">
@@ -86,7 +122,7 @@ const AdminHead: React.FC<AdminHeadProps> = ({ setSearch }) => {
           </div>
           <div>
             <h4>Events</h4>
-            <p>3099</p>
+            <p>{dataCounts.totalEvents}</p>
           </div>
         </div>
         <div className="dashboard-card">
@@ -95,7 +131,7 @@ const AdminHead: React.FC<AdminHeadProps> = ({ setSearch }) => {
           </div>
           <div>
             <h4>Tickets</h4>
-            <p>3099</p>
+            <p>{dataCounts.totalTickets}</p>
           </div>
         </div>
       </div>
