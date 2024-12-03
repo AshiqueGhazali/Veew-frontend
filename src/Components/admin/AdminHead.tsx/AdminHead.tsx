@@ -41,10 +41,10 @@ const AdminHead: React.FC<AdminHeadProps> = ({ setSearch }) => {
       try {
         const response = await getDataCounts()
         if(response.status===200){
-          const {totalUsers, totalEvents, totalSubscribers, totalTickets}= response.data
+          const {totalUsers, totalExpairedEvents , totalUpcomingEvents , totalSubscribers, totalTickets}= response.data
           setDataCounts({
             totalUsers,
-            totalEvents,
+            totalEvents:totalExpairedEvents+totalUpcomingEvents,
             totalSubscribers,
             totalTickets
           })

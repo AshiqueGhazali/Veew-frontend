@@ -68,6 +68,17 @@ interface editDateParams {
   endTime: string;
 }
 
+interface dataCountResponse {
+  status: number;
+  data: {
+    totalUsers:number;
+    totalUpcomingEvents:number;
+    totalExpairedEvents:number;
+    totalSubscribers:number;
+    totalTickets:number
+  };
+}
+
 export const sendOtp = async (email: string): Promise<Response> => {
   const response = await Api.post(userRoutes.sendOtp, { email });
   return {
@@ -241,3 +252,4 @@ export const cancellTicket = async(ticketId:string)=>await Api.post(userRoutes.c
 export const getAllTicketForEvent = async(eventId:string)=>await Api.get(`${userRoutes.getAllTicketForEvent}?eventId=${eventId}`)
 export const startEvent = async(eventId:string)=>await Api.get(`${userRoutes.startEvent}?eventId=${eventId}`)
 export const verifyEventJoining= async(meetUrl:string)=> await Api.get(`${userRoutes.verifyEventJoining}?meetURL=${meetUrl}`)
+export const getDataCounts = async():Promise<dataCountResponse>=>Api.get(userRoutes.getDataCounts)

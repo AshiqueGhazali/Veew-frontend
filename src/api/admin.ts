@@ -37,7 +37,8 @@ interface dataCountResponse {
   status: number;
   data: {
     totalUsers:number;
-    totalEvents:number;
+    totalUpcomingEvents:number;
+    totalExpairedEvents:number;
     totalSubscribers:number;
     totalTickets:number
   };
@@ -71,4 +72,5 @@ export const getAllEvents = async()=>await Api.get(adminRoutes.getAllEvents)
 export const getAllCategories = async()=>await Api.get(adminRoutes.getAllCategories)
 export const adminCancelEvent = async(eventId:string)=>Api.patch(`${adminRoutes.adminCancelEvent}?eventId=${eventId}`)
 export const getAllTickets = async()=>Api.get(adminRoutes.getAllTickets)
-export const getDataCounts = async():Promise<dataCountResponse>=>Api.get(adminRoutes.getDataCounts)
+export const getDataCounts = async():Promise<dataCountResponse>=>await Api.get(adminRoutes.getDataCounts)
+export const getDashboardDatas = async()=>await Api.get(adminRoutes.getDashboardDatas)

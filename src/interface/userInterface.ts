@@ -8,6 +8,7 @@ export interface IUser {
   gender?: string;
   image?: string;
   phone?: string;
+  createdAt:Date
 }
 
 

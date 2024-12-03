@@ -13,7 +13,8 @@ const adminRoutes = {
   getAllCategories:'/admin/getAllCategoris',
   adminCancelEvent: '/admin/cancellEvent',
   getAllTickets:'/admin/getAllTickets',
-  getDataCounts:'/admin/getDataCounts'
+  getDataCounts:'/admin/getDataCounts',
+  getDashboardDatas:'/admin/getDashboardData'
 };
 
 export default adminRoutes;
