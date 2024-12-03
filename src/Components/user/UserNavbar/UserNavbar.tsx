@@ -7,6 +7,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../Redux/slice/userAuthSlice";
 import { userLogout } from "../../../api/user";
+import { IoAddCircle } from "react-icons/io5";
+import { FiLogOut } from "react-icons/fi";
+
+
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -89,21 +93,16 @@ const UserNavbar: React.FC = () => {
               </a>
             ))}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <button
-              type="button"
-              className="inline-flex mr-2 items-center rounded-md bg-[#937e54] px-2 py-1 text-xs font-normal  text-white shadow-sm hover:bg-[#bea980]"
-              onClick={navigateToAddEvent}
-            >
-              ADD EVENT
-            </button>
-            <button
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-2">
+            <div onClick={navigateToAddEvent} className="text-white text-[30px]"><IoAddCircle /></div>
+            {/* <button
               type="button"
               className="inline-flex items-center rounded-md bg-[#937e54] px-2 py-1  font-normal text-xs text-white shadow-sm hover:bg-[#bea980]"
               onClick={handleLogout}
             >
               LOGOUT
-            </button>
+            </button> */}
+            <div onClick={handleLogout} className="text-white text-[30px]"><FiLogOut /></div>
           </div>
         </nav>
         <Dialog

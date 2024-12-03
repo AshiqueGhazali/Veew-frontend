@@ -36,7 +36,8 @@ const userRoutes = {
   getAllTicketForEvent: '/getAllTicketForEvent',
   startEvent:'/startEvent',
   verifyEventJoining:'/verifyEventJoining',
-  getDataCounts:'/getDataCounts'
+  getDataCounts:'/getDataCounts',
+  getNotifications:'/getNotifications'
 };
 
 export default userRoutes;

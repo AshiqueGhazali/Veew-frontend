@@ -21,6 +21,8 @@ import UserEvent from "../UserEvents/UserEvent";
 import SpeedDialMenu from "../../../Components/user/SpeedDialMenu/SpeedDialMenu";
 import { UserWallet } from "../UserWallet/UserWallet";
 import UserTickets from "../UserTickets/UserTickets";
+import NotificationPage from "../NotificationPage/NotificationPage";
+import userProfileAvtar from "../../../assets/man-profile.jpeg"
 
 export enum listTypeEnum {
   UPCOMING =  'UPCOMING' ,
@@ -66,7 +68,10 @@ const UserProfile: React.FC = () => {
 
   useEffect(()=>{
     const findTitle = navigation.find(item =>location.pathname === item.href)
-    const title = findTitle ? findTitle.name : 'Page Not Found!'
+    let title = findTitle ? findTitle.name : 'Page Not Found!'
+    if(location.pathname === '/profile/notifications'){
+      title = "Notifications"
+    }
     setPageTitle(title)
 
   },[location])
@@ -104,6 +109,7 @@ const UserProfile: React.FC = () => {
                 <div className="ml-4 flex items-center md:ml-6">
                   <button
                     type="button"
+                    onClick={()=>navigate('/profile/notifications')} 
                     className="relative rounded-full bg-[#0e1822] p-1 text-gray-400 hover:text-white focus:outline-none"
                   >
                     <span className="absolute -inset-1.5" />
@@ -117,7 +123,7 @@ const UserProfile: React.FC = () => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           alt=""
-                          src={userData?.image}
+                          src={userData?.image ? userData.image : userProfileAvtar}
                           className="h-8 w-8 rounded-full"
                         />
                       </MenuButton>
@@ -165,7 +171,7 @@ const UserProfile: React.FC = () => {
                 <div className="flex-shrink-0" onClick={() => setOpen(true)}>
                   <img
                     alt=""
-                    src={userData?.image}
+                    src={userData?.image ? userData.image : userProfileAvtar}
                     className="h-10 w-10 rounded-full"
                   />
                 </div>
@@ -177,6 +183,7 @@ const UserProfile: React.FC = () => {
                 </div>
                 <button
                   type="button"
+                  onClick={()=>navigate('/profile/notifications')}
                   className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="absolute -inset-1.5" />
@@ -201,6 +208,7 @@ const UserProfile: React.FC = () => {
               <Route path="/events" element={<UserEvent eventStatus={listType}/>}/>
               <Route path="/wallet" element={<UserWallet/>}/>
               <Route path="/tickets" element={<UserTickets eventStatus ={listType}/>}/>
+              <Route path="/notifications" element={<NotificationPage/>}/>
             </Routes>  
           </div>
         </main>

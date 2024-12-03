@@ -48,19 +48,19 @@ const StatsSection: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-10 max-w-4xl mx-auto">
-        <div className="bg-[#666666] p-6 rounded-lg text-center text-white hover:bg-[#555555]">
+        <div className="bg-[#666666] p-6 rounded-lg text-center text-white hover:bg-[#555555] cursor-pointer">
           <h3 className="text-2xl font-semibold">{status.totalUsers} +</h3>
           <p className="text-gray-200 mt-2">Users</p>
         </div>
-        <div className="bg-[#666666] p-6 rounded-lg text-center text-white hover:bg-[#555555]">
+        <div className="bg-[#666666] p-6 rounded-lg text-center text-white hover:bg-[#555555] cursor-pointer">
           <h3 className="text-2xl font-semibold">{status.totalSubscribers} +</h3>
           <p className="text-gray-200 mt-2">Hostes</p>
         </div>
-        <div className="bg-[#666666] p-6 rounded-lg text-center text-white hover:bg-[#555555]">
+        <div className="bg-[#666666] p-6 rounded-lg text-center text-white hover:bg-[#555555] cursor-pointer">
           <h3 className="text-2xl font-semibold">{status.totalExpairedEvents} +</h3>
           <p className="text-gray-200 mt-2">Events Finished</p>
         </div>
-        <div className="bg-[#666666] p-6 rounded-lg text-center text-white hover:bg-[#555555]">
+        <div className="bg-[#666666] p-6 rounded-lg text-center text-white hover:bg-[#555555] cursor-pointer">
           <h3 className="text-2xl font-semibold">{status.totalUpcomingEvents}</h3>
           <p className="text-gray-200 mt-2">{status.totalUpcomingEvents>1 ? 'Upcoming Events' : 'Upcoming Event'}</p>
         </div>

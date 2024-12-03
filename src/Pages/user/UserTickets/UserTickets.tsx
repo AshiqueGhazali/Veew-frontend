@@ -111,7 +111,7 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
               (filterdTickets.length === 0 && (
                 <p className="text-center text-black">tickets not found</p>
               ))}
-            {filterdTickets?.map((ticket, index) => {
+            {paginatedTickets?.map((ticket, index) => {
               listCount += 1;
               return (
                 <tr
@@ -127,8 +127,8 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
                     }
                     className="px-6 py-4 font-medium whitespace-nowrap text-white"
                   >
-                    {/* <p id="copy-button">{ticket.ticketCode}</p> */}
-                    <div className="w-full max-w-[16rem]">
+                    <p id="copy-button">{ticket.ticketCode}</p>
+                    {/* <div className="w-full max-w-[16rem]">
                       <div className="relative">
                         <input
                           id="npm-install-copy-button"
@@ -192,7 +192,7 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
                           ></div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* dasfsfas */}
                   </th>
@@ -240,7 +240,7 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
               {filterdTickets?.length}
             </span>
           </span>
-          <div>
+          {/* <div>
             <button
               disabled={currentPage === 1}
               onClick={() => handlePageChange(currentPage - 1)}
@@ -255,6 +255,20 @@ const UserTickets: React.FC<ticketsProps> = ({ eventStatus }) => {
               disabled={currentPage === totalPages}
               onClick={() => handlePageChange(currentPage + 1)}
               className="text-gray-500 bg-white border border-gray-300 rounded-r-lg px-3 py-1"
+            >
+              Next
+            </button>
+          </div> */}
+          <div className="inline-flex mt-2 xs:mt-0">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              Prev
+            </button>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Next
             </button>

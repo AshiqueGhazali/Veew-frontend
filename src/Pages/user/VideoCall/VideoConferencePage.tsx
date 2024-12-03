@@ -1,23 +1,22 @@
-
-
 import React, { useState, useEffect } from "react";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store/store";
-import { getUserProfileData, startEvent, verifyEventJoining } from "../../../api/user";
+import {
+  getUserProfileData,
+  startEvent,
+  verifyEventJoining,
+} from "../../../api/user";
 import { IUser } from "../../../interface/userInterface";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
-function randomID(len: number) {
+function randomID(len: number = 7): string {
+  const chars =
+    "12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP";
   let result = "";
-  if (result) return result;
-  var chars = "12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP",
-    maxPos = chars.length,
-    i;
-  len = len || 5;
-  for (i = 0; i < len; i++) {
-    result += chars.charAt(Math.floor(Math.random() * maxPos));
+  for (let i = 0; i < len; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return result;
 }
@@ -47,7 +46,6 @@ export function getUrlParams(
   return new URLSearchParams(urlStr);
 }
 
-// export default function App=() =>{
 const videoConference: React.FC = () => {
   const idOfUser = useSelector((state: RootState) => state.user.userData.id);
   const [userData, setUserData] = useState<IUser | null>(null);
@@ -55,14 +53,11 @@ const videoConference: React.FC = () => {
     status: false,
     message: "Loading...",
   });
-  const [roomURL , setRoomURL] = useState<string>(randomID(7))
+  const [roomURL, setRoomURL] = useState<string>(randomID(7));
   const navigate = useNavigate();
 
   const room = getUrlParams().get("roomID");
   const eventId = getUrlParams().get("eventId");
-
-  
-  
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -88,41 +83,41 @@ const videoConference: React.FC = () => {
           const response = await startEvent(eventId);
           if (response.status === 200) {
             // toast.success("event starting...");
-            setStatus({status:true,message:"OK"})
-            setRoomURL(response.data.eventMeetUrl)
+            setStatus({ status: true, message: "OK" });
+            setRoomURL(response.data.eventMeetUrl);
           }
         } catch (error: any) {
           if (error.response.status === 400 || error.response.status === 401) {
-            setStatus({status:false,message:error.response.data.message})
+            setStatus({ status: false, message: error.response.data.message });
           }
         }
       };
-  
+
       getStartEvent();
     }
 
     if (!room && !eventId) {
-      setStatus({status:false,message:"Event Not Found"})
+      setStatus({ status: false, message: "Event Not Found" });
     }
 
-    if(room){
-      const verifyJoining = async()=>{
+    if (room) {
+      const verifyJoining = async () => {
         try {
-          const response = await verifyEventJoining(room)
+          const response = await verifyEventJoining(room);
 
-          if(response.status===200){
-            setStatus({status:true,message:"ticket conformed"})
+          if (response.status === 200) {
+            setStatus({ status: true, message: "ticket conformed" });
           }
-        } catch (error:any) {
-          if(error.response.status === 500){
-            setStatus({status:false,message:"server error"})
-            return
+        } catch (error: any) {
+          if (error.response.status === 500) {
+            setStatus({ status: false, message: "server error" });
+            return;
           }
-          setStatus({status:false,message:error.response.data.message})
+          setStatus({ status: false, message: error.response.data.message });
         }
-      }
+      };
 
-      verifyJoining()
+      verifyJoining();
     }
   }, [idOfUser]);
 
@@ -138,11 +133,10 @@ const videoConference: React.FC = () => {
     );
 
     const avatar =
-    userData?.image ||
-    `https://ui-avatars.com/api/?name=${encodeURIComponent(
-      userData?.firstName || "U"
-    )}&background=random`;
-
+      userData?.image ||
+      `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        userData?.firstName || "U"
+      )}&background=random`;
 
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
       2013980891,
@@ -185,16 +179,16 @@ const videoConference: React.FC = () => {
   } else {
     return (
       <div className="flex flex-col items-center justify-center h-[100vh]">
-      <h1>{status.message}</h1>
-      <button
-        type="button"
-        onClick={() => navigate("/profile/events")}
-        className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-      >
-        BACK TO EVENTS
-      </button>
-    </div>
-    )
+        <h1>{status.message}</h1>
+        <button
+          type="button"
+          onClick={() => navigate("/profile/events")}
+          className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        >
+          BACK TO EVENTS
+        </button>
+      </div>
+    );
   }
 };
 

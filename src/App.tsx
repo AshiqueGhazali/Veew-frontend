@@ -4,6 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom"; 
 import UserRoutes from "./Routes/UserRoutes";
 import AdminRoutes from "./Routes/AdminRoutes";
+import Error500Page from "./Pages/user/ErrorHandlingPages/Error500Page";
+import ErrorHandlingPage from "./Pages/user/ErrorHandlingPages/ErrorHandlingPage";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <Routes>
         <Route path="/*" element={<UserRoutes />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route path="/error-500" element={<Error500Page />} />
+        <Route path="/error" element={<ErrorHandlingPage />} />
       </Routes>
     </>
   );
