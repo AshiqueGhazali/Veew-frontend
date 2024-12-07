@@ -23,6 +23,8 @@ import { UserWallet } from "../UserWallet/UserWallet";
 import UserTickets from "../UserTickets/UserTickets";
 import NotificationPage from "../NotificationPage/NotificationPage";
 import userProfileAvtar from "../../../assets/man-profile.jpeg"
+import NotFoundPage from "../ErrorHandlingPages/NotFoundPage";
+import ProfilePage from "../ProflePage/ProfilePage";
 
 export enum listTypeEnum {
   UPCOMING =  'UPCOMING' ,
@@ -205,10 +207,12 @@ const UserProfile: React.FC = () => {
         <main>
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <Routes>
+              <Route path="/" element={<ProfilePage/>}/>
               <Route path="/events" element={<UserEvent eventStatus={listType}/>}/>
               <Route path="/wallet" element={<UserWallet/>}/>
               <Route path="/tickets" element={<UserTickets eventStatus ={listType}/>}/>
               <Route path="/notifications" element={<NotificationPage/>}/>
+              <Route path="*" element={<NotFoundPage/>}/>
             </Routes>  
           </div>
         </main>

@@ -26,12 +26,9 @@ function UserProtectRoutes() {
 
         const data: DecodedJwt = response.data.decoded as DecodedJwt;
         setIsLoading(true);
-        if (response.data) {
+        if (response.status===200) {
           dispatch(login(data.id));
           setStatus(true);
-          // setTimeout(()=>{
-          //   setStatus(true)
-          // },3000)
         }
       } catch (error) {
         console.log(error);

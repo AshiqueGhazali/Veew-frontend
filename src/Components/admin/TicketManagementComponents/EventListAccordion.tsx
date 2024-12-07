@@ -12,6 +12,8 @@ interface eventListProps {
 
 const EventListAccordion: React.FC<eventListProps> = ({ events, tickets , eventStatus , searchQuery}) => {
   const [openPanel, setOpenPanel] = useState<number | null>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [eventsPerPage] = useState(5);
 
   const togglePanel = (panelIndex: number) => {
     setOpenPanel(openPanel === panelIndex ? null : panelIndex);
@@ -37,6 +39,17 @@ const EventListAccordion: React.FC<eventListProps> = ({ events, tickets , eventS
     );
   });
 
+  const totalEvents = filteredEvents?.length || 0
+  const totalPages = Math.ceil(totalEvents/eventsPerPage)
+  const startIndex = (currentPage-1) * eventsPerPage;
+  const endIndex = startIndex + eventsPerPage;
+  const paginatedEvents = filteredEvents?.slice(startIndex,endIndex)
+
+  const handlePageChange = (page: number) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <>
@@ -49,7 +62,7 @@ const EventListAccordion: React.FC<eventListProps> = ({ events, tickets , eventS
             : "text-gray-500 dark:text-gray-400"
         } `}
       >
-        {filteredEvents?.map((event, index) => {
+        {paginatedEvents?.map((event, index) => {
           return (
             <div key={index}>
               <h2 id="accordion-flush-heading-1 mb-10" className="">
@@ -99,6 +112,29 @@ const EventListAccordion: React.FC<eventListProps> = ({ events, tickets , eventS
             </div>
           );
         })}
+      </div>
+      <div className="flex flex-col items-center mt-6">
+        <span className="text-sm text-gray-700 dark:text-gray-400">
+          Showing{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">{startIndex}</span>{" "}
+          to{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {endIndex < totalEvents ? endIndex : totalEvents}
+          </span>{" "}
+          of{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {totalEvents}
+          </span>{" "}
+          Notifications
+        </span>
+        <div className="inline-flex mt-2 xs:mt-0">
+          <button onClick={()=>handlePageChange(currentPage - 1)} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            Prev
+          </button>
+          <button onClick={()=>handlePageChange(currentPage + 1)} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            Next
+          </button>
+        </div>
       </div>
     </>
   );

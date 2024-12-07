@@ -33,6 +33,7 @@ interface LoginResponse {
 }
 
 interface getTokenRes {
+  status:number,
   data: {
     status: boolean;
     decoded?: object;
@@ -76,6 +77,16 @@ interface dataCountResponse {
     totalExpairedEvents:number;
     totalSubscribers:number;
     totalTickets:number
+  };
+}
+
+interface IProfileStatusesResponse {
+  status:number,
+  data: {
+    totalEvents: number;
+    subscription: string;
+    totalTickets: number;
+    totalEarnings: number;
   };
 }
 
@@ -254,3 +265,8 @@ export const startEvent = async(eventId:string)=>await Api.get(`${userRoutes.sta
 export const verifyEventJoining= async(meetUrl:string)=> await Api.get(`${userRoutes.verifyEventJoining}?meetURL=${meetUrl}`)
 export const getDataCounts = async():Promise<dataCountResponse>=>await Api.get(userRoutes.getDataCounts)
 export const getNotifications = async()=>await Api.get(userRoutes.getNotifications)
+export const getProfileStatus = async():Promise<IProfileStatusesResponse>=>await Api.get(userRoutes.getProfileStatus)
+export const setEventStartTime = async(eventId:string,startTime:string)=>await Api.post(userRoutes.setEventStartTime,{eventId,startTime})
+export const setEventEndTime = async(eventId:string, endTime:string)=>await Api.post(userRoutes.setEventEndTime,{eventId, endTime})
+export const addLike = async(eventId:string , userId: string)=>await Api.post(userRoutes.addLike,{eventId,userId})
+export const removeLike = async(eventId:string , userId: string)=>await Api.post(userRoutes.removeLike,{eventId,userId})

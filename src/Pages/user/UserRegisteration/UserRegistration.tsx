@@ -9,6 +9,7 @@ import ProgressBar from "../../../Components/user/ProgressBar/ProgressBar";
 import { useEffect, useState } from "react";
 import UseProtectLoginAndRegistration from "../../../hook/userSIde/useProtectLoginAndRegistration";
 import useProtectRoutes from "../../../hook/userSIde/useProtectRegistration";
+import NotFoundPage from "../ErrorHandlingPages/NotFoundPage";
 
 const UserRegistration = () => {
   UseProtectLoginAndRegistration();
@@ -38,6 +39,7 @@ const UserRegistration = () => {
             <Route path="/" element={<EnterEmail />} />
             <Route path="verification" element={<UserOtp />} />
             <Route path="register" element={<RegistrationForm />} />
+            <Route path="*" element={<NotFoundPage/>}/>
           </Routes>
         </div>
       </div>

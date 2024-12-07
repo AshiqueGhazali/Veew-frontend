@@ -37,7 +37,12 @@ const userRoutes = {
   startEvent:'/startEvent',
   verifyEventJoining:'/verifyEventJoining',
   getDataCounts:'/getDataCounts',
-  getNotifications:'/getNotifications'
+  getNotifications:'/getNotifications',
+  getProfileStatus:'/getProfileStatus',
+  setEventStartTime:'/setEventStartTime',
+  setEventEndTime:'/setEventEndTime',
+  addLike:'/addLike',
+  removeLike: '/removeLike'
 };
 
 export default userRoutes;

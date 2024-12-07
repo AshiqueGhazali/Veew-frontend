@@ -51,7 +51,7 @@ const NotificationPage: React.FC = () => {
               /> */}
               <div className="min-w-0 flex-auto">
                 <p className="text-sm/6 font-semibold text-gray-900">
-                  Transaction Successful!
+                  {notification.notificationHead}
                 </p>
                 <p className="mt-1 truncate text-xs/5 text-gray-500">
                   {notification.notification}

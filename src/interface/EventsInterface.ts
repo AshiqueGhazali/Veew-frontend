@@ -17,5 +17,7 @@ export default interface IEvents {
     updatedAt: string;
     isCancelled:boolean;
     eventMeetUrl?:string;
+    likes:number;
+    comments:number
     user: IUser;
 }

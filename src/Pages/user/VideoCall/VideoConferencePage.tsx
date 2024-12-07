@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store/store";
 import {
   getUserProfileData,
+  setEventEndTime,
   startEvent,
   verifyEventJoining,
 } from "../../../api/user";
@@ -46,6 +47,26 @@ export function getUrlParams(
   return new URLSearchParams(urlStr);
 }
 
+const handleEventStart = async (eventId: string) => {
+  try {
+    const startTime = new Date().toISOString();
+    await setEventEndTime(eventId, startTime);
+    console.log("Start time recorded successfully");
+  } catch (error) {
+    console.error("Failed to record start time:", error);
+  }
+};
+
+const handleEventEnd = async (eventId: string) => {
+  try {
+    const endTime = new Date().toISOString();
+    await setEventEndTime (eventId, endTime);
+    console.log("End time recorded successfully");
+  } catch (error) {
+    console.error("Failed to record end time:", error);
+  }
+};
+
 const videoConference: React.FC = () => {
   const idOfUser = useSelector((state: RootState) => state.user.userData.id);
   const [userData, setUserData] = useState<IUser | null>(null);
@@ -85,6 +106,7 @@ const videoConference: React.FC = () => {
             // toast.success("event starting...");
             setStatus({ status: true, message: "OK" });
             setRoomURL(response.data.eventMeetUrl);
+            await handleEventStart(eventId)
           }
         } catch (error: any) {
           if (error.response.status === 400 || error.response.status === 401) {
@@ -165,7 +187,15 @@ const videoConference: React.FC = () => {
       scenario: {
         mode: ZegoUIKitPrebuilt.GroupCall,
       },
+      onLeaveRoom:async()=>{
+        window.location.href = 'http://localhost:5173/events';
+        if(eventId){
+          await handleEventEnd(eventId)
+        }
+      }
     });
+
+  
   };
 
   if (status.status) {

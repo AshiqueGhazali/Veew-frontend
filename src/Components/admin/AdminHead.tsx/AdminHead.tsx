@@ -57,6 +57,7 @@ const AdminHead: React.FC<AdminHeadProps> = ({ setSearch }) => {
 
     setAllDataCounts()
   },[])
+  
 
   useEffect(() => {
     if (location.pathname === "/admin/") {

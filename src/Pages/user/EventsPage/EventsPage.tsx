@@ -55,7 +55,7 @@ const EventsPage: React.FC = () => {
       <UserNavbar />
       <div className="events-page">
         <div className="event-hero">
-          <div className="event-hero-head">
+          <div className="event-hero-head mt-[200px] max-h-[100vh] md:mt-0">
             <h1>
               Ready for Something New?
               <br />
@@ -71,7 +71,7 @@ const EventsPage: React.FC = () => {
               <button className="btn search-btn">Search</button>
             </div>
 
-            <div className="flex overflow-x-scroll scrollbar-hide flex-col md:flex-row gap-4 mt-10 max-w-4xl mx-auto">
+            <div className="flex overflow-x-scroll scrollbar-hide flex-col md:flex-row gap-4 mt-10 max-w-4xl mx-auto mb-[100px] md:mb-0">
               <div onClick={()=>{setCategory('')}} className="bg-[#666666] p-6 py-8 min-w-[300px] md:min-w-[200px] rounded-lg text-center text-white hover:bg-[#555555] focus:bg-[#444444] cursor-pointer" tabIndex={0}>
                     <h3 className="text-2xl font-semibold uppercase">All</h3>
                 </div>

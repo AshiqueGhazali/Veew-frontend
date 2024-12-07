@@ -32,7 +32,7 @@ const HomeEvents: React.FC<eventCardProps> = ({ category, events }) => {
         <div className="home-titleCards">
           <h2>{category}</h2>
           <div className="card-list">
-            {filteredEvents?.map((event, ind) => {
+            {filteredEvents?.slice(0,10).map((event, ind) => {
               return (
                 <div
                   className="card"
