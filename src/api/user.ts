@@ -90,6 +90,11 @@ interface IProfileStatusesResponse {
   };
 }
 
+interface ILikedEventsIdResponse {
+  status:number,
+  data: string[] | null
+}
+
 export const sendOtp = async (email: string): Promise<Response> => {
   const response = await Api.post(userRoutes.sendOtp, { email });
   return {
@@ -268,5 +273,6 @@ export const getNotifications = async()=>await Api.get(userRoutes.getNotificatio
 export const getProfileStatus = async():Promise<IProfileStatusesResponse>=>await Api.get(userRoutes.getProfileStatus)
 export const setEventStartTime = async(eventId:string,startTime:string)=>await Api.post(userRoutes.setEventStartTime,{eventId,startTime})
 export const setEventEndTime = async(eventId:string, endTime:string)=>await Api.post(userRoutes.setEventEndTime,{eventId, endTime})
-export const addLike = async(eventId:string , userId: string)=>await Api.post(userRoutes.addLike,{eventId,userId})
-export const removeLike = async(eventId:string , userId: string)=>await Api.post(userRoutes.removeLike,{eventId,userId})
+export const addLike = async(eventId:string)=>await Api.post(userRoutes.addLike,{eventId})
+export const removeLike = async(eventId:string)=>await Api.post(userRoutes.removeLike,{eventId})
+export const getLikedEventsId = async():Promise<ILikedEventsIdResponse>=>await Api.get(userRoutes.getLikedEventsId)

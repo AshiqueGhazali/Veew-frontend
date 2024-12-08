@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./EventsPage.css";
 import UserNavbar from "../../../Components/user/UserNavbar/UserNavbar";
 import Footer from "../../../Components/user/Footer/Footer";
-import SingleEventCard from "../../../Components/user/EventsPageComponents/SingleEventCard";
+import EventsListing from "../../../Components/user/EventsPageComponents/EventsListing";
 import IEvents from "../../../interface/EventsInterface";
 import { getAllCategories, getUpcomingEvents } from "../../../api/user";
 import "flowbite";
@@ -87,7 +87,7 @@ const EventsPage: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
           <div className="col-span-1 md:col-span-7 p-4">
-            <SingleEventCard events={events} category={category} searchQuery={searchQuery}/>
+            <EventsListing events={events} category={category} searchQuery={searchQuery}/>
           </div>
           <div className="sticky top-0 col-span-1 md:col-span-3  p-4 justify-items-center">
             <div
