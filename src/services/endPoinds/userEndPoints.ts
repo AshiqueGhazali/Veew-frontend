@@ -43,7 +43,10 @@ const userRoutes = {
   setEventEndTime:'/setEventEndTime',
   addLike:'/addLike',
   removeLike: '/removeLike',
-  getLikedEventsId: '/getLikedEventsId'
+  getLikedEventsId: '/getLikedEventsId',
+  postComment:'/addNewComment',
+  getEventComments: '/getEventComments',
+  deleteComment:'/deleteComment'
 };
 
 export default userRoutes;

@@ -276,3 +276,6 @@ export const setEventEndTime = async(eventId:string, endTime:string)=>await Api.
 export const addLike = async(eventId:string)=>await Api.post(userRoutes.addLike,{eventId})
 export const removeLike = async(eventId:string)=>await Api.post(userRoutes.removeLike,{eventId})
 export const getLikedEventsId = async():Promise<ILikedEventsIdResponse>=>await Api.get(userRoutes.getLikedEventsId)
+export const postComment = async(eventId:string,comment:string,parentId:string|null)=>await Api.post(userRoutes.postComment,{eventId,comment,parentId})
+export const getEventComments = async(eventId:string)=>await Api.get(`${userRoutes.getEventComments}?eventId=${eventId}`)
+export const deleteComment = async(commentId:string)=>await Api.delete(`${userRoutes.deleteComment}?commentId=${commentId}`)

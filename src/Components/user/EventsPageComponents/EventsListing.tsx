@@ -54,9 +54,7 @@ const EventsListing: React.FC<eventCardProps> = ({
         const response = await getLikedEventsId()
 
         if(response.status===200){          
-          setLikedEvents(response.data)
-          console.log(response.data);
-          
+          setLikedEvents(response.data)          
         }
       } catch (error) {
         console.log(error);

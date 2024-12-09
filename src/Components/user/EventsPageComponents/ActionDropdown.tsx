@@ -1,7 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const ActionDropdown: React.FC = () => {
+interface dropdownProps{
+  isPage?:boolean
+}
+
+const ActionDropdown: React.FC<dropdownProps> = ({isPage}) => {
   const [isOpen, setOpen] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+
+  useEffect(()=>{
+    if (window.innerWidth <= 1024) {
+      setIsMobile(true);
+    }
+  },[])
   const toggleAcrionbar = () => {
     setOpen(!isOpen);
   };
@@ -12,7 +23,7 @@ const ActionDropdown: React.FC = () => {
           onClick={() => toggleAcrionbar()}
           className="w-5 h-5"
           aria-hidden="true"
-          id="dropdownDotsHorizontalddd"
+          id="dropdownLeftEndButton" data-dropdown-toggle="dropdownLeftEnd" data-dropdown-placement="left-end"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
           viewBox="0 0 16 3"
@@ -22,13 +33,13 @@ const ActionDropdown: React.FC = () => {
 
         {isOpen && (
           <div
-            id="dropdownDotsHorizontal"
+            id="dropdownLeftEnd"
             onMouseLeave={() => toggleAcrionbar()}
-            className="z-10  absolute divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700 divide-gray-600"
+            className={`z-10  absolute  divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700 divide-gray-600 ${isPage|| isMobile ? 'right-4':''}`}
           >
             <ul
               className="py-2 text-sm list-none text-gray-200"
-              aria-labelledby="dropdownMenuIconHorizontalButton"
+              aria-labelledby="dropdownLeftEndButton"
             >
               <li>
                 <a className="block no-underline px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-white cursor-pointer">

@@ -56,8 +56,6 @@ const UserProfileSidebar: React.FC<UserSidebarProps> = ({
     const nameReg = /^(?! )[A-Za-z]+(?: [A-Za-z]+)*(?<! )$/;
     const phoneReg = /^\+?[1-9]\d{1,14}$/;
 
-    console.log("haskhksfhkasfdhkadsjffffff");
-
     if (!firstName || !nameReg.test(firstName)) {
       setErr("Enter A valid Name");
       return false;

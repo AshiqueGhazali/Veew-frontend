@@ -134,6 +134,7 @@ const SingleEventCard: React.FC<ICardProps> = ({ eventData, isLiked }) => {
           eventDetails={event}
           isLiked={liked}
           handleLike={handleLike}
+          setEvent={setEvent}
         />
       )}
     </>
