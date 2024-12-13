@@ -279,3 +279,4 @@ export const getLikedEventsId = async():Promise<ILikedEventsIdResponse>=>await A
 export const postComment = async(eventId:string,comment:string,parentId:string|null)=>await Api.post(userRoutes.postComment,{eventId,comment,parentId})
 export const getEventComments = async(eventId:string)=>await Api.get(`${userRoutes.getEventComments}?eventId=${eventId}`)
 export const deleteComment = async(commentId:string)=>await Api.delete(`${userRoutes.deleteComment}?commentId=${commentId}`)
+export const reportUser = async(reportedUserId:string,reason:string)=> await Api.post(userRoutes.reportUser,{reportedUserId,reason})

@@ -14,7 +14,9 @@ const adminRoutes = {
   adminCancelEvent: '/admin/cancellEvent',
   getAllTickets:'/admin/getAllTickets',
   getDataCounts:'/admin/getDataCounts',
-  getDashboardDatas:'/admin/getDashboardData'
+  getDashboardDatas:'/admin/getDashboardData',
+  getAdminEventApprovals:'/admin/getAdminEventApprovals',
+  approveFund:'/admin/approveFund'
 };
 
 export default adminRoutes;

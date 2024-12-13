@@ -46,7 +46,8 @@ const userRoutes = {
   getLikedEventsId: '/getLikedEventsId',
   postComment:'/addNewComment',
   getEventComments: '/getEventComments',
-  deleteComment:'/deleteComment'
+  deleteComment:'/deleteComment',
+  reportUser:"/reportUser"
 };
 
 export default userRoutes;

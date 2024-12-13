@@ -85,18 +85,13 @@ const EventsPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
-          <div className="col-span-1 md:col-span-7 p-4">
+        <div className="flex items-center justify-center">
+        <div className="">
+          <div >
             <EventsListing events={events} category={category} searchQuery={searchQuery}/>
           </div>
-          <div className="sticky top-0 col-span-1 md:col-span-3  p-4 justify-items-center">
-            <div
-              id="datepicker-inline"
-              className="sticky top-20"
-              inline-datepicker
-              data-date="16/11/2024"
-            ></div>
           </div>
+          
         </div>
         <Footer theme="light" />
       </div>

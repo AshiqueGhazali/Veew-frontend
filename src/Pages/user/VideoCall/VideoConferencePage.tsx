@@ -5,6 +5,7 @@ import { RootState } from "../../../Redux/store/store";
 import {
   getUserProfileData,
   setEventEndTime,
+  setEventStartTime,
   startEvent,
   verifyEventJoining,
 } from "../../../api/user";
@@ -50,7 +51,7 @@ export function getUrlParams(
 const handleEventStart = async (eventId: string) => {
   try {
     const startTime = new Date().toISOString();
-    await setEventEndTime(eventId, startTime);
+    await setEventStartTime(eventId, startTime);
     console.log("Start time recorded successfully");
   } catch (error) {
     console.error("Failed to record start time:", error);

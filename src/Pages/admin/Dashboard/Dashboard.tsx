@@ -3,12 +3,16 @@ import CanvasJSReact from "@canvasjs/react-charts";
 import { getDashboardDatas } from "../../../api/admin";
 import { IUser } from "../../../interface/userInterface";
 import NewUsers from "../../../Components/admin/DashboardComponents/NewUsers";
+import EventApprovalList from "../../../Components/admin/DashboardComponents/EventApprovalList";
 
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
+export enum IApprovalStatus {
+  APPROVED="APPROVED",
+  PENDING="PENDING"
+}
 
 const Dashboard: React.FC = () => {
+  const [approvalStatus , setApprovalStatus] = useState<IApprovalStatus>(IApprovalStatus.PENDING)
   const [lastTenDays, setLastTenDaysData] = useState({
     data: [
       {
@@ -27,34 +31,34 @@ const Dashboard: React.FC = () => {
       },
     ],
   });
-  const [latestUsers, setLatestUsers] = useState<IUser[] | null>(null)
-  const [lastMonthTransactions , setTransaction] = useState({
+  const [latestUsers, setLatestUsers] = useState<IUser[] | null>(null);
+  const [lastMonthTransactions, setTransaction] = useState({
     data: [
-    {
+      {
         type: "line",
         name: "Debit",
         showInLegend: true,
         yValueFormatString: "#,###°F",
         dataPoints: [
-          { x: new Date('2024-11-08'), y: 100 },
-          { x: new Date('2024-11-09'), y: 100 },
-          { x: new Date('2024-11-11'), y: 20 },
-          { x: new Date('2024-11-12'), y: 200 },
-          { x: new Date('2024-11-27'), y: 500 }
-        ]
-    },
-    {
+          { x: new Date("2024-11-08"), y: 100 },
+          { x: new Date("2024-11-09"), y: 100 },
+          { x: new Date("2024-11-11"), y: 20 },
+          { x: new Date("2024-11-12"), y: 200 },
+          { x: new Date("2024-11-27"), y: 500 },
+        ],
+      },
+      {
         type: "line",
         name: "Credit",
         showInLegend: true,
         yValueFormatString: "#,###°F",
         dataPoints: [
-          { x: new Date('2024-11-09'), y: 60 },
-          { x: new Date('2024-11-12'), y: 220 }
-        ]
-    }
-    ]
-})
+          { x: new Date("2024-11-09"), y: 60 },
+          { x: new Date("2024-11-12"), y: 220 },
+        ],
+      },
+    ],
+  });
 
   useEffect(() => {
     const setDashboardDatas = async () => {
@@ -100,21 +104,24 @@ const Dashboard: React.FC = () => {
           }));
         }
 
-        setLatestUsers(response.data.latestUsers)
+        setLatestUsers(response.data.latestUsers);
 
-        const debitData = response.data.LastMonthTransactions.debitData.map((value:any)=>{
-          return {
-            x:new Date(value.date),
-            y:Number(value.amount)
+        const debitData = response.data.LastMonthTransactions.debitData.map(
+          (value: any) => {
+            return {
+              x: new Date(value.date),
+              y: Number(value.amount),
+            };
           }
-        })
-        const creditData = response.data.LastMonthTransactions.creditData.map((value:any)=>{
-          return {
-            x:new Date(value.date),
-            y: Number(value.amount)
+        );
+        const creditData = response.data.LastMonthTransactions.creditData.map(
+          (value: any) => {
+            return {
+              x: new Date(value.date),
+              y: Number(value.amount),
+            };
           }
-        })
-        
+        );
 
         setTransaction({
           data: [
@@ -134,18 +141,15 @@ const Dashboard: React.FC = () => {
             },
           ],
         });
-        
       } catch (error) {}
     };
 
     setDashboardDatas();
-
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(lastMonthTransactions);
-    
-  },[lastMonthTransactions])
+  }, [lastMonthTransactions]);
 
   return (
     <div>
@@ -173,9 +177,34 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
+      <div className="mt-4">
+        <div className="bg-white p-6  ">
+          <div className="flex justify-between">
+            <h3 className="uppercase text-[#546630]">APPROVE FUND</h3>
+            <div>
+            <button
+                type="button"
+                onClick={()=>setApprovalStatus(IApprovalStatus.PENDING)}
+                className={`text-white uppercase font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2 ${approvalStatus===IApprovalStatus.PENDING ? "bg-gray-900 hover:bg-black":"bg-gray-600 hover:bg-gray-800"}`}
+              >
+                Pending
+              </button>
+              <button
+                type="button"
+                onClick={()=>setApprovalStatus(IApprovalStatus.APPROVED)}
+                className={`text-white uppercase font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2 ${approvalStatus===IApprovalStatus.APPROVED ? "bg-gray-900 hover:bg-black":"bg-gray-600 hover:bg-gray-800"}`}
+              >
+                APPROVED
+              </button>
+            </div>
+          </div>
+          <div className="max-h-[400px] overflow-y-scroll scrollbar-hide">
+            <EventApprovalList approvalStatus={approvalStatus}/>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Dashboard;
-

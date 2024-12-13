@@ -8,6 +8,10 @@ import { addLike, removeLike } from "../../../api/user";
 import { toast } from "react-toastify";
 import PostComments from "./PostComments";
 import ActionDropdown from "./ActionDropdown";
+import './EventsListing.css'
+import UserReportModal from "../ReportingModals/UserReportModal";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Redux/store/store";
 
 interface ICardProps {
   eventData: IEvents;
@@ -15,9 +19,12 @@ interface ICardProps {
 }
 
 const SingleEventCard: React.FC<ICardProps> = ({ eventData, isLiked }) => {
+  const userId = useSelector((state: RootState) => state.user.userData.id);
+
   const [event, setEvent] = useState<IEvents | null>(null);
   const [liked, setLike] = useState<boolean>(false);
   const [isOpenComentsModal, setOpenCommentsModal] = useState<boolean>(false);
+  const [isUserReportModal , setUserReportModal] = useState<boolean>(false)
 
 
   const navigate = useNavigate();
@@ -64,7 +71,7 @@ const SingleEventCard: React.FC<ICardProps> = ({ eventData, isLiked }) => {
   return (
     <>
       {event && (
-        <div>
+        <div className="bg-gray-900 p-6 rounded-lg  fullCard">
           <div className="flex justify-between mb-2">
             <div className="flex  gap-2">
               <div className="relative w-5 h-5 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
@@ -87,7 +94,7 @@ const SingleEventCard: React.FC<ICardProps> = ({ eventData, isLiked }) => {
               </div>
               <p className="text-sm max-w-[150px] truncate cursor-pointer">{`${event.user.firstName} ${event.user.lastName}`}</p>
             </div>
-            <ActionDropdown/>
+            <ActionDropdown eventId={event.id} openUserReportModal={()=>setUserReportModal(true)} isHosts={eventData.hostsId === userId}/>
           </div>
           <div
             className="event-card"
@@ -135,7 +142,12 @@ const SingleEventCard: React.FC<ICardProps> = ({ eventData, isLiked }) => {
           isLiked={liked}
           handleLike={handleLike}
           setEvent={setEvent}
+          openUserReportModal={()=>setOpenCommentsModal(true)}
         />
+      )}
+
+      {isUserReportModal && (
+        <UserReportModal isOpen={isUserReportModal} onClose={()=>setUserReportModal(false)} hostsId={eventData.hostsId}/>
       )}
     </>
   );

@@ -7,5 +7,5 @@ export default interface IComments {
     CommentedBy:IUser;
     comment:string;   
     createdAt:Date;
-    Replies:IComments
+    replies:IComments[]
 }

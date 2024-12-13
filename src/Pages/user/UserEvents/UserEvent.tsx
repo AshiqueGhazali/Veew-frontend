@@ -4,11 +4,10 @@ import { getHostedEvents } from "../../../api/user";
 import IEvents from "../../../interface/EventsInterface";
 import { listTypeEnum } from "../UserProfile/UserProfile";
 
-
 interface userEventProps {
-  eventStatus:listTypeEnum
+  eventStatus: listTypeEnum;
 }
-const UserEvent: React.FC<userEventProps> = ({eventStatus}) => {
+const UserEvent: React.FC<userEventProps> = ({ eventStatus }) => {
   const [events, setEvents] = useState<IEvents[] | null>(null);
   const [isEditDetailsModal, setIsEditDetailsModal] = useState<boolean>(false);
   const [isDateEditModalOpen, setDateEditModalOpen] = useState<boolean>(false);
@@ -38,7 +37,7 @@ const UserEvent: React.FC<userEventProps> = ({eventStatus}) => {
 
   const parseEventDateTime = (date: string, endTime: string): Date => {
     const eventDate = new Date(date);
-    const [hours, minutes] = endTime.split(':').map(Number);
+    const [hours, minutes] = endTime.split(":").map(Number);
     eventDate.setHours(hours, minutes);
     return eventDate;
   };
@@ -54,11 +53,11 @@ const UserEvent: React.FC<userEventProps> = ({eventStatus}) => {
   });
 
   const totalEvents = fitlerdEvents?.length || 0;
-  const totalPages = Math.ceil(totalEvents/eventsPerPage)
-  const startIndex = (currentPage-1) * eventsPerPage;
+  const totalPages = Math.ceil(totalEvents / eventsPerPage);
+  const startIndex = (currentPage - 1) * eventsPerPage;
   const endIndex = startIndex + eventsPerPage;
-  const paginatedEvents = fitlerdEvents?.slice(startIndex,endIndex)
-  
+  const paginatedEvents = fitlerdEvents?.slice(startIndex, endIndex);
+
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
@@ -82,28 +81,36 @@ const UserEvent: React.FC<userEventProps> = ({eventStatus}) => {
             ))}
           </div>
           <div className="flex flex-col items-center">
-        <span className="text-sm text-gray-700 dark:text-gray-400">
-          Showing{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">{startIndex}</span>{" "}
-          to{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
-            {endIndex < totalEvents ? endIndex : totalEvents}
-          </span>{" "}
-          of{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
-            {totalEvents}
-          </span>{" "}
-          Events
-        </span>
-        <div className="inline-flex mt-2 xs:mt-0">
-          <button onClick={()=>handlePageChange(currentPage - 1)} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-            Prev
-          </button>
-          <button onClick={()=>handlePageChange(currentPage + 1)} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-            Next
-          </button>
-        </div>
-      </div>
+            <span className="text-sm text-gray-700 dark:text-gray-400">
+              Showing{" "}
+              <span className="font-semibold text-gray-900 dark:text-white">
+                {startIndex}
+              </span>{" "}
+              to{" "}
+              <span className="font-semibold text-gray-900 dark:text-white">
+                {endIndex < totalEvents ? endIndex : totalEvents}
+              </span>{" "}
+              of{" "}
+              <span className="font-semibold text-gray-900 dark:text-white">
+                {totalEvents}
+              </span>{" "}
+              Events
+            </span>
+            <div className="inline-flex mt-2 xs:mt-0">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Prev
+              </button>
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </>
       ) : (
         <h1>You did't host events yet?</h1>

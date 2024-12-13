@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { adminlogout } from "../../../Redux/slice/adminAuthSlice";
 import { adminLogout } from "../../../api/admin";
+import { MdReport } from "react-icons/md";
 
 interface sideBarProp {
   isNearFooter: boolean;
@@ -112,6 +113,14 @@ const SideBar: React.FC<sideBarProp> = ({ isNearFooter }) => {
                   <IoTicketSharp />
                 </span>
                 {isOpen && "Entry Pass"}
+              </li>
+            </Link>
+            <Link to="/admin/report-management" className="sidebar-link">
+              <li className={isActive("/admin/report-management")}>
+                <span className="sidebar-icons">
+                  <MdReport />
+                </span>
+                {isOpen && "Reports"}
               </li>
             </Link>
           </ul>

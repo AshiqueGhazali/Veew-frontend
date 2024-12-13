@@ -74,3 +74,5 @@ export const adminCancelEvent = async(eventId:string)=>Api.patch(`${adminRoutes.
 export const getAllTickets = async()=>Api.get(adminRoutes.getAllTickets)
 export const getDataCounts = async():Promise<dataCountResponse>=>await Api.get(adminRoutes.getDataCounts)
 export const getDashboardDatas = async()=>await Api.get(adminRoutes.getDashboardDatas)
+export const getAdminEventApprovals = async()=> await Api.get(adminRoutes.getAdminEventApprovals);
+export const approveFund = async(eventId:string)=>await Api.post(adminRoutes.approveFund,{eventId})
