@@ -68,7 +68,7 @@ const EventListAccordion: React.FC<eventListProps> = ({ events, tickets , eventS
               <h2 id="accordion-flush-heading-1 mb-10" className="">
                 <button
                   type="button"
-                  className="flex items-center justify-between w-full p-5 font-semibold text-normal  rtl:text-right border-b-[10px] border-red-500  gap-3"
+                  className="flex items-center justify-between w-full p-5 font-semibold text-normal py-6 border border-b-2 border-black rtl:text-right  gap-3"
                   aria-expanded={openPanel === index + 1}
                   onClick={() => togglePanel(index + 1)}
                 >
@@ -125,7 +125,7 @@ const EventListAccordion: React.FC<eventListProps> = ({ events, tickets , eventS
           <span className="font-semibold text-gray-900 dark:text-white">
             {totalEvents}
           </span>{" "}
-          Notifications
+          Events
         </span>
         <div className="inline-flex mt-2 xs:mt-0">
           <button onClick={()=>handlePageChange(currentPage - 1)} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">

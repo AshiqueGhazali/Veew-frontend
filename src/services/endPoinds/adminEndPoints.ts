@@ -16,7 +16,8 @@ const adminRoutes = {
   getDataCounts:'/admin/getDataCounts',
   getDashboardDatas:'/admin/getDashboardData',
   getAdminEventApprovals:'/admin/getAdminEventApprovals',
-  approveFund:'/admin/approveFund'
+  approveFund:'/admin/approveFund',
+  getUserReports:'/admin/getUserReports'
 };
 
 export default adminRoutes;

@@ -10,6 +10,7 @@ import PricingManagement from "../PricingManagement/PricingManagement";
 import EventManagement from "../EventManagement/EventManagement";
 import TicketManagement from "../TicketManagement/TicketManagement";
 import Dashboard from "../Dashboard/Dashboard";
+import ReportManagement from "../ReportManagement/ReportManagement";
 
 const AdminDashboard: React.FC = () => {
   const redirect = UseAdminRouteProtect();
@@ -63,6 +64,7 @@ const AdminDashboard: React.FC = () => {
                 element={<EventManagement search={searchQuery}/>}
               />
               <Route path="ticket-management" element={<TicketManagement searchQuery={searchQuery}/>} />
+              <Route path="report-management" element={<ReportManagement searchQuery={searchQuery}/>} />
             </Routes>
           </div>
         </div>

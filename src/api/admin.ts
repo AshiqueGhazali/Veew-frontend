@@ -76,3 +76,4 @@ export const getDataCounts = async():Promise<dataCountResponse>=>await Api.get(a
 export const getDashboardDatas = async()=>await Api.get(adminRoutes.getDashboardDatas)
 export const getAdminEventApprovals = async()=> await Api.get(adminRoutes.getAdminEventApprovals);
 export const approveFund = async(eventId:string)=>await Api.post(adminRoutes.approveFund,{eventId})
+export const getUserReports = async()=>await Api.get(adminRoutes.getUserReports)
