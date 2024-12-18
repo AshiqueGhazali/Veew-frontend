@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { IUser } from "../../../interface/userInterface";
 import { getUserReports } from "../../../api/admin";
 import UserReports from "../../../Components/admin/ReportManagementComponents/UserReports";
+import EventReports from "../../../Components/admin/ReportManagementComponents/EventReports";
 
 interface reportProps {
   searchQuery: string;
 }
-
-
 
 // Interface for each report received
 interface IReport {
@@ -33,30 +30,33 @@ type ReportedUsersState = IReportedUser[];
 const ReportManagement: React.FC<reportProps> = ({ searchQuery }) => {
   const [reportedUsers, setReportedUsers] = useState<ReportedUsersState>([]);
 
-  useEffect(()=>{
-    const getReports = async()=>{
+  useEffect(() => {
+    const getReports = async () => {
       try {
-        const response = await getUserReports()
+        const response = await getUserReports();
 
-        if(response.status===200){
-          setReportedUsers(response.data)
+        if (response.status === 200) {
+          setReportedUsers(response.data);
         }
       } catch (error) {
         console.log(error);
-        
       }
-    }
+    };
 
-    getReports()
-  },[])
+    getReports();
+  }, []);
 
-  useEffect(()=>{console.log(reportedUsers);
-  },[reportedUsers])
+  useEffect(() => {
+    console.log(reportedUsers);
+  }, [reportedUsers]);
 
   return (
     <div>
       <div className="mt-4">
-      <UserReports searchQuery={searchQuery}/>
+        <UserReports searchQuery={searchQuery} />
+      </div>
+      <div className="mt-4">
+        <EventReports searchQuery={searchQuery} />
       </div>
     </div>
   );

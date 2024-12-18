@@ -17,7 +17,8 @@ const adminRoutes = {
   getDashboardDatas:'/admin/getDashboardData',
   getAdminEventApprovals:'/admin/getAdminEventApprovals',
   approveFund:'/admin/approveFund',
-  getUserReports:'/admin/getUserReports'
+  getUserReports:'/admin/getUserReports',
+  getEventReports:'/admin/getEventReports'
 };
 
 export default adminRoutes;

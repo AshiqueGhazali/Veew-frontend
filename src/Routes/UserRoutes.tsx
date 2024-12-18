@@ -15,6 +15,7 @@ import EventsPage from "../Pages/user/EventsPage/EventsPage";
 import EventDetailsPage from "../Pages/user/EventDetailsPage/EventDetailsPage";
 import VideoCall from "../Pages/user/VideoCall/VideoConferencePage";
 import NotFoundPage from "../Pages/user/ErrorHandlingPages/NotFoundPage";
+import ChatingPage from "../Pages/user/Chat/Chat";
 
 const UserRoutes: React.FC = () => {
   return (
@@ -33,6 +34,7 @@ const UserRoutes: React.FC = () => {
           <Route path="/add-new-event" element={<AddEvent/>}/>
           <Route path="/event-details" element={<EventDetailsPage/>}/>
           <Route path="/meet" element={<VideoCall/>}/>
+          <Route path="/chat" element={<ChatingPage/>}/>
         </Route>
         <Route path="*" element={<NotFoundPage/>}/>
       </Routes>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UserNavbar.css";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -8,9 +8,6 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../Redux/slice/userAuthSlice";
 import { userLogout } from "../../../api/user";
 import { IoAddCircle } from "react-icons/io5";
-import { FiLogOut } from "react-icons/fi";
-
-
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -23,7 +20,7 @@ const UserNavbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -37,12 +34,12 @@ const UserNavbar: React.FC = () => {
     };
   }, []);
 
-    const handleLogout = async () => {
+  const handleLogout = async () => {
     try {
       const response = await userLogout();
       if (response.status === 200) {
         dispatch(logout());
-        localStorage.removeItem("isLogin")
+        localStorage.removeItem("isLogin");
         navigate("/landing");
       }
     } catch (error) {
@@ -50,16 +47,17 @@ const UserNavbar: React.FC = () => {
     }
   };
 
-
-  const navigateToAddEvent = ()=>{
-        navigate('/add-new-event')
-    }
+  const navigateToAddEvent = () => {
+    navigate("/add-new-event");
+  };
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
           isScrolled ? "bg-[#0e1822]" : "bg-transparent"
-        }`}>
+        }`}
+      >
         <nav
           aria-label="Global"
           className="flex items-center justify-between p-6 lg:px-8"
@@ -86,15 +84,24 @@ const UserNavbar: React.FC = () => {
                 key={item.name}
                 href={item.href}
                 className={`text-base  font-semibold text-white ${
-                  location.pathname === item.href ? "underline underline-offset-8" : "no-underline"
-                }`} 
+                  location.pathname === item.href
+                    ? "underline underline-offset-8"
+                    : "no-underline"
+                }`}
               >
                 {item.name}
               </a>
             ))}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-2">
-            <div onClick={navigateToAddEvent} className="text-white text-[30px]"><IoAddCircle /></div>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-2 ">
+            <div
+              onClick={navigateToAddEvent}
+              className="text-white text-[40px] p-1 "
+            >
+              {/* <IoAddCircle className="hover:text-gradient-to-r from-[#1ce480] to-[#01592d] "/> */}
+              <IoAddCircle className="" />
+
+            </div>
             {/* <button
               type="button"
               className="inline-flex items-center rounded-md bg-[#937e54] px-2 py-1  font-normal text-xs text-white shadow-sm hover:bg-[#bea980]"
@@ -102,7 +109,16 @@ const UserNavbar: React.FC = () => {
             >
               LOGOUT
             </button> */}
-            <div onClick={handleLogout} className="text-white text-[30px]"><FiLogOut /></div>
+            <div onClick={handleLogout} className="text-white text-[30px]">
+              <button
+                onClick={handleLogout}
+                className="bg-white shadow-xl  rounded-full w-28 hover:bg-gradient-to-r from-[#1ce480] to-[#01592d] hover:text-white"
+              >
+                <span className="font-semibold flex justify-center items-center">
+                  Sign Out
+                </span>
+              </button>
+            </div>
           </div>
         </nav>
         <Dialog
@@ -134,15 +150,17 @@ const UserNavbar: React.FC = () => {
                       key={item.name}
                       href={item.href}
                       className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white  hover:bg-gray-50 hover:text-[#937e54] ${
-                        location.pathname === item.href ? "underline underline-offset-8" : "no-underline"
+                        location.pathname === item.href
+                          ? "underline underline-offset-8"
+                          : "no-underline"
                       }`}
-                      >
+                    >
                       {item.name}
                     </a>
                   ))}
                 </div>
                 <div className="py-6">
-                <a
+                  <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white no-underline hover:bg-gray-50 hover:text-[#937e54]"
                     onClick={navigateToAddEvent}
@@ -168,10 +186,6 @@ const UserNavbar: React.FC = () => {
 
 export default UserNavbar;
 
-
-
-
-
 // import React, { useEffect, useState } from "react";
 // import Logo from "../../../assets/veewWhiteLogo.png";
 // import { CgProfile } from "react-icons/cg";
@@ -187,7 +201,6 @@ export default UserNavbar;
 // import { IUser } from "../../../interface/userInterface";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../../Redux/store/store";
-
 
 // const UserNavbar: React.FC = () => {
 //   const [dropdownVisible, setDropdownVisible] = useState(false);

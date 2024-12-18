@@ -9,6 +9,7 @@ const StatusCards:React.FC = () => {
     const [status , setStatus] = useState({
         subscription: '' , totalEarnings: 0 , totalEvents: 0 , totalTickets: 0
     })
+    const [hover,setHover] = useState<number>(0)
 
     useEffect(()=>{
         const getStatuses = async()=>{
@@ -29,8 +30,8 @@ const StatusCards:React.FC = () => {
     },[])
   return (
     <div className="dashboard-cards">
-      <div className="dashboard-card">
-        <div className="icon" style={{ background: "#0e1823" }}>
+      <div className="dashboard-card" onMouseEnter={()=>{setHover(1)}} onMouseLeave={()=>{setHover(0)}}>
+        <div className={`icon ${hover===1 ? 'bg-[#1ce480]' : 'bg-[#161b1e]' }`}>
           <SiGoogleclassroom />
         </div>
         <div>
@@ -38,8 +39,8 @@ const StatusCards:React.FC = () => {
           <p>{status.totalEvents}</p>
         </div>
       </div>
-      <div className="dashboard-card">
-        <div className="icon" style={{ background: "#0e1823" }}>
+      <div className="dashboard-card" onMouseEnter={()=>setHover(2)} onMouseLeave={()=>{setHover(0)}}>
+        <div className={`icon ${hover===2 ? 'bg-[#1ce480]' : 'bg-[#161b1e]' }`}>
           <MdOutlineSubscriptions />
         </div>
         <div>
@@ -47,8 +48,8 @@ const StatusCards:React.FC = () => {
           <p>{status.subscription}</p>
         </div>
       </div>
-      <div className="dashboard-card">
-        <div className="icon" style={{ background: "#0e1823" }}>
+      <div className="dashboard-card" onMouseEnter={()=>setHover(3)} onMouseLeave={()=>{setHover(0)}}>
+        <div className={`icon ${hover===3 ? 'bg-[#1ce480]' : 'bg-[#161b1e]' }`}>
           <IoPricetagsSharp />
         </div>
         <div>
@@ -56,8 +57,8 @@ const StatusCards:React.FC = () => {
           <p>{status.totalTickets}</p>
         </div>
       </div>
-      <div className="dashboard-card">
-        <div className="icon" style={{ background: "#0e1823" }}>
+      <div className="dashboard-card" onMouseEnter={()=>setHover(4)} onMouseLeave={()=>{setHover(0)}}>
+        <div className={`icon ${hover===4 ? 'bg-[#1ce480]' : 'bg-[#161b1e]' }`}>
           <FaRupeeSign />
         </div>
         <div>

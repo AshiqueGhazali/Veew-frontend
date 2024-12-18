@@ -54,6 +54,7 @@ const WalletCards: React.FC<walletProps> = ({balanceAmount}) => {
   return (
     <CardContainer>
       <StyledCard
+      className='bg-gradient-to-r from-rose-400 to-red-500'
         custom={2}
         initial="hidden"
         animate="visible"
@@ -66,6 +67,7 @@ const WalletCards: React.FC<walletProps> = ({balanceAmount}) => {
       </StyledCard>
 
       <StyledCard
+      className='bg-gradient-to-r from-emerald-400 to-cyan-400'
         custom={1}
         initial="hidden"
         animate="visible"
@@ -77,6 +79,7 @@ const WalletCards: React.FC<walletProps> = ({balanceAmount}) => {
       </StyledCard>
 
       <StyledCard
+      className='bg-gradient-to-r from-slate-900 to-slate-700'
         custom={0}
         initial="hidden"
         animate="visible"

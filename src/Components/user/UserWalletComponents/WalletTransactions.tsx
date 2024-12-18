@@ -23,7 +23,7 @@ const WalletTransactions: React.FC<transactionProps> = ({ transactions }) => {
             View all
           </a> */}
         </div>
-        <div className="flow-root">
+        <div className="flow-root overflow-y-scroll max-h-[500px] scrollbar-none">
           <ul
             role="list"
             className="divide-y divide-gray-200 dark:divide-gray-700"

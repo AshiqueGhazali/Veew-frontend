@@ -17,6 +17,7 @@ interface IComentsProps {
   handleLike: (eventId: string) => void;
   setEvent: Dispatch<SetStateAction<IEvents | null>>;
   openUserReportModal:()=>void
+  openEventReportModal:()=>void
 }
 
 const PostComments: React.FC<IComentsProps> = ({
@@ -25,7 +26,8 @@ const PostComments: React.FC<IComentsProps> = ({
   eventDetails,
   isLiked,
   handleLike,
-  openUserReportModal
+  openUserReportModal,
+  openEventReportModal
 }) => {
   if (!isOpen) return null;
   const userId = useSelector((state: RootState) => state.user.userData.id);
@@ -99,7 +101,7 @@ const PostComments: React.FC<IComentsProps> = ({
                   <p className="text-xs">{totalComments}</p>
                 </div>
               </div>
-              <ActionDropdown  eventId={eventDetails.id}   openUserReportModal={openUserReportModal} isHosts={eventDetails.hostsId === userId ? true : false} />
+              <ActionDropdown  eventId={eventDetails.id}   openUserReportModal={openUserReportModal} isHosts={eventDetails.hostsId === userId ? true : false} openEventReportModal={openEventReportModal} hostsId={eventDetails.hostsId} userId={userId as string} />
             </div>
             <div className="flex items-center justify-between mb-4 border-b border-gray-500 rounded-t">
               <h3 className="text-base font-semibold text-white">

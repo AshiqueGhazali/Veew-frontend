@@ -47,7 +47,14 @@ const userRoutes = {
   postComment:'/addNewComment',
   getEventComments: '/getEventComments',
   deleteComment:'/deleteComment',
-  reportUser:"/reportUser"
+  reportUser:"/reportUser",
+  reportEvent:"/reportEvent",
+  getEventLiveUpdates:"/getEventLiveUpdates",
+  createConversation:"/chat/createConversation",
+  getConverasation:"/chat/getConverasation",
+  storeMessage:"/chat/storeMessage",
+  getMessage:"/chat/getMessage",
+  getUserDataById:'/getUserDataById'
 };
 
 export default userRoutes;

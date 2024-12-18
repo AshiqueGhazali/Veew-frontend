@@ -8,19 +8,23 @@
     min-height: 250px; 
     height: 100vh;
     width: 100%;
+    /* background-image: url('../../../assets/hero-banner.jpg'); */
     /* background: rgba(0, 0, 0, 0.4);  */
 }
 
 .user-home{
     position: relative;
-    background: rgba(0, 0, 0, 0.4); 
+}
 
+.bg-dard {
+    background: rgba(0, 0, 0, 0.4); 
 }
 .hero-banner{
     width: 100%;
     min-height: 250px;
     height: 100vh;
     object-fit: cover;
+    z-index: -10;
     position: fixed;
 }
 
@@ -43,7 +47,7 @@
 .hero-caption h1 {
     font-size: 40px;
     line-height: 1.1;
-    color: var(--background-color);
+    /* color: var(--background-color); */
     opacity: .9;
 }
 

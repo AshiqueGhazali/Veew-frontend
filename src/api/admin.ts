@@ -77,3 +77,4 @@ export const getDashboardDatas = async()=>await Api.get(adminRoutes.getDashboard
 export const getAdminEventApprovals = async()=> await Api.get(adminRoutes.getAdminEventApprovals);
 export const approveFund = async(eventId:string)=>await Api.post(adminRoutes.approveFund,{eventId})
 export const getUserReports = async()=>await Api.get(adminRoutes.getUserReports)
+export const getEventReports = async()=>await Api.get(adminRoutes.getEventReports)

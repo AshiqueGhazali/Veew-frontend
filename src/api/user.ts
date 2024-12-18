@@ -280,3 +280,11 @@ export const postComment = async(eventId:string,comment:string,parentId:string|n
 export const getEventComments = async(eventId:string)=>await Api.get(`${userRoutes.getEventComments}?eventId=${eventId}`)
 export const deleteComment = async(commentId:string)=>await Api.delete(`${userRoutes.deleteComment}?commentId=${commentId}`)
 export const reportUser = async(reportedUserId:string,reason:string)=> await Api.post(userRoutes.reportUser,{reportedUserId,reason})
+export const reportEvent = async(reportedEventId:string,reason:string)=> await Api.post(userRoutes.reportEvent,{reportedEventId,reason})
+export const getEventLiveUpdates = async(eventId:string)=>await Api.get(`${userRoutes.getEventLiveUpdates}?eventId=${eventId}`)
+
+export const createConversation = async(firstUserId:string , secondUserId:string)=>await Api.post(userRoutes.createConversation,{firstUserId,secondUserId})
+export const getConverasations = async()=>await Api.get(userRoutes.getConverasation)
+export const storeMessage = async(conversationId:string, senderId:string , receiverId:string,message:string)=>await Api.post(userRoutes.storeMessage,{conversationId, senderId , receiverId,message})
+export const getMessage = async(conversationId:string)=>await Api.get(`${userRoutes.getMessage}?conversationId=${conversationId}`)
+export const getUserDataById = async(userId:string)=>await Api.get(`${userRoutes.getUserDataById}?userId=${userId}`)

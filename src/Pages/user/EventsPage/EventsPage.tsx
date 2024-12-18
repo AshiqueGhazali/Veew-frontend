@@ -78,7 +78,7 @@ const EventsPage: React.FC = () => {
                 onClick={() => {
                   setCategory("");
                 }}
-                className="bg-[#666666] p-6 py-8 min-w-[300px] md:min-w-[200px] rounded-lg text-center text-white hover:bg-[#555555] focus:bg-[#444444] cursor-pointer"
+                className="bg-gradient-to-r from-slate-900 to-slate-700 p-6 py-8 min-w-[300px] md:min-w-[200px] rounded-lg text-center text-white hover:from-slate-300 hover:to-slate-500 focus:bg-[#0a5730] cursor-pointer"
                 tabIndex={0}
               >
                 <h3 className="text-2xl font-semibold uppercase">All</h3>
@@ -89,8 +89,11 @@ const EventsPage: React.FC = () => {
                     onClick={() => {
                       setCategory(item);
                     }}
-                    className={`min-w-[300px] md:min-w-[200px] p-6 py-8 rounded-lg text-center text-white hover:bg-[#555555] focus:bg-[#444444] cursor-pointer ${
-                      item === category ? `bg-[#444444]` : "bg-[#666666]"
+                    // className={`min-w-[300px] md:min-w-[200px] p-6 py-8 rounded-lg text-center text-white hover:bg-[#555555] focus:bg-[#444444] cursor-pointer ${
+                    //   item === category ? `bg-[#444444]` : "bg-[#666666]"
+                    // }`}
+                    className={`min-w-[300px] md:min-w-[200px] p-6 py-8 rounded-lg text-center text-white hover:from-slate-300 hover:to-slate-500 focus:from-stone-500 focus:to-stone-700 cursor-pointer ${
+                      item === category ? `bg-gradient-to-r from-stone-500 to-stone-700` : "bg-gradient-to-r from-slate-900 to-slate-700"
                     }`}
                     tabIndex={index}
                     key={index}

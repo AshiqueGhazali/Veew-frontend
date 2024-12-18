@@ -136,7 +136,7 @@ const UserReports: React.FC<reportProps> = ({ searchQuery }) => {
                           <MenuItem>
                             <a
                               onClick={()=>handleBlockUser(person.id)}
-                              className="block no-underline uppercase px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                              className="block cursor-pointer no-underline uppercase px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                             >
                               block user
                             </a>
@@ -178,7 +178,6 @@ const UserReports: React.FC<reportProps> = ({ searchQuery }) => {
 
       {openReports !== null && (
         <ReportsModal
-          isOpen={openReports !== null ? true : false}
           onClose={() => setOpenReports(null)}
           reportsReceived={reportedUsers[openReports].reportsReceived}
         />

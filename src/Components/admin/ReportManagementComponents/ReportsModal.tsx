@@ -8,13 +8,11 @@ interface IReport {
 }
 
 interface reportModalProps {
-  isOpen: boolean;
   onClose: () => void;
   reportsReceived: IReport[];
 }
 
 const ReportsModal: React.FC<reportModalProps> = ({
-  isOpen,
   onClose,
   reportsReceived,
 }) => {

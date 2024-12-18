@@ -12,6 +12,7 @@ import './EventsListing.css'
 import UserReportModal from "../ReportingModals/UserReportModal";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store/store";
+import EventReportModal from "../ReportingModals/EventReportModal";
 
 interface ICardProps {
   eventData: IEvents;
@@ -25,6 +26,8 @@ const SingleEventCard: React.FC<ICardProps> = ({ eventData, isLiked }) => {
   const [liked, setLike] = useState<boolean>(false);
   const [isOpenComentsModal, setOpenCommentsModal] = useState<boolean>(false);
   const [isUserReportModal , setUserReportModal] = useState<boolean>(false)
+  const [openEventReportModal , setEventReportModal] = useState<boolean>(false)
+
 
 
   const navigate = useNavigate();
@@ -94,7 +97,7 @@ const SingleEventCard: React.FC<ICardProps> = ({ eventData, isLiked }) => {
               </div>
               <p className="text-sm max-w-[150px] truncate cursor-pointer">{`${event.user.firstName} ${event.user.lastName}`}</p>
             </div>
-            <ActionDropdown eventId={event.id} openUserReportModal={()=>setUserReportModal(true)} isHosts={eventData.hostsId === userId}/>
+            <ActionDropdown eventId={event.id} openUserReportModal={()=>setUserReportModal(true)} isHosts={eventData.hostsId === userId} hostsId={eventData.hostsId} userId={userId as string} openEventReportModal={()=>setEventReportModal(true)}/>
           </div>
           <div
             className="event-card"
@@ -143,11 +146,16 @@ const SingleEventCard: React.FC<ICardProps> = ({ eventData, isLiked }) => {
           handleLike={handleLike}
           setEvent={setEvent}
           openUserReportModal={()=>setOpenCommentsModal(true)}
+          openEventReportModal={()=>setEventReportModal(true)}
         />
       )}
 
       {isUserReportModal && (
         <UserReportModal isOpen={isUserReportModal} onClose={()=>setUserReportModal(false)} hostsId={eventData.hostsId}/>
+      )}
+
+      {openEventReportModal && (
+        <EventReportModal isOpen={openEventReportModal} onClose={()=>setEventReportModal(false)}  eventId={eventData.id}/>
       )}
     </>
   );

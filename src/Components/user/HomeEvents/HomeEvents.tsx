@@ -23,12 +23,13 @@ const HomeEvents: React.FC<eventCardProps> = ({ category, events }) => {
     const currentDate = new Date();
     const isUpcoming = eventDateTime >= currentDate;
 
-    return event.category === category && isUpcoming;
+    return event.category === category 
+    // && isUpcoming;
   });
 
   return (
     <>
-      {filteredEvents && filteredEvents.length > 0 ? (
+      {filteredEvents && filteredEvents.length > 5 ? (
         <div className="home-titleCards">
           <h2>{category}</h2>
           <div className="card-list">

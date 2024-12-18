@@ -1,19 +1,42 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { createConversation } from "../../../api/user";
 
 interface dropdownProps {
   eventId: string;
   openUserReportModal: () => void;
+  openEventReportModal: () => void;
   isHosts: boolean;
+  hostsId:string;
+  userId:string
 }
 
 const ActionDropdown: React.FC<dropdownProps> = ({
   eventId,
   openUserReportModal,
+  openEventReportModal,
   isHosts,
+  hostsId,
+  userId
 }) => {
+
   const navigate = useNavigate();
+
+  const handleMessage = async()=>{
+    try {
+      const response = await createConversation(userId,hostsId)
+
+      if(response.status===200){
+        navigate("/chat",{state:{
+          conversationData:response.data
+        }})
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
   return (
     <>
       <Menu as="div" className="relative inline-block text-left">
@@ -53,8 +76,13 @@ const ActionDropdown: React.FC<dropdownProps> = ({
               <></>
             ) : (
               <>
+              <MenuItem>
+                  <a onClick={handleMessage} className="block cursor-pointer px-4 py-2 no-underline text-sm text-gray-100 data-[focus]:bg-gray-700 data-[focus]:text-gray-200 data-[focus]:outline-none">
+                    Message to auther
+                  </a>
+                </MenuItem>
                 <MenuItem>
-                  <a className="block cursor-pointer px-4 py-2 no-underline text-sm text-gray-100 data-[focus]:bg-gray-700 data-[focus]:text-gray-200 data-[focus]:outline-none">
+                  <a onClick={openEventReportModal} className="block cursor-pointer px-4 py-2 no-underline text-sm text-gray-100 data-[focus]:bg-gray-700 data-[focus]:text-gray-200 data-[focus]:outline-none">
                     report event
                   </a>
                 </MenuItem>

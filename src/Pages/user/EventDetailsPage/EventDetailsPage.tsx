@@ -4,6 +4,7 @@ import {
   addLike,
   bookTicketWithWallet,
   getEventDetails,
+  getEventLiveUpdates,
   getLikedEventsId,
   payForTicket,
   removeLike,
@@ -27,14 +28,21 @@ import {
 import { FaRegComment, FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 import ListComments from "../../../Components/user/Comments/ListComments";
 
+enum IEventStatus {
+  UPCOMING='UPCOMING',
+  STARTED='STARTED',
+  END = 'END'
+}
+
 const EventDetailsPage: React.FC = () => {
   const userId = useSelector((state: RootState) => state.user.userData.id);
   const [eventDetails, setEventDetails] = useState<IEvents | null>(null);
   const [isbooking, setIsBooking] = useState<boolean>(false);
-  const [isEventTime, setEventTime] = useState<boolean>(false);
+  // const [isEventTime, setEventTime] = useState<boolean>(false);
   const [openBookingModal, setOpenBookingModal] = useState(false);
   const [liked, setLike] = useState<boolean>(false);
-  const [totalComments , setTotalComments] = useState<number>(0)
+  const [totalComments , setTotalComments] = useState<number>(0);
+  const [eventStatus , setEventStatus] = useState<IEventStatus>(IEventStatus.UPCOMING)
  
   useEffect(()=>{
     const getAllLikes = async()=>{
@@ -52,7 +60,31 @@ const EventDetailsPage: React.FC = () => {
       }
     }
 
+    const getStreamUpdates = async()=>{
+      if(!eventDetails)return
+      try {
+        const response = await getEventLiveUpdates(eventDetails?.id)
+
+        if(response.status===200){
+          if(response.data.startTime){
+            setEventStatus(IEventStatus.STARTED)
+          }
+          if(response.data.endTime && response.data.startTime !== response.data.endTime){
+            console.log("startTime",response.data.startTime);
+            
+            console.log("endddddd",response.data.endTime);
+            
+            setEventStatus(IEventStatus.END)
+          }
+        }
+      } catch (error) {
+        console.log(error);
+        
+      }
+    }
+
     getAllLikes()
+    getStreamUpdates()
   },[eventDetails])
 
   const navigate = useNavigate();
@@ -80,26 +112,29 @@ const EventDetailsPage: React.FC = () => {
     if (eventDetails) {
       setTotalComments(eventDetails.comments)
       const currentDate = new Date();
-      const startDateTime = new Date(
-        `${eventDetails?.date.toString().split("T")[0]}T${
-          eventDetails?.startTime
-        }`
-      );
+      // const startDateTime = new Date(
+      //   `${eventDetails?.date.toString().split("T")[0]}T${
+      //     eventDetails?.startTime
+      //   }`
+      // );
       const endDateTime = new Date(
         `${eventDetails?.date.toString().split("T")[0]}T${
           eventDetails?.endTime
         }`
       );
 
-      const currentTime =
-        currentDate.getHours() * 60 + currentDate.getMinutes();
-      const startMinutes =
-        startDateTime.getHours() * 60 + startDateTime.getMinutes();
-      const endMinutes = endDateTime.getHours() * 60 + endDateTime.getMinutes();
-      if (currentDate.getDate() === new Date(eventDetails.date).getDate()) {
-        if (currentTime >= startMinutes && currentTime <= endMinutes) {
-          setEventTime(true);
-        }
+      // const currentTime =
+      //   currentDate.getHours() * 60 + currentDate.getMinutes();
+      // const startMinutes =
+      //   startDateTime.getHours() * 60 + startDateTime.getMinutes();
+      // const endMinutes = endDateTime.getHours() * 60 + endDateTime.getMinutes();
+      // if (currentDate.getDate() === new Date(eventDetails.date).getDate()) {
+      //   if (currentTime >= startMinutes && currentTime <= endMinutes) {
+      //     setEventTime(true);
+      //   }
+      // }
+      if(currentDate > endDateTime){
+        setEventStatus(IEventStatus.END)
       }
     }
   }, [eventDetails]);
@@ -373,11 +408,11 @@ const EventDetailsPage: React.FC = () => {
                 </div>
 
                 {!eventDetails?.isCancelled &&
-                userId === eventDetails?.hostsId ? (
+                userId === eventDetails?.hostsId || eventStatus === IEventStatus.END ? (
                   <></>
                 ) : (
                   <>
-                    {isEventTime ? (
+                    {eventStatus === IEventStatus.STARTED ? (
                       <>
                         <button
                           type="submit"
