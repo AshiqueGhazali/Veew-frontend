@@ -3,7 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
 import Converasation from "../../../Components/user/MessaginComponents/Converasation";
-import { getConverasations, getMessage, storeMessage } from "../../../api/user"
+import {
+  getConverasations,
+  getMessage,
+  getUserDataById,
+  getUserProfileData,
+  storeMessage,
+} from "../../../api/user";
 import IConverasation, { IMessage } from "../../../interface/chatingInteface";
 import { format } from "timeago.js";
 // import { doctorGetConverasation } from "../../api/doctor";
@@ -11,62 +17,121 @@ import { io } from "socket.io-client";
 import InputEmoji from "react-input-emoji";
 import { useSelector } from "react-redux";
 import { IoChatbubblesOutline } from "react-icons/io5";
-import { IUser } from "../../../interface/userInterface"; 
+import { IUser } from "../../../interface/userInterface";
 import { RootState } from "../../../Redux/store/store";
 import { useLocation } from "react-router-dom";
-
-// const [socket,setSocket]=useState<any>(null)
+import BottomNavigation from "../../../Components/user/MessaginComponents/BottomNavigation";
+import profileAvtar from "../../../assets/man-profile.jpeg"
 
 interface OnlineUser {
   id: string;
   socketId: string;
 }
 
-function ChatingPage() {
-  // const doctorProfile = useSelector(
-  //   (state: rootNode) => state.doctorAuth.doctor
-  // );
+const ChatingPage: React.FC = () => {
   const userId = useSelector((state: RootState) => state.user.userData.id);
   const location = useLocation();
-  const { state } = location; // This contains the state passed via navigate
+  const { state } = location;
   const conversationData = state?.conversationData;
 
   const [converasation, setConverasation] = useState<IConverasation[]>([]);
-  const [currentChat, setCurrentChat] = useState<IConverasation | null>(conversationData? conversationData : null);
+  const [currentChat, setCurrentChat] = useState<IConverasation | null>(
+    conversationData ? conversationData : null
+  );
   const [message, setMessage] = useState<IMessage[]>([]);
-  const [userProfile,setUserProfile] = useState<IUser>();
+  const [otherUserProfile, setOtherUserProfile] = useState<IUser>();
+  const [userProfile, setUserData] = useState<IUser>();
   const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const socket = useRef(io("http://localhost:3000"));
- 
+  // const socket = useRef(io("http://localhost:3000"));
+  const [messageUpdate, setMessageUpdate] = useState(1);
 
-
-  // messages string/image voice
-
-  // const [messages, setMessages] = useState<string>("");
   const [text, setText] = useState("");
 
+  const socket = useRef(io("http://localhost:3000"));
 
+  // useEffect(() => {
+  //   socket.current = io("http://localhost:3000");
+  
+  //   return () => {
+  //     socket.current.disconnect();
+  //   };
+  // }, []);
+  // useEffect(() => {
+  //   socket.current = io("http://localhost:3000");
+  
+  //   socket.current.on("getUsers", (datas) => {
+  //     setOnlineUsers(datas);
+  //   });
+  
+  //   socket.current.on("message-content", (data: IMessage) => {
+  //     setMessage((prevMessages) => [...prevMessages, data]);
+  //   });
+  
+  //   return () => {
+  //     socket.current.off("getUsers");
+  //     socket.current.off("message-content");
+  //     socket.current.disconnect();
+  //   };
+  // }, [userId]);
+  
 
 
   useEffect(() => {
-    socket.current.emit("addUser",userId);
-    console.log("current user is safsdfsd",currentChat);
-    
-    
-    socket.current.on("getUsers",(datas) => {
-      console.log(datas, "looooooooooooppppp");
+    const fetchUserData = async () => {
+      if (userId) {
+        try {
+          const response = await getUserProfileData(userId);
+          if (response.status === 200) {
+            setUserData(response.data.userData);
+          }
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
+      } else {
+        console.error("User ID is null or undefined");
+      }
+    };
+
+    fetchUserData();
+  }, [userId]);
+
+  useEffect(() => {
+    const getOtherUser = async () => {
+      try {
+        const otherUserId =
+        currentChat?.firstUserId !== userId
+        ? (currentChat?.firstUserId as string)
+        : (currentChat?.secondUserId as string)
+
+        if(!otherUserId)return
+
+        const response = await getUserDataById(otherUserId);
+        console.log(response.data.userData);
+        setOtherUserProfile(response.data.userData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getOtherUser();
+  }, [currentChat]);
+
+  useEffect(() => {
+    socket.current.emit("addUser", userId);
+    console.log("current user is safsdfsd", currentChat);
+
+    socket.current.on("getUsers", (datas) => {
+      console.log(datas, "online users");
       setOnlineUsers(datas);
     });
 
-  },[currentChat]);
-
-  // socket.current.on("getUsers",(datas) => {
-  //   console.log(datas, "looooooooooooo");
-  //   setOnlineUsers(datas);
-  // });
-
- 
+    return () => {
+          socket.current.off("getUsers");
+          socket.current.off("message-content");
+          // socket.current.disconnect();
+        };
+  }, [currentChat]);
 
   useEffect(() => {
     const getData = async () => {
@@ -78,215 +143,214 @@ function ChatingPage() {
       }
     };
     getData();
+  }, []);
 
-  },[]);
-
-  useEffect(()=>{
-
-    if(!currentChat){
-      return
-    }
+  useEffect(() => {
+    if (!currentChat) return;
 
     const handleFn = async () => {
-      const response = await getMessage(currentChat?.id as string);  
-      if(response.status===200){
+      const response = await getMessage(currentChat?.id as string);
+      if (response.status === 200) {
         setMessage(response.data);
-      }    
+      }
     };
     handleFn();
 
-    console.log("messagesss is:",message);
-    
+    console.log("Messages are:", message);
   }, [currentChat]);
 
-
-
-  // ########## updation two:
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-
-  //   e.preventDefault();
-
-  //   try {
-      
-  //     if (text == "") {
-  //       return;
-  //     }
-
-  //     const response = await storeMessage(
-  //       currentChat?.id as string,
-  //       userId as string,
-  //       currentChat?.firstUserId !== userId ? currentChat?.firstUserId as string : currentChat?.secondUserId as string,
-  //       text as string
-  //     );
-
-  //     setMessage([...message, response.data.newMessage]);
-  //     socket.current.emit(
-  //       "message",
-  //       { message: response.data.newMessage },
-  //       userId
-  //     );
-  //     setText("");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  
+  const handleSubmit = async () => {
     if (text.trim() === "") {
       return;
     }
-  
+
+    const recieverId = currentChat?.firstUserId !== userId
+        ? (currentChat?.firstUserId as string)
+        : (currentChat?.secondUserId as string)
+
     try {
       const response = await storeMessage(
         currentChat?.id as string,
         userId as string,
-        currentChat?.firstUserId !== userId ? currentChat?.firstUserId as string : currentChat?.secondUserId as string,
+        recieverId,
         text
       );
-  
-      // Update message state
-      setMessage((prevMessages) => [...prevMessages, response.data.newMessage]);
-  
-      // Emit message to other users
-      socket.current.emit("message", { message: response.data.newMessage }, userId);
-  
-      // Clear the input field after sending
+
+      if (response.status === 200) {
+        setMessage((prevMessages) => [...prevMessages, response.data]);
+        socket.current.emit("message", { message: response.data }, recieverId);
+      }
+
+      setMessageUpdate(messageUpdate + 1);
+
       setText("");
     } catch (error) {
-      console.log(error);
+      console.log("the errrorr issss :", error);
     }
   };
-  
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  },[message]);
+  }, [message]);
 
-  // ########## updation one:
-  // socket.current.on("message-content", (data: any) => {
-  //   console.log("hidd jfffffffffffffffffffffffffff", data);
-  //   setMessage([...message, data.message]);
-  // });
+
+
+useEffect(()=>{
   socket.current.on("message-content", (data: any) => {
     console.log("Message content received:", data);
-    setMessage((prevMessages) => [...prevMessages, data.message]); 
+    setMessage((prevMessages) => [...prevMessages, data.message]);
   });
+})
 
+// socket.current.on("message-content", (data: any) => {
+//   console.log("Message content received:", data);
+//   setMessage((prevMessages) => [...prevMessages, data.message]);
+// });
   
+
   socket.current.on("lostUsers", (datas) => {
-     console.log(datas, "looooooooooooo");
-     setOnlineUsers(datas)
-     setConverasation([...converasation])
+    setOnlineUsers(datas);
+    setConverasation([...converasation]);
   });
 
-  const isDoctorOnline = (id: string, users: OnlineUser[]): boolean => {
-    return users.some(user => user.id === id);
+  const isUserOnline = (id: string, users: OnlineUser[]): boolean => {
+    return users.some((user) => user.id === id);
   };
 
 
-
-  const handleCallback=(data:any)=>{
-      setUserProfile(data)    
-  }
-
   return (
-    <div className="w-full p-2 md:container max-h-screen mx-auto bg-gray-200 rounded-md flex  md:p-10 gap-10">
-      <div className="bg-white min-h-[650px] max-h-[650px] w-1/2 rounded-md scroll-end overflow-y-scroll">
-        <div className="p-7">
-          <h1 className="text-black text-4xl font-medium">Chats</h1>
-        </div>
-        <div className="relative p-5">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <IoSearchOutline className="w-6 h-6 text-gray-500 mx-5" />
+    <>
+      <div className="w-full p-2 md:container max-h-screen mx-auto bg-gray-200 rounded-md flex  md:p-10 gap-10">
+        <div className="bg-white min-h-[650px] max-h-[650px] w-1/2 rounded-md">
+          <div className="p-4">
+            <h1 className="text-black text-2xl font-bold">Chats</h1>
           </div>
-          <input
-            type="text"
-            className="block w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none focus:bg-white focus:border-blue-500"
-            placeholder="Search here"
-            // onChange={(e)=>handleFilter(e)}
-          />
-        </div>
-
-        <div className="mt-5">
-          {converasation?.map((val, index) => (
-            <div onClick={() => setCurrentChat(val)} key={index}>
-              <Converasation data={val} onlineStatus={isDoctorOnline(val.firstUserId,onlineUsers)} callback={handleCallback}  />
+          <div className="relative p-4">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <IoSearchOutline className="w-6 h-6 text-gray-500 mx-5" />
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="w-full bg-white rounded-md p-5 max-h-screen ">
-        {currentChat ? (
-          <>
-            <div className="flex items-center mb-4 border-b pb-2">
-             <Avatar alt={"jdfdj"} src={userProfile?.image?userProfile.image:"/static/images/avatar/1.jpg"} className="w-10 h-10 mr-2" />
-              <div className="flex-1">
-                <h2 className="text-xl font-semibold">{userProfile?.firstName}</h2>
-              </div>
-              <button className="text-blue-500">
-                <FaPlus />
-              </button>
-            </div>
-
-            <div className="max-h-[450px] min-h-[450px] mt-1 rounded-md overflow-y-scroll p-2 bg-gray-100">
-              {message && message.length > 0 ? (
-                message?.map((val, index) => (
-                  <div ref={scrollRef} key={index}>
-                    {userId !== val.senderId ? (
-                      <div className="mt-2 p-5 rounded-md flex items-start">
-                        <Avatar
-                          alt="User Avatar"
-                          src={
-                            userProfile?.image
-                              ? userProfile.image
-                              : "/static/images/avatar/1.jpg"
-                          }
-                          sx={{ width: 45, height: 45 }}
-                        />
-                        <div className="ml-3">
-                          <div className="bg-blue-100 p-3 rounded-md">
-                            <h1 className="text-sm">{val.message}</h1>
-                          </div>
-                          <small className="block text-gray-500 mt-1">
-                            {format(new Date(val.createdAt), "p")}
-                          </small>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="mt-2 p-5 rounded-md flex items-start justify-end">
-                        <div className="mr-3 text-right">
-                          <div className="bg-blue-100 p-3 rounded-md">
-                            <h1 className="text-sm">{val.message}</h1>
-                          </div>
-                          <small className="block text-gray-500 mt-1">
-                            {format(new Date(val.createdAt), "p")}
-                          </small>
-                        </div>
-                        <Avatar
-                          alt="User Avatar"
-                          src={
-                            userProfile?.image
-                              ? userProfile.image
-                              : "/static/images/avatar/1.jpg"
-                          }
-                          sx={{ width: 45, height: 45 }}
-                        />
-                      </div>
-                    )}
+            <input
+              type="text"
+              className="block w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:bg-white focus:border-black-500"
+              placeholder="Search here"
+            />
+          </div>
+          <div className="flow-root overflow-y-scroll max-h-[500px] scrollbar-none">
+            <div className="px-6">
+              <ul role="list" className="divide-y divide-gray-100">
+                {converasation?.map((val, index) => (
+                  <div onClick={() => setCurrentChat(val)} key={index}>
+                    <Converasation
+                      data={val}
+                      onlineStatus={isUserOnline(
+                        val.firstUserId === userId
+                          ? val.secondUserId
+                          : val.firstUserId,
+                        onlineUsers
+                      )}
+                    />
                   </div>
-                ))
-              ) : (
-                <div className="text-center text-gray-500">No messages yet</div>
-              )}
+                ))}
+              </ul>
             </div>
-            {/* Right-aligned message */}
-            <div className="flex items-center p-4 bg-gray-100 shadow rounded-lg m-2">
-              <form
-                className="flex w-full items-center"
-                onSubmit={handleSubmit}
-              >
+          </div>
+        </div>
+
+        <div className="w-full bg-white rounded-md p-5 max-h-screen ">
+          {currentChat ? (
+            <>
+              <div className="flex items-center mb-4 border-b pb-2">
+                {isUserOnline(otherUserProfile?.id || "", onlineUsers) ? (
+                  <div className="relative me-4">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={
+                        otherUserProfile?.image
+                          ? otherUserProfile.image
+                          : profileAvtar
+                      }
+                      alt="profile image"
+                    />
+                    <span className="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                  </div>
+                ) : (
+                  <div className="relative me-4">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={
+                        otherUserProfile?.image
+                          ? otherUserProfile.image
+                          : profileAvtar
+                      }
+                      alt="profile image"
+                    />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold">
+                    {otherUserProfile?.firstName}
+                  </h2>
+                </div>
+              </div>
+
+              {/*  */}
+
+              <div className="max-h-[450px] min-h-[450px] mt-1 rounded-md overflow-y-scroll p-2 bg-[#eee9e2]">
+                {message && message.length > 0 ? (
+                  message?.map((val, index) => (
+                    <div ref={scrollRef} key={index}>
+                      {userId !== val.senderId ? (
+                        <div className="flex items-start gap-2.5 mt-2">
+                          <img
+                            className="w-8 h-8 rounded-full"
+                            src={otherUserProfile?.image || profileAvtar}
+                            alt="Jese image"
+                          />
+                          <div className="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-[#ffffff] rounded-e-xl rounded-es-xl">
+                            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                              <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                                {`${otherUserProfile?.firstName}`}
+                              </span>
+                              <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                              {format(new Date(val.createdAt), "p")}
+                              </span>
+                            </div>
+                            <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
+                            {val.message}
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-start gap-2.5 justify-end mt-2">
+                          <div className="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-[#dcffd1] rounded-e-xl rounded-es-xl">
+                            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                              <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                                You
+                              </span>
+                              <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                              {format(new Date(val.createdAt), "p")}
+                              </span>
+                            </div>
+                            <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
+                            {val.message}
+                            </p>
+                          </div>
+                          <img
+                            className="w-8 h-8 rounded-full"
+                            src={userProfile?.image || profileAvtar}
+                            alt="Jese image"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center text-gray-500">
+                    No messages yet
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center p-4 bg-gray-100 shadow rounded-lg m-2">
                 <button className="text-blue-500 p-2">
                   <FaPlus />
                 </button>
@@ -296,30 +360,32 @@ function ChatingPage() {
                   cleanOnEnter
                   placeholder="Type a message"
                   inputClass="border border-black rounded-md"
-                  shouldReturn={true} // Ensure this prop is included
-                  shouldConvertEmojiToImage={false} // Ensure this prop is included
+                  shouldReturn={true}
+                  shouldConvertEmojiToImage={false}
                 />
                 <button
                   className="text-white bg-blue-500 p-2 rounded-full ml-2"
+                  onClick={handleSubmit}
                   type="submit"
                 >
                   <FaPaperPlane />
                 </button>
-              </form>
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-2/3  text-white">
+              <IoChatbubblesOutline className="w-16 h-16 mb-4 text-gray-400" />
+              <h1 className="text-xl text-black">Open any conversation</h1>
+              <p className="mt-2  text-black">
+                Select a chat to start messaging
+              </p>
             </div>
-          </>
-        ) : (
-          <div className="flex flex-col items-center justify-center h-2/3  text-white">
-            <IoChatbubblesOutline className="w-16 h-16 mb-4 text-gray-400" />
-            <h1 className="text-xl text-black">Open any conversation</h1>
-            <p className="mt-2  text-black">Select a chat to start messaging</p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+      <BottomNavigation />
+    </>
   );
-}
+};
 
 export default ChatingPage;
-
-

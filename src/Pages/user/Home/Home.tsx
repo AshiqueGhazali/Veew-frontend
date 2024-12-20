@@ -7,15 +7,23 @@ import IEvents from "../../../interface/EventsInterface";
 import { getAllCategories, getUpcomingEvents } from "../../../api/user";
 import HomeEvents from "../../../Components/user/HomeEvents/HomeEvents";
 import StatsSection from "../../../Components/user/StatusSection/StatusSection";
+import { LuMessagesSquare } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [events, setEvents] = useState<IEvents[] | null>(null);
   const [categories, setCategories] = useState<string[]>();
-  const [showSecondH,setSecondShow] = useState(false)
-  const [showPargraph, setShowParagraph] = useState(false)
+  const [showSecondH, setSecondShow] = useState(false);
+  const [showPargraph, setShowParagraph] = useState(false);
 
-  setTimeout(()=>{setSecondShow(true)},1500)
-  setTimeout(()=>{setShowParagraph(true)},2500)
+  const navigete = useNavigate()
+
+  setTimeout(() => {
+    setSecondShow(true);
+  }, 1500);
+  setTimeout(() => {
+    setShowParagraph(true);
+  }, 2500);
 
   useEffect(() => {
     const getAllEventDetails = async () => {
@@ -58,20 +66,22 @@ const Home = () => {
             >
               Ready for Something New?
             </h1>
-            {showSecondH &&
-            <h1
-              className="overflow-hidden whitespace-nowrap border-r-2 border-gray-400 animate-typing text-xl font-bold max-w-[800px] break-words bg-gradient-to-l from-blue-500 via-teal-500 to-green-500 text-transparent bg-clip-text"
-              style={{ animationDelay: "0s" }}
-            >
-              Start Searching!
-            </h1>}
-            {showPargraph && 
-            <p
-              className="overflow-hidden whitespace-nowrap border-r-2 border-gray-400 animate-typing mt-2 break-words"
-              style={{ animationDelay: "0s" }}
-            >
-              Find the right plan to fuel your growth
-            </p>}
+            {showSecondH && (
+              <h1
+                className="overflow-hidden whitespace-nowrap border-r-2 border-gray-400 animate-typing text-xl font-bold max-w-[800px] break-words bg-gradient-to-l from-blue-500 via-teal-500 to-green-500 text-transparent bg-clip-text"
+                style={{ animationDelay: "0s" }}
+              >
+                Start Searching!
+              </h1>
+            )}
+            {showPargraph && (
+              <p
+                className="overflow-hidden whitespace-nowrap border-r-2 border-gray-400 animate-typing mt-2 break-words"
+                style={{ animationDelay: "0s" }}
+              >
+                Find the right plan to fuel your growth
+              </p>
+            )}
           </div>
         </div>
         <StatsSection />
@@ -84,6 +94,21 @@ const Home = () => {
               <HomeEvents category={category} events={events} key={category} />
             ) : null;
           })}
+        </div>
+
+        <div data-dial-init className="fixed end-6 bottom-6 group">
+          <button
+            type="button"
+            onClick={()=>navigete("/chat")}
+            data-dial-toggle="speed-dial-menu-click"
+            data-dial-trigger="click"
+            aria-controls="speed-dial-menu-click"
+            aria-expanded="false"
+            className="flex items-center text-2xl justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 "
+          >
+            <LuMessagesSquare />
+            <span className="sr-only">Open actions menu</span>
+          </button>
         </div>
 
         <Footer theme="light" />
