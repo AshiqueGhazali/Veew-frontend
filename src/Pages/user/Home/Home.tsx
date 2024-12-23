@@ -7,8 +7,6 @@ import IEvents from "../../../interface/EventsInterface";
 import { getAllCategories, getUpcomingEvents } from "../../../api/user";
 import HomeEvents from "../../../Components/user/HomeEvents/HomeEvents";
 import StatsSection from "../../../Components/user/StatusSection/StatusSection";
-import { LuMessagesSquare } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [events, setEvents] = useState<IEvents[] | null>(null);
@@ -16,7 +14,6 @@ const Home = () => {
   const [showSecondH, setSecondShow] = useState(false);
   const [showPargraph, setShowParagraph] = useState(false);
 
-  const navigete = useNavigate()
 
   setTimeout(() => {
     setSecondShow(true);
@@ -94,21 +91,6 @@ const Home = () => {
               <HomeEvents category={category} events={events} key={category} />
             ) : null;
           })}
-        </div>
-
-        <div data-dial-init className="fixed end-6 bottom-6 group">
-          <button
-            type="button"
-            onClick={()=>navigete("/chat")}
-            data-dial-toggle="speed-dial-menu-click"
-            data-dial-trigger="click"
-            aria-controls="speed-dial-menu-click"
-            aria-expanded="false"
-            className="flex items-center text-2xl justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 "
-          >
-            <LuMessagesSquare />
-            <span className="sr-only">Open actions menu</span>
-          </button>
         </div>
 
         <Footer theme="light" />

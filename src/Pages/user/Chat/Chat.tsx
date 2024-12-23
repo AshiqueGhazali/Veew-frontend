@@ -1,4 +1,3 @@
-import { Avatar } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
@@ -22,6 +21,7 @@ import { RootState } from "../../../Redux/store/store";
 import { useLocation } from "react-router-dom";
 import BottomNavigation from "../../../Components/user/MessaginComponents/BottomNavigation";
 import profileAvtar from "../../../assets/man-profile.jpeg"
+import { IncomingMessages, OutGoingMessages } from "../../../Components/user/MessaginComponents/Messages";
 
 interface OnlineUser {
   id: string;
@@ -169,13 +169,6 @@ console.log("Rendering............................")
 
 
 
-// useEffect(()=>{
-//   socket.current.on("message-content", (data: any) => {
-//     console.log("Message content received:", data);
-//     setMessage((prevMessages) => [...prevMessages, data.message]);
-//   });
-// })
-
 useEffect(() => {
   const handleMessage = (data: any) => {
     setMessage((prevMessages) => [...prevMessages, data.message]);
@@ -281,47 +274,9 @@ useEffect(() => {
                   message?.map((val, index) => (
                     <div ref={scrollRef} key={index}>
                       {userId !== val.senderId ? (
-                        <div className="flex items-start gap-2.5 mt-2">
-                          <img
-                            className="w-8 h-8 rounded-full"
-                            src={otherUserProfile?.image || profileAvtar}
-                            alt="Jese image"
-                          />
-                          <div className="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-[#ffffff] rounded-e-xl rounded-es-xl">
-                            <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                              <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                                {`${otherUserProfile?.firstName}`}
-                              </span>
-                              <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                              {format(new Date(val.createdAt), "p")}
-                              </span>
-                            </div>
-                            <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-                            {val.message}
-                            </p>
-                          </div>
-                        </div>
+                        <IncomingMessages user={otherUserProfile} messages={val}/>
                       ) : (
-                        <div className="flex items-start gap-2.5 justify-end mt-2">
-                          <div className="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-[#dcffd1] rounded-e-xl rounded-es-xl">
-                            <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                              <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                                You
-                              </span>
-                              <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                              {format(new Date(val.createdAt), "p")}
-                              </span>
-                            </div>
-                            <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-                            {val.message}
-                            </p>
-                          </div>
-                          <img
-                            className="w-8 h-8 rounded-full"
-                            src={userProfile?.image || profileAvtar}
-                            alt="Jese image"
-                          />
-                        </div>
+                        <OutGoingMessages user={userProfile} messages={val}/>
                       )}
                     </div>
                   ))

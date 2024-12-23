@@ -8,13 +8,21 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../Redux/slice/userAuthSlice";
 import { userLogout } from "../../../api/user";
 import { IoAddCircle } from "react-icons/io5";
+import { IoChatbubbles } from "react-icons/io5";
+import { TiHome } from "react-icons/ti";
+import { FaAlignJustify, FaUser } from "react-icons/fa";
+import { IoMdPricetags } from "react-icons/io";
+import { RiContactsFill } from "react-icons/ri";
+
+
+
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "profile", href: "/profile" },
-  { name: "About", href: "/about" },
-  { name: "Events", href: "/events" },
-  { name: "Pricing", href: "/pricing" },
+  { name: "Home", href: "/" , icon:<TiHome />},
+  { name: "profile", href: "/profile", icon:<FaUser /> },
+  { name: "About", href: "/about", icon:<RiContactsFill /> },
+  { name: "Events", href: "/events", icon:<FaAlignJustify /> },
+  { name: "Pricing", href: "/pricing", icon:<IoMdPricetags /> },
 ];
 const UserNavbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -95,20 +103,17 @@ const UserNavbar: React.FC = () => {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-2 ">
             <div
-              onClick={navigateToAddEvent}
-              className="text-white text-[40px] p-1 "
+              onClick={() => navigate("/chat")}
+              className="text-white text-[30px] py-3 "
             >
-              {/* <IoAddCircle className="hover:text-gradient-to-r from-[#1ce480] to-[#01592d] "/> */}
-              <IoAddCircle className="" />
-
+              <IoChatbubbles />
             </div>
-            {/* <button
-              type="button"
-              className="inline-flex items-center rounded-md bg-[#937e54] px-2 py-1  font-normal text-xs text-white shadow-sm hover:bg-[#bea980]"
-              onClick={handleLogout}
+            <div
+              onClick={navigateToAddEvent}
+              className="text-white text-[35px] py-2 "
             >
-              LOGOUT
-            </button> */}
+              <IoAddCircle className="" />
+            </div>
             <div onClick={handleLogout} className="text-white text-[30px]">
               <button
                 onClick={handleLogout}
@@ -149,27 +154,34 @@ const UserNavbar: React.FC = () => {
                     <a
                       key={item.name}
                       href={item.href}
-                      className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white  hover:bg-gray-50 hover:text-[#937e54] ${
+                      className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 uppercase font-normal text-white  hover:bg-gray-50 hover:text-[#937e54] ${
                         location.pathname === item.href
                           ? "underline underline-offset-8"
                           : "no-underline"
                       }`}
                     >
-                      {item.name}
+                     <span className="ml-1 mr-2">{item.icon}</span> {item.name}
                     </a>
                   ))}
                 </div>
                 <div className="py-6">
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white no-underline hover:bg-gray-50 hover:text-[#937e54]"
+                    className="-mx-3 pr-3 block uppercase rounded-lg px-3 py-2.5 text-base/7 font-normal text-white no-underline hover:bg-gray-50 hover:text-[#937e54]"
+                    onClick={() => navigate("/chat")}
+                  >
+                    Messages
+                  </a>
+                  <a
+                    href="#"
+                    className="-mx-3 pr-3 block uppercase rounded-lg px-3 py-2.5 text-base/7 font-normal text-white no-underline hover:bg-gray-50 hover:text-[#937e54]"
                     onClick={navigateToAddEvent}
                   >
                     Add Event
                   </a>
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white no-underline hover:bg-gray-50 hover:text-[#937e54]"
+                    className="-mx-3 pr-3 block uppercase rounded-lg px-3 py-2.5 text-base/7 font-normal text-white no-underline hover:bg-gray-50 hover:text-[#937e54]"
                     onClick={handleLogout}
                   >
                     Logout
@@ -185,185 +197,3 @@ const UserNavbar: React.FC = () => {
 };
 
 export default UserNavbar;
-
-// import React, { useEffect, useState } from "react";
-// import Logo from "../../../assets/veewWhiteLogo.png";
-// import { CgProfile } from "react-icons/cg";
-// import "./UserNavbar.css";
-// import { RiCalendarScheduleFill } from "react-icons/ri";
-// import { IoTicketSharp, IoWalletSharp } from "react-icons/io5";
-// import { MdNotificationsActive } from "react-icons/md";
-// import { TbLogout2 } from "react-icons/tb";
-// import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { logout } from "../../../Redux/slice/userAuthSlice";
-// import { getUserProfileData, userLogout } from "../../../api/user";
-// import { IUser } from "../../../interface/userInterface";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../../Redux/store/store";
-
-// const UserNavbar: React.FC = () => {
-//   const [dropdownVisible, setDropdownVisible] = useState(false);
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const location = useLocation();
-
-//   const userId = useSelector((state: RootState) => state.user.userData.id);
-//   const [userData, setUserData] = useState<IUser | null>(null);
-
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-//       if (userId) {
-//         try {
-//           const response = await getUserProfileData(userId);
-//           if (response.status === 200) {
-//             setUserData(response.data.userData);
-//           }
-//         } catch (error) {
-//           console.error("Failed to fetch user data:", error);
-//         }
-//       } else {
-//         console.error("User ID is null or undefined");
-//       }
-//     };
-
-//     fetchUserData();
-//   }, [userId]);
-
-//   const handleMouseEnter = () => {
-//     setDropdownVisible(true);
-//   };
-
-//   const handleMouseLeave = () => {
-//     setDropdownVisible(false);
-//   };
-
-//   const handleLogout = async () => {
-//     try {
-//       const response = await userLogout();
-//       if (response.status === 200) {
-//         dispatch(logout());
-//         localStorage.removeItem("isLogin")
-//         navigate("/landing");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   const isActive = (path: string) => {
-//     return location.pathname === path ? "active" : "";
-//   };
-
-//   const navigateToAddEvent = ()=>{
-//     navigate('/add-new-event')
-//   }
-//   return (
-//     <nav className="navbar">
-//       <div className="logo">
-//         <img src={Logo} alt="" />
-//       </div>
-//       <div className="navCenter">
-//         <ul className="nav-links">
-//           <li>
-//             <a href="/" className={isActive("/")}>
-//               Home
-//             </a>
-//           </li>
-//           <li>
-//             <a href="/profile" className={isActive("/profile")}>
-//               Profile
-//             </a>
-//           </li>
-//           <li>
-//             <a href="/about" className={isActive("/about")}>
-//               About
-//             </a>
-//           </li>
-//           <li>
-//             <a href="/events" className={isActive("/events")}>
-//               Events
-//             </a>
-//           </li>
-//           <li>
-//             <a href="/pricing" className={isActive("/pricing")}>
-//               Pricing
-//             </a>
-//           </li>
-//         </ul>
-//       </div>
-//       <div className="nav-icons">
-//         <button className="icon-button" onClick={navigateToAddEvent}>+</button>
-//         <div
-//           className="profile-icon"
-//           onMouseEnter={handleMouseEnter}
-//           onMouseLeave={handleMouseLeave}
-//         >
-//           <CgProfile />
-//         </div>
-//       </div>
-
-//       {dropdownVisible && (
-//         <div
-//           className="dropdown-menu"
-//           onMouseEnter={handleMouseEnter}
-//           onMouseLeave={handleMouseLeave}
-//         >
-//           <div className="user-info" onClick={() => navigate("/profile")}>
-//             <img
-//               src={userData?.image? userData.image: "https://via.placeholder.com/50"}
-//               alt="User"
-//               className="profile-pic"
-//             />
-//             <div>
-//               <p className="user-name">{`${userData?.firstName} ${userData?.lastName}`}</p>
-//               <p className="user-email">{userData?.email}</p>
-//             </div>
-//           </div>
-//           <ul>
-//             <Link to={"/userEvents"} className="dropdown-link">
-//               <li>
-//                 <span className="navlink-icons">
-//                   <RiCalendarScheduleFill />
-//                 </span>{" "}
-//                 My Events
-//               </li>
-//             </Link>
-//             <Link to={"/userEvents"} className="dropdown-link">
-//               <li>
-//                 <span className="navlink-icons">
-//                   <IoTicketSharp />
-//                 </span>{" "}
-//                 My Ticket
-//               </li>
-//             </Link>
-//             <Link to={"/userEvents"} className="dropdown-link">
-//               <li>
-//                 <span className="navlink-icons">
-//                   <IoWalletSharp />
-//                 </span>{" "}
-//                 Wallet
-//               </li>
-//             </Link>
-//             <Link to={"/userEvents"} className="dropdown-link">
-//               <li>
-//                 <span className="navlink-icons">
-//                   <MdNotificationsActive />
-//                 </span>{" "}
-//                 Notifications
-//               </li>
-//             </Link>
-//             <li className="active" onClick={handleLogout}>
-//               <span className="navlink-icons">
-//                 <TbLogout2 />
-//               </span>{" "}
-//               Logout
-//             </li>
-//           </ul>
-//         </div>
-//       )}
-//     </nav>
-//   );
-// };
-
-// export default UserNavbar;
