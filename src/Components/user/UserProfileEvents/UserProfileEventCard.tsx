@@ -6,7 +6,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import EditHostedEventDetails from "./EditHostedEventDetails";
 import EditEventDateAndTime from "./EditEventDateAndTime";
 import { toast } from "react-toastify";
-import { cancelEvent, getAllTicketForEvent } from "../../../api/user";
+import { cancelEvent, getAllTicketForEvent, getEventLiveUpdates } from "../../../api/user";
 import EventTicketsModal from "./EventTicketsModal";
 import { ITickets } from "../../../interface/ticketInterface";
 
@@ -18,6 +18,12 @@ interface EventCardProps {
   setDateEditModalOpen: (status: boolean) => void;
 }
 
+enum IEventStatus {
+  UPCOMING='UPCOMING',
+  STARTED='STARTED',
+  END = 'END'
+}
+
 const UserProfileEventCard: React.FC<EventCardProps> = ({
   eventData,
   isEditDetailsModal,
@@ -27,6 +33,10 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
 }) => {
   const [isTicketModalOpen, setTicketModal] = useState<boolean>(false);
   const [ticketData , setTicket] = useState<ITickets[] | null>(null)
+  const [eventStatus , setEventStatus] = useState<IEventStatus>(IEventStatus.UPCOMING)
+  const [isTime , setTime] = useState<boolean>(false)
+
+  
 
   const navigate = useNavigate();
   const navigateTODetailPage = (eventId: string) => {
@@ -39,6 +49,15 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
 
   const openDateAndTimeEditModal = () => {
     setDateEditModalOpen(true);
+  };
+
+  const isEventTime = (date: string, startTime: string, endTime: string): boolean => {
+    const eventDate = new Date(date);
+    const startDate = new Date(`${eventDate.toISOString().split('T')[0]}T${startTime}`);
+    const endDate = new Date(`${eventDate.toISOString().split('T')[0]}T${endTime}`);
+    const currentTime = new Date();
+  
+    return currentTime >= startDate && currentTime < endDate;
   };
 
   const handleEventCancellation = async (eventId: string) => {
@@ -74,6 +93,43 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
 
     getAllTickets()
   },[])
+
+  useEffect(() => {
+    const getStreamUpdates = async () => {
+      if (!eventData) return;
+      try {
+        const response = await getEventLiveUpdates(eventData?.id);
+
+        if (response.status === 200) {
+          if (response.data.startTime) {
+            setEventStatus(IEventStatus.STARTED);
+          }
+          if (
+            response.data.endTime &&
+            response.data.startTime !== response.data.endTime
+          ) {
+            console.log("startTime", response.data.startTime);
+
+            console.log("endddddd", response.data.endTime);
+
+            setEventStatus(IEventStatus.END);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const checkEventTime = () => {
+      const isOngoing = isEventTime(eventData.date, eventData.startTime, eventData.endTime);
+      setTime(isOngoing);
+    };
+  
+    checkEventTime();
+    
+
+    getStreamUpdates()
+  }, [eventData]);
 
   return (
     <>
@@ -144,13 +200,18 @@ const UserProfileEventCard: React.FC<EventCardProps> = ({
             >
               CANCEL
             </button>
-            <button
+            {eventStatus === IEventStatus.END ? <></> : <>{
+              isTime &&
+              <button
               type="button"
               onClick={() => navigate(`/meet?eventId=${eventData.id}`)}
               className="text-black hover:text-white border border-black hover:bg-arkblue  font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500"
             >
               START
             </button>
+            }
+            </>
+            }
           </div>
         ) : (
           <div>

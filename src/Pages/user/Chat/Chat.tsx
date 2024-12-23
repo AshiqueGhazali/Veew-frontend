@@ -45,35 +45,9 @@ const ChatingPage: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   // const socket = useRef(io("http://localhost:3000"));
   const [messageUpdate, setMessageUpdate] = useState(1);
-
   const [text, setText] = useState("");
 
   const socket = useRef(io("http://localhost:3000"));
-
-  // useEffect(() => {
-  //   socket.current = io("http://localhost:3000");
-  
-  //   return () => {
-  //     socket.current.disconnect();
-  //   };
-  // }, []);
-  // useEffect(() => {
-  //   socket.current = io("http://localhost:3000");
-  
-  //   socket.current.on("getUsers", (datas) => {
-  //     setOnlineUsers(datas);
-  //   });
-  
-  //   socket.current.on("message-content", (data: IMessage) => {
-  //     setMessage((prevMessages) => [...prevMessages, data]);
-  //   });
-  
-  //   return () => {
-  //     socket.current.off("getUsers");
-  //     socket.current.off("message-content");
-  //     socket.current.disconnect();
-  //   };
-  // }, [userId]);
   
 
 
@@ -96,26 +70,24 @@ const ChatingPage: React.FC = () => {
     fetchUserData();
   }, [userId]);
 
-  useEffect(() => {
-    const getOtherUser = async () => {
-      try {
-        const otherUserId =
-        currentChat?.firstUserId !== userId
+const getOtherUser = async () => {
+  try {
+    const otherUserId =
+      currentChat?.firstUserId !== userId
         ? (currentChat?.firstUserId as string)
-        : (currentChat?.secondUserId as string)
+        : (currentChat?.secondUserId as string);
 
-        if(!otherUserId)return
+    if (!otherUserId) return;
 
-        const response = await getUserDataById(otherUserId);
-        console.log(response.data.userData);
-        setOtherUserProfile(response.data.userData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    const response = await getUserDataById(otherUserId);
+    console.log(response.data.userData);
+    setOtherUserProfile(response.data.userData);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-    getOtherUser();
-  }, [currentChat]);
+console.log("Rendering............................")
 
   useEffect(() => {
     socket.current.emit("addUser", userId);
@@ -126,11 +98,13 @@ const ChatingPage: React.FC = () => {
       setOnlineUsers(datas);
     });
 
+    getOtherUser();
+
     return () => {
-          socket.current.off("getUsers");
-          socket.current.off("message-content");
-          // socket.current.disconnect();
-        };
+      socket.current.off("getUsers");
+      socket.current.off("message-content");
+      // socket.current.disconnect();
+    };
   }, [currentChat]);
 
   useEffect(() => {
@@ -146,17 +120,17 @@ const ChatingPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!currentChat) return;
 
-    const handleFn = async () => {
+    const getMessages = async () => {
+      if (!currentChat) return;
+
       const response = await getMessage(currentChat?.id as string);
       if (response.status === 200) {
         setMessage(response.data);
       }
     };
-    handleFn();
+    getMessages();
 
-    console.log("Messages are:", message);
   }, [currentChat]);
 
   const handleSubmit = async () => {
@@ -195,18 +169,25 @@ const ChatingPage: React.FC = () => {
 
 
 
-useEffect(()=>{
-  socket.current.on("message-content", (data: any) => {
-    console.log("Message content received:", data);
-    setMessage((prevMessages) => [...prevMessages, data.message]);
-  });
-})
+// useEffect(()=>{
+//   socket.current.on("message-content", (data: any) => {
+//     console.log("Message content received:", data);
+//     setMessage((prevMessages) => [...prevMessages, data.message]);
+//   });
+// })
 
-// socket.current.on("message-content", (data: any) => {
-//   console.log("Message content received:", data);
-//   setMessage((prevMessages) => [...prevMessages, data.message]);
-// });
-  
+useEffect(() => {
+  const handleMessage = (data: any) => {
+    setMessage((prevMessages) => [...prevMessages, data.message]);
+  };
+
+  socket.current.on("message-content", handleMessage);
+
+  return () => {
+    socket.current.off("message-content", handleMessage);
+  };
+}, [socket]);
+
 
   socket.current.on("lostUsers", (datas) => {
     setOnlineUsers(datas);
