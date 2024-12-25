@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./adminLogin.css";
+import "./AdminLogin.css";
 import Logo from "../../../assets/veewBlackLogo.png";
 import AdminFooter from "../../../Components/admin/AdminFooter/AdminFooter";
 import { toast } from "react-toastify";
