@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import CanvasJSReact from "@canvasjs/react-charts";
+// import CanvasJSReact from "@canvasjs/react-charts";
+import { CanvasJSChart } from 'canvasjs-react-charts'
 import { getDashboardDatas } from "../../../api/admin";
 import { IUser } from "../../../interface/userInterface";
 import NewUsers from "../../../Components/admin/DashboardComponents/NewUsers";
 import EventApprovalList from "../../../Components/admin/DashboardComponents/EventApprovalList";
 
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+// var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 export enum IApprovalStatus {
   APPROVED="APPROVED",
   PENDING="PENDING"
