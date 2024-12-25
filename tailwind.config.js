@@ -1,4 +1,5 @@
-module.exports = {
+// module.exports 
+export default {
     content: [
       "./src/**/*.{js,ts,jsx,tsx}",
       "node_modules/flowbite/**/*.js",
