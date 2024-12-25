@@ -11,17 +11,17 @@ interface eventCardProps {
 const HomeEvents: React.FC<eventCardProps> = ({ category, events }) => {
   const navigate = useNavigate();
 
-  const parseEventDateTime = (date: string, endTime: string): Date => {
-    const eventDate = new Date(date);
-    const [hours, minutes] = endTime.split(":").map(Number);
-    eventDate.setHours(hours, minutes);
-    return eventDate;
-  };
+  // const parseEventDateTime = (date: string, endTime: string): Date => {
+  //   const eventDate = new Date(date);
+  //   const [hours, minutes] = endTime.split(":").map(Number);
+  //   eventDate.setHours(hours, minutes);
+  //   return eventDate;
+  // };
 
   const filteredEvents = events?.filter((event) => {
-    const eventDateTime = parseEventDateTime(event.date, event.endTime);
-    const currentDate = new Date();
-    const isUpcoming = eventDateTime >= currentDate;
+    // const eventDateTime = parseEventDateTime(event.date, event.endTime);
+    // const currentDate = new Date();
+    // const isUpcoming = eventDateTime >= currentDate;
 
     return event.category === category 
     // && isUpcoming;

@@ -155,11 +155,11 @@ const videoConference: React.FC = () => {
       userID
     );
 
-    const avatar =
-      userData?.image ||
-      `https://ui-avatars.com/api/?name=${encodeURIComponent(
-        userData?.firstName || "U"
-      )}&background=random`;
+    // const avatar =
+    //   userData?.image ||
+    //   `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    //     userData?.firstName || "U"
+    //   )}&background=random`;
 
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
       2013980891,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ITickets } from "../../../interface/ticketInterface";
 import IEvents from "../../../interface/EventsInterface";
 

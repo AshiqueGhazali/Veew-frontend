@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ITickets } from "../../../interface/ticketInterface";
 import IEvents from "../../../interface/EventsInterface";
-import { getAllTicketForEvent } from "../../../api/user";
+// import { getAllTicketForEvent } from "../../../api/user";
 
 interface ModalProps {
   isOpen: boolean;

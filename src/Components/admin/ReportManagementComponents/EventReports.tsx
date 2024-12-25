@@ -7,7 +7,7 @@ import ReportsModal from "./ReportsModal";
 import { toast } from "react-toastify";
 
 interface reportProps {
-  searchQuery: string;
+  searchQuery?: string;
 }
 
 // Interface for each report received
@@ -31,7 +31,7 @@ interface IReportedEvent {
 // State type for the frontend
 type ReportedEventsState = IReportedEvent[];
 
-const EventReports:React.FC<reportProps> = ({searchQuery}) => {
+const EventReports:React.FC<reportProps> = () => {
     const [reportedEvents, setReportedEvents] = useState<ReportedEventsState>([]);
     const [openReports, setOpenReports] = useState<number | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);

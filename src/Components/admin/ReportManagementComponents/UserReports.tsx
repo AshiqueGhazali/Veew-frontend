@@ -7,7 +7,7 @@ import ReportsModal from "./ReportsModal";
 import { toast } from "react-toastify";
 
 interface reportProps {
-  searchQuery: string;
+  searchQuery?: string;
 }
 
 // Interface for each report received
@@ -29,7 +29,7 @@ interface IReportedUser {
 // State type for the frontend
 type ReportedUsersState = IReportedUser[];
 
-const UserReports: React.FC<reportProps> = ({ searchQuery }) => {
+const UserReports: React.FC<reportProps> = () => {
   const [reportedUsers, setReportedUsers] = useState<ReportedUsersState>([]);
   const [openReports, setOpenReports] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);

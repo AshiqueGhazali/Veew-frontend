@@ -10,7 +10,6 @@ import {
   storeMessage,
 } from "../../../api/user";
 import IConverasation, { IMessage } from "../../../interface/chatingInteface";
-import { format } from "timeago.js";
 // import { doctorGetConverasation } from "../../api/doctor";
 import { io } from "socket.io-client";
 import InputEmoji from "react-input-emoji";
