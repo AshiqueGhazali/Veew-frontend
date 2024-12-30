@@ -25,7 +25,6 @@
     "@types/react-redux": "^7.1.34",
     "@zegocloud/zego-uikit-prebuilt": "^2.13.1",
     "axios": "^1.7.7",
-    "canvasjs-react-charts": "^1.0.5",
     "date-fns": "^4.1.0",
     "emoji-picker-react": "^4.12.0",
     "flowbite": "^2.5.2",
