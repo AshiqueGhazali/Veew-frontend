@@ -59,7 +59,8 @@ export const UserLogin: React.FC = () => {
 
   return (
     <div className="user-login h-[100vh] align-center justify-center flex flex-col">
-      <GuestNavbar page="signUp" />
+      <div className="fixed top-0 w-[100vw]"><GuestNavbar page="signUp" /></div>
+      
       <div className="login-form">
         <div className="form-head">
           <h2>Welcome back!</h2>

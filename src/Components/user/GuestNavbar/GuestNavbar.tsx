@@ -21,7 +21,7 @@ const GuestNavbar: React.FC<GuestNavbarProps> = ({ page }) => {
     navigate("/landing");
   };
   return (
-    <div className="GuestNavbar fixed top-0">
+    <div className="GuestNavbar sticky top-0">
       <div className="GuestNavbar-left" onClick={navigateToLangingPage}>
         <img src={Logo} alt="" />
       </div>

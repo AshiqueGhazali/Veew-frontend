@@ -20,7 +20,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <GuestNavbar page="signIn" />
+      <GuestNavbar page="signIn"/>
       <div className="getStart">
         <div className="landingPage-header">
           <h1>
