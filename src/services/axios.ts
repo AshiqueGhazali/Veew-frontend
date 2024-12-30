@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { toast } from "react-toastify";
 
 const Api: AxiosInstance = axios.create({
   baseURL: "http://localhost:3000",
@@ -31,6 +32,7 @@ Api.interceptors.response.use(
       }
     } else if (error.request) {
       console.error("No response received:", error.request);
+      toast.error("No response received:")
     } else {
       console.error("Error setting up request:", error.message);
     }
