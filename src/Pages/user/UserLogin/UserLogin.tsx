@@ -58,7 +58,7 @@ export const UserLogin: React.FC = () => {
   }, [error]);
 
   return (
-    <div className="user-login">
+    <div className="user-login h-[100vh] align-center justify-center flex flex-col">
       <GuestNavbar page="signUp" />
       <div className="login-form">
         <div className="form-head">
